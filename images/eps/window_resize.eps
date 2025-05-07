@@ -1,0 +1,66 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 0 0 400 300
+%%Creator: GitHub Copilot
+%%Title: Window Resize
+%%Pages: 1
+%%EndComments
+
+% この例では単純なプレースホルダー画像を生成します
+% 実際の実装では適切な画像ファイルに置き換えてください
+
+/Times-Roman findfont 12 scalefont setfont
+
+% 元のウィンドウ位置（薄く表示）
+100 100 moveto 250 100 lineto 250 200 lineto 100 200 lineto closepath
+0.9 0.9 0.9 setrgbcolor fill
+0.7 0.7 0.7 setrgbcolor
+100 100 moveto 250 100 lineto 250 200 lineto 100 200 lineto closepath stroke
+
+% 拡大後のウィンドウ位置
+100 50 moveto 300 50 lineto 300 200 lineto 100 200 lineto closepath
+1 1 1 setrgbcolor fill
+0 0 0 setrgbcolor
+100 50 moveto 300 50 lineto 300 200 lineto 100 200 lineto closepath stroke
+
+% タイトルバー
+100 180 moveto 300 180 lineto 300 200 lineto 100 200 lineto closepath
+0.9 0.9 0.9 setrgbcolor fill
+0 0 0 setrgbcolor
+100 180 moveto 300 180 lineto 300 200 lineto 100 200 lineto closepath stroke
+
+% コントロールボタン
+110 190 2 0 360 arc 1 0 0 setrgbcolor fill
+120 190 2 0 360 arc 1 0.8 0 setrgbcolor fill
+130 190 2 0 360 arc 0 0.8 0 setrgbcolor fill
+
+0 0 0 setrgbcolor
+200 190 moveto
+(ウィンドウタイトル) show
+
+% リサイズポイント表示
+247 103 3 0 360 arc
+0.5 0.5 1 setrgbcolor fill
+
+% 矢印
+0.5 0.5 1 setrgbcolor
+250 100 moveto 300 50 lineto stroke
+295 55 moveto 300 50 lineto 295 45 lineto stroke
+
+% マウスカーソル
+0 0 0 setrgbcolor
+250 100 moveto
+255 105 lineto
+257 103 lineto
+260 110 lineto
+262 109 lineto
+259 102 lineto
+264 100 lineto
+closepath fill
+
+% 説明テキスト
+200 80 moveto
+(ウィンドウの端や角を) show
+200 65 moveto
+(ドラッグしてリサイズ) show
+
+%%EOF

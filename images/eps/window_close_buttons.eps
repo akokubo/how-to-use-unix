@@ -1,0 +1,81 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 0 0 400 300
+%%Creator: GitHub Copilot
+%%Title: Window Close Buttons
+%%Pages: 1
+%%EndComments
+
+% この例では単純なプレースホルダー画像を生成します
+% 実際の実装では適切な画像ファイルに置き換えてください
+
+/Times-Roman findfont 12 scalefont setfont
+
+% macOSスタイルのウィンドウ
+50 150 moveto 300 150 lineto 300 250 lineto 50 250 lineto closepath
+1 1 1 setrgbcolor fill
+0 0 0 setrgbcolor
+50 150 moveto 300 150 lineto 300 250 lineto 50 250 lineto closepath stroke
+
+% macOSタイトルバー
+50 230 moveto 300 230 lineto 300 250 lineto 50 250 lineto closepath
+0.9 0.9 0.9 setrgbcolor fill
+0 0 0 setrgbcolor
+50 230 moveto 300 230 lineto 300 250 lineto 50 250 lineto closepath stroke
+
+% macOS風コントロールボタン
+60 240 5 0 360 arc 1 0 0 setrgbcolor fill
+75 240 5 0 360 arc 1 0.8 0 setrgbcolor fill
+90 240 5 0 360 arc 0 0.8 0 setrgbcolor fill
+
+% 赤ボタン（閉じる）にバツマークを描画
+0 0 0 setrgbcolor
+57 237 moveto 63 243 lineto stroke
+63 237 moveto 57 243 lineto stroke
+
+0 0 0 setrgbcolor
+170 240 moveto
+(macOSスタイル) show
+
+% Ubuntuスタイルのウィンドウ
+50 30 moveto 300 30 lineto 300 130 lineto 50 130 lineto closepath
+1 1 1 setrgbcolor fill
+0 0 0 setrgbcolor
+50 30 moveto 300 30 lineto 300 130 lineto 50 130 lineto closepath stroke
+
+% Ubuntuタイトルバー
+50 110 moveto 300 110 lineto 300 130 lineto 50 130 lineto closepath
+0.2 0.2 0.2 setrgbcolor fill
+1 1 1 setrgbcolor
+50 110 moveto 300 110 lineto 300 130 lineto 50 130 lineto closepath stroke
+
+% Ubuntu風コントロールボタン
+290 120 5 0 360 arc 1 0 0 setrgbcolor fill
+270 120 5 0 360 arc 0.5 0.5 0.5 setrgbcolor fill
+250 120 5 0 360 arc 0 0.8 0 setrgbcolor fill
+
+% 赤ボタン（閉じる）にバツマークを描画
+1 1 1 setrgbcolor
+287 117 moveto 293 123 lineto stroke
+293 117 moveto 287 123 lineto stroke
+
+1 1 1 setrgbcolor
+70 120 moveto
+(Ubuntuスタイル) show
+
+% 説明テキスト
+0 0 0 setrgbcolor
+320 200 moveto
+(左上の×ボタンで) show
+320 185 moveto
+(ウィンドウを閉じる) show
+320 170 moveto
+((macOS)) show
+
+320 80 moveto
+(右上の×ボタンで) show
+320 65 moveto
+(ウィンドウを閉じる) show
+320 50 moveto
+((Ubuntu/Windows)) show
+
+%%EOF

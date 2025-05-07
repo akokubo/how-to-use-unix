@@ -1,0 +1,55 @@
+@startuml
+skinparam backgroundColor transparent
+skinparam defaultFontName "MS Gothic"
+skinparam defaultFontSize 14
+skinparam arrowColor gray
+
+' 画像のタイトル
+note right of [/]: <color:gray><size:16>**絶対パスで書いてみると**</size></color>
+
+' フォルダとファイルの定義
+folder "/" as root
+folder "home" as home
+folder "ei00" as ei00
+folder "ei00000" as ei00000
+folder "prog" as prog
+folder "kongetsu" as kongetsu
+file "main.c" as mainc
+
+' フォルダ間の接続
+root -[hidden]-> home
+home -[hidden]-> ei00
+ei00 -[hidden]-> ei00000
+ei00000 -[hidden]d]-> prog
+ei00000 -[hidden]r]-> kongetsu
+prog -[hidden]-> mainc
+
+' 矢印と点線の設定
+root ..> home : <color:gray><b>↓</b></color>
+home ..> ei00 : <color:gray><b>↓</b></color>
+ei00 ..> ei00000 : <color:gray><b>↓</b></color>
+ei00000 ..> prog : <color:gray><b>↓</b></color>
+ei00000 ..> kongetsu : <color:gray><b>↓</b></color>
+prog ..> mainc : <color:gray><b>↓</b></color>
+
+' 点線部分（実際の表示では点線だけを表現）
+note left of root : <color:gray>- - - -</color>
+note left of home : <color:gray>- - - -</color>
+note left of ei00 : <color:gray>- - - -</color>
+note left of ei00000 : <color:gray>- - - -</color>
+note left of prog : <color:gray>- - - -</color>
+
+' 右側の絶対パスの表記
+note right of root : <color:gray>/</color>
+note right of home : <color:gray>/home</color>
+note right of ei00 : <color:gray>/home/ei00</color>
+note right of ei00000 : <color:gray>/home/ei00/ei00000</color>
+note right of prog : <color:gray>/home/ei00/ei00000/prog</color>
+note right of kongetsu : <color:gray>/home/ei00/ei00000/kongetsu</color>
+note right of mainc : <color:gray>/home/ei00/ei00000/prog/main.c</color>
+
+' 左側のパス表記
+note left of prog : <color:gray>/home/ei00/ei00000/prog</color>
+note left of mainc : <color:gray>/home/ei00/ei00000/prog/main.c</color>
+
+@enduml

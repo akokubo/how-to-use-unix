@@ -1,0 +1,48 @@
+@startuml
+!theme plain
+skinparam defaultTextAlignment center
+skinparam defaultFontName Consolas
+skinparam classAttributeIconSize 0
+hide circle
+
+' フォルダ構造
+folder "/" as root
+folder "home" as home
+folder "bin" as bin
+
+folder "ei00\n2000年度" as ei00
+folder "ei01\n2002年度" as ei01
+folder "ei02\n2003年度" as ei02
+folder "ei03\n2004年度" as ei03
+
+folder "ei00000\nのホーム" as ei00000
+folder "ei00001\nのホーム" as ei00001
+folder "ei00002\nのホーム" as ei00002
+
+rectangle "kongestu" as kongestu
+rectangle "3years" as years
+rectangle "renshuu1" as renshuu1
+
+' 構造の接続
+root -down-> home
+root -down-> bin
+
+home -down-> ei00
+home -down-> ei01
+home -down-> ei02
+home -down-> ei03
+
+ei00 -down-> ei00000
+ei01 -down-> ei00001
+ei02 -down-> ei00002
+
+ei00000 -down-> kongestu
+ei00000 -down-> years
+ei00000 -down-> renshuu1
+
+' 注釈
+note bottom of renshuu1
+  ei00000 さんが演習で作ったファイル
+end note
+
+@enduml

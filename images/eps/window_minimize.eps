@@ -1,0 +1,73 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 0 0 400 300
+%%Creator: GitHub Copilot
+%%Title: Window Minimize
+%%Pages: 1
+%%EndComments
+
+% この例では単純なプレースホルダー画像を生成します
+% 実際の実装では適切な画像ファイルに置き換えてください
+
+/Times-Roman findfont 12 scalefont setfont
+
+% ウィンドウ
+100 100 moveto 300 100 lineto 300 200 lineto 100 200 lineto closepath
+1 1 1 setrgbcolor fill
+0 0 0 setrgbcolor
+100 100 moveto 300 100 lineto 300 200 lineto 100 200 lineto closepath stroke
+
+% タイトルバー
+100 180 moveto 300 180 lineto 300 200 lineto 100 200 lineto closepath
+0.9 0.9 0.9 setrgbcolor fill
+0 0 0 setrgbcolor
+100 180 moveto 300 180 lineto 300 200 lineto 100 200 lineto closepath stroke
+
+% macOS風コントロールボタン
+110 190 5 0 360 arc 1 0 0 setrgbcolor fill
+125 190 5 0 360 arc 1 0.8 0 setrgbcolor fill
+140 190 5 0 360 arc 0 0.8 0 setrgbcolor fill
+
+% 黄色ボタン（最小化）に黒い"ー"マークを描画
+0 0 0 setrgbcolor
+122 190 moveto 128 190 lineto stroke
+
+0 0 0 setrgbcolor
+200 190 moveto
+(ウィンドウタイトル) show
+
+% Dock
+100 30 moveto 300 30 lineto 300 50 lineto 100 50 lineto closepath
+0.8 0.8 0.8 setrgbcolor fill
+0 0 0 setrgbcolor
+100 30 moveto 300 30 lineto 300 50 lineto 100 50 lineto closepath stroke
+
+% Dock上のアイコン
+110 40 5 0 360 arc 1 0 0 setrgbcolor fill
+130 40 5 0 360 arc 0 0 1 setrgbcolor fill
+150 40 5 0 360 arc 0 1 0 setrgbcolor fill
+170 40 5 0 360 arc 1 1 0 setrgbcolor fill
+190 40 5 0 360 arc 0.5 0 0.5 setrgbcolor fill
+
+% 最小化中のアイコン（点線で囲まれた）
+0 0 0 setrgbcolor
+[2 2] 0 setdash
+230 40 10 0 360 arc stroke
+[] 0 setdash
+
+% 最小化の矢印
+230 190 moveto 230 60 lineto
+0.5 0.5 1 setrgbcolor stroke
+225 70 moveto 230 60 lineto 235 70 lineto stroke
+
+% 説明テキスト
+0 0 0 setrgbcolor
+250 150 moveto
+(最小化ボタンで) show
+250 135 moveto
+(ウィンドウを) show
+250 120 moveto
+(Dock/タスクバーに) show
+250 105 moveto
+(格納) show
+
+%%EOF

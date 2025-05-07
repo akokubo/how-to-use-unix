@@ -1,0 +1,93 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 0 0 400 300
+%%Creator: GitHub Copilot
+%%Title: Window Focus
+%%Pages: 1
+%%EndComments
+
+% この例では単純なプレースホルダー画像を生成します
+% 実際の実装では適切な画像ファイルに置き換えてください
+
+/Times-Roman findfont 12 scalefont setfont
+
+% 背景のウィンドウ（薄く表示）
+50 50 moveto 200 50 lineto 200 150 lineto 50 150 lineto closepath
+0.9 0.9 0.9 setrgbcolor fill
+0.7 0.7 0.7 setrgbcolor
+50 50 moveto 200 50 lineto 200 150 lineto 50 150 lineto closepath stroke
+
+% 背景ウィンドウのタイトルバー
+50 130 moveto 200 130 lineto 200 150 lineto 50 150 lineto closepath
+0.8 0.8 0.8 setrgbcolor fill
+0.7 0.7 0.7 setrgbcolor
+50 130 moveto 200 130 lineto 200 150 lineto 50 150 lineto closepath stroke
+
+0.5 0.5 0.5 setrgbcolor
+120 140 moveto
+(背景ウィンドウ) show
+
+% 前面のウィンドウ
+150 100 moveto 300 100 lineto 300 200 lineto 150 200 lineto closepath
+1 1 1 setrgbcolor fill
+0 0 0 setrgbcolor
+150 100 moveto 300 100 lineto 300 200 lineto 150 200 lineto closepath stroke
+
+% 前面ウィンドウのタイトルバー
+150 180 moveto 300 180 lineto 300 200 lineto 150 200 lineto closepath
+0.9 0.9 0.9 setrgbcolor fill
+0 0 0 setrgbcolor
+150 180 moveto 300 180 lineto 300 200 lineto 150 200 lineto closepath stroke
+
+% コントロールボタン
+160 190 2 0 360 arc 1 0 0 setrgbcolor fill
+170 190 2 0 360 arc 1 0.8 0 setrgbcolor fill
+180 190 2 0 360 arc 0 0.8 0 setrgbcolor fill
+
+0 0 0 setrgbcolor
+220 190 moveto
+(前面ウィンドウ) show
+
+% 前面に持ってくる矢印
+0.5 0.5 1 setrgbcolor
+70 90 moveto 100 120 lineto stroke
+95 115 moveto 100 120 lineto 105 115 lineto stroke
+
+% マウスカーソル
+0 0 0 setrgbcolor
+60 80 moveto
+65 85 lineto
+67 83 lineto
+70 90 lineto
+72 89 lineto
+69 82 lineto
+74 80 lineto
+closepath fill
+
+% 説明テキスト
+320 150 moveto
+(ウィンドウをクリックして) show
+320 135 moveto
+(前面に表示) show
+
+% Alt+Tabのイメージ
+50 20 moveto 100 20 lineto 100 40 lineto 50 40 lineto closepath
+0.8 0.8 0.8 setrgbcolor fill
+0 0 0 setrgbcolor
+50 20 moveto 100 20 lineto 100 40 lineto 50 40 lineto closepath stroke
+
+60 30 moveto (Alt+Tab) show
+
+120 30 moveto
+(または) show
+
+150 20 moveto 200 20 lineto 200 40 lineto 150 40 lineto closepath
+0.8 0.8 0.8 setrgbcolor fill
+0 0 0 setrgbcolor
+150 20 moveto 200 20 lineto 200 40 lineto 150 40 lineto closepath stroke
+
+155 30 moveto (Command+Tab) show
+
+220 30 moveto
+(でウィンドウ切り替え) show
+
+%%EOF

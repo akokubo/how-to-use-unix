@@ -1,0 +1,62 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 0 0 400 300
+%%Creator: GitHub Copilot
+%%Title: Window Move
+%%Pages: 1
+%%EndComments
+
+% この例では単純なプレースホルダー画像を生成します
+% 実際の実装では適切な画像ファイルに置き換えてください
+
+/Times-Roman findfont 12 scalefont setfont
+
+% 元のウィンドウ位置（薄く表示）
+100 100 moveto 250 100 lineto 250 200 lineto 100 200 lineto closepath
+0.9 0.9 0.9 setrgbcolor fill
+0.7 0.7 0.7 setrgbcolor
+100 100 moveto 250 100 lineto 250 200 lineto 100 200 lineto closepath stroke
+
+% 移動後のウィンドウ位置
+150 150 moveto 300 150 lineto 300 250 lineto 150 250 lineto closepath
+1 1 1 setrgbcolor fill
+0 0 0 setrgbcolor
+150 150 moveto 300 150 lineto 300 250 lineto 150 250 lineto closepath stroke
+
+% タイトルバー
+150 230 moveto 300 230 lineto 300 250 lineto 150 250 lineto closepath
+0.9 0.9 0.9 setrgbcolor fill
+0 0 0 setrgbcolor
+150 230 moveto 300 230 lineto 300 250 lineto 150 250 lineto closepath stroke
+
+% コントロールボタン
+160 240 2 0 360 arc 1 0 0 setrgbcolor fill
+170 240 2 0 360 arc 1 0.8 0 setrgbcolor fill
+180 240 2 0 360 arc 0 0.8 0 setrgbcolor fill
+
+0 0 0 setrgbcolor
+220 240 moveto
+(ウィンドウタイトル) show
+
+% 矢印
+0.5 0.5 1 setrgbcolor
+175 200 moveto 125 150 lineto stroke
+130 155 moveto 125 150 lineto 120 155 lineto stroke
+
+% マウスカーソル
+0 0 0 setrgbcolor
+180 200 moveto
+185 205 lineto
+187 203 lineto
+190 210 lineto
+192 209 lineto
+189 202 lineto
+194 200 lineto
+closepath fill
+
+% 説明テキスト
+220 180 moveto
+(ドラッグして) show
+220 165 moveto
+(ウィンドウを移動) show
+
+%%EOF

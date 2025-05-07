@@ -1,0 +1,54 @@
+@startuml
+!theme plain
+skinparam defaultTextAlignment center
+skinparam defaultFontName Consolas
+skinparam classAttributeIconSize 0
+hide circle
+
+folder "/\nルート" as root #white {
+}
+
+' 第1階層
+folder "homeまたはUsers" as home
+folder "etc\nシステムの設定ファイル" as etc
+folder "bin\n基本コマンド" as bin
+folder "dev\nデバイス（周辺機器）" as dev
+folder "usr\nユーザ用ファイル" as usr
+folder "var\nシステム記録等" as var
+folder "tmp\n一時的に作られたファイル" as tmp
+
+root --> home
+root --> etc
+root --> bin
+root --> dev
+root --> usr
+root --> var
+root --> tmp
+
+' 第2階層：/home 以下
+folder "taro\ntaroのホーム" as taro
+folder "hana\nhanaのホーム" as hana
+home --> taro
+home --> hana
+
+' 第2階層：/bin 以下
+file "ls" as ls
+file "cat" as cat
+bin --> ls
+bin --> cat
+
+' 第2階層：/usr 以下
+folder "bin\n基本コマンド" as usr_bin
+folder "include" as include
+folder "lib" as lib
+usr --> usr_bin
+usr --> include
+usr --> lib
+
+' 第3階層：/usr/bin 以下
+file "bc" as bc
+file "zip" as zip
+usr_bin --> bc
+usr_bin --> zip
+
+@enduml

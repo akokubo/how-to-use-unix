@@ -1,0 +1,604 @@
+¥chapter{UNIX システムを使ってみよう}
+
+¥section{システムの起動、終了、ログイン、ログアウト}
+
+¥subsection{システムの起動}
+
+ここでは macOS Sequoia 15.4.1 と、Windows 11 上で動作する WSL (Windows Subsystem for Linux) の Ubuntu を使う方法を説明する。
+
+¥subsubsection{macOS の起動}
+
+macOS を起動するには次のようにする。
+
+¥begin{enumerate}
+¥item Mac の電源ボタンを押す。
+¥item 起動音の後、Apple のロゴが表示され、自動的に macOS が起動する。
+¥item ログイン画面が表示されるので、ユーザー名を選択し、パスワードを入力して ¥KEYTOP{Enter} を押す。
+¥end{enumerate}
+
+¥subsubsection{Windows 11 上での WSL (Ubuntu) の起動}
+
+Windows 11 上で WSL を使って Ubuntu を起動するには次のようにする。
+
+¥begin{enumerate}
+¥item Windows 11 を起動し、ログインする。
+¥item スタートメニューから「Ubuntu」を選択する。または、スタートメニューの検索ボックスに「Ubuntu」と入力して検索結果から選択する。
+¥item Windows Terminal が起動し、Ubuntu のコマンドラインが表示される。
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.7]{macos_login.eps}}
+¥caption{macOS のログイン画面（イメージ）}
+¥end{figure}
+
+¥item macOS のデスクトップが表示され、使用できる状態になる。
+¥end{enumerate}
+
+WSLのUbuntuを起動すると、次のように表示される：
+
+¥begin{progls}
+[WSL の起動画面表示例]
+Welcome to Ubuntu 22.04.3 LTS (GNU/Linux 5.15.133.1-microsoft-standard-WSL2)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+This message is shown once a day. To disable it please create the
+/home/username/.hushlogin file.
+username@DESKTOP-XXXXX:~$ _
+¥end{progls}
+
+以上で、それぞれのシステムの起動は完了である。
+
+¥subsection{ログイン}
+
+¥subsubsection{ID とパスワードがまず必要}
+
+UNIX システム（macOS や WSL の Ubuntu）を使うためには、有効なユーザーアカウント（ID）とパスワードが必要になる。
+
+¥bigskip
+
+ID は UNIX システムを使うときのユーザの名前である。
+これは、そのシステムを使うときにずっと使うもので、
+通常ユーザが自分で勝手に変えることはできない。
+ID には、例えば ¥texttt{kokubo}、 ¥texttt{judy}、 ¥texttt{aichan}、
+¥texttt{alex} のように、名前やニックネーム、頭文字を使ったりすることもある。
+また、 ¥texttt{student01}、 ¥texttt{user2023}、 ¥texttt{admin} のように、
+役割や目的を表す名前が使われることもある。
+
+¥bigskip
+
+パスワードは、システムを初めて設定したときに自分で決めたものを使う。
+安全のため、定期的にパスワードを変更することが推奨される。
+パスワードの変更の仕方は後の方で説明する。
+
+¥newpage
+
+¥subsubsection{macOS でのログイン}
+
+macOS が起動すると、次のようなログイン画面が表示される。
+
+¥begin{enumerate}
+¥item ユーザー名をクリックして選択する。
+¥item パスワード入力欄にパスワードを入力する（入力中の文字は見えない）。
+¥item ログインボタンをクリックするか ¥KEYTOP{Enter} キーを押す。
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.7]{macos_login_detail.eps}}
+¥caption{macOS のログイン画面（イメージ）}
+¥end{figure}
+¥item ログインに成功すると、macOS のデスクトップが表示される。
+失敗した場合は、パスワードが間違っていることを示すメッセージが表示されるので、
+再度パスワードを入力する。
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.5]{macos_desktop.eps}}
+¥caption{macOS のデスクトップ（イメージ）}
+¥end{figure}
+¥end{enumerate}
+
+¥subsubsection{WSL (Ubuntu) でのログイン}
+
+WSLのUbuntuを初めて起動する場合は、ユーザー名とパスワードの設定を求められる。
+それ以降は、Windowsにログインした状態でUbuntuを起動すると自動的にログインされる。
+もしパスワードを求められた場合は、設定したパスワードを入力する。
+
+¥begin{progls}
+Enter new UNIX username: username
+Enter new UNIX password: 
+Retype new UNIX password: 
+passwd: password updated successfully
+Installation successful!
+username@DESKTOP-XXXXX:~$ _
+¥end{progls}
+
+¥newpage
+
+¥subsection{ログアウト}
+
+¥subsubsection{macOS からのログアウト}
+
+macOS からログアウトする方法を説明しよう。
+
+¥begin{enumerate}
+¥item まず、起動しているプログラムをすべて終了する（終了せずにログアウトすると、確認メッセージが表示される）。
+¥item 画面左上の Apple メニュー（Appleロゴ）をクリックする。
+¥item 表示されたメニューから「ログアウト...」を選択する。
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.7]{macos_logout.eps}}
+¥caption{macOS のログアウトメニュー（イメージ）}
+¥end{figure}
+¥item 確認ダイアログが表示されるので、「ログアウト」ボタンをクリックする。
+¥item ログイン画面に戻り、ログアウトが完了する。
+¥end{enumerate}
+
+¥subsubsection{WSL (Ubuntu) からのログアウト}
+
+WSLのUbuntuからログアウトする方法を説明しよう。
+
+¥begin{enumerate}
+¥item ターミナルウィンドウで、「exit」と入力して ¥KEYTOP{Enter} キーを押す。
+¥begin{progls}
+username@DESKTOP-XXXXX:~$ exit
+¥end{progls}
+¥item これでセッションが終了し、ウィンドウが閉じる。または「logout」コマンドを使うこともできる。
+¥item WSLのセッションを完全に終了するには、Windows Terminal を閉じる。
+¥end{enumerate}
+
+¥newpage
+
+¥subsection{システムの終了}
+
+¥subsubsection{macOSの終了（シャットダウン）}
+
+macOSを終了（シャットダウン）する方法を説明しよう。
+
+¥begin{enumerate}
+¥item 画面左上の Apple メニュー（Appleロゴ）をクリックする。
+¥item 表示されたメニューから「システム終了...」を選択する。
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.7]{macos_shutdown.eps}}
+¥caption{macOS のシステム終了メニュー（イメージ）}
+¥end{figure}
+¥item 確認ダイアログが表示されるので、「システム終了」ボタンをクリックする。
+¥item macOS が終了し、Macがシャットダウンする。
+¥end{enumerate}
+
+¥subsubsection{WSL (Ubuntu) の終了}
+
+WSLのUbuntuを終了する方法は複数あります。
+
+1. 単にターミナルウィンドウを閉じる場合：
+¥begin{enumerate}
+¥item ターミナルウィンドウの右上の「×」ボタンをクリックする。
+¥item または、ターミナル内で「exit」コマンドを入力して ¥KEYTOP{Enter} キーを押す。
+¥end{enumerate}
+
+2. WSL全体を終了（シャットダウン）する場合：
+¥begin{enumerate}
+¥item Windowsの管理者権限でコマンドプロンプトまたはPowerShellを開く。
+¥item 次のコマンドを入力して ¥KEYTOP{Enter} キーを押す。
+¥begin{progls}
+wsl --shutdown
+¥end{progls}
+¥item これによりWSLの全インスタンスが終了する。
+¥end{enumerate}
+
+WSLはWindowsの一機能として動作しているため、Windowsをシャットダウンすると自動的に終了します。
+
+¥newpage
+
+¥section{パスワードの変更}
+
+システムを安全に使用するために、定期的にパスワードを変更することが推奨されています。
+ここでは、macOSとWSL上のUbuntuでパスワードを変更する方法を紹介しよう。
+
+¥subsection{パスワードの条件}
+
+まず、安全なパスワードには次のような条件がある。
+
+¥begin{coml}{14cm}
+¥begin{normalsize}
+¥begin{enumerate}
+¥item 文字数は 8 文字以上が推奨（より長いほど安全）
+¥item 使える文字は、英大文字、英小文字、数字、記号
+¥item 大文字、小文字、数字、記号を組み合わせたものが望ましい
+¥item 簡単に推測できる単語や個人情報は避ける
+¥end{enumerate}
+¥end{normalsize}
+¥end{coml}
+
+¥subsection{どんなパスワードがいいか}
+
+では、どんなパスワードがいいかというと次のようなものだ。
+¥begin{enumerate}
+¥item 他人から推測しにくい複雑な組み合わせ。
+¥item 自分では覚えやすいが、他人には意味がわからない語句や文。
+¥item 大文字、小文字、数字、記号などが適切に混在している。
+¥item 異なるサービスごとに異なるパスワードを使用する。
+¥end{enumerate}
+
+逆に危険なパスワードは、次のようなものだ。
+
+¥begin{enumerate}
+¥item 辞書に載っているような単語をそのまま使用する。
+¥item 自分の名前、誕生日、電話番号など、個人情報に基づくパスワード。
+¥item 「password」や「123456」など、一般的によく使われるパスワード。
+¥item 複数のサービスで同じパスワードを使い回す。
+¥end{enumerate}
+
+¥subsection{パスワードの変更}
+
+¥subsubsection{macOS でのパスワード変更}
+
+macOSでパスワードを変更するには、次の方法がある。
+
+¥begin{enumerate}
+¥item Apple メニュー（画面左上のリンゴマーク）から「システム設定」を選択する。
+¥item 「自分のアカウント」をクリックする。
+¥item 「パスワードを変更...」をクリックする。
+¥item 現在のパスワードを入力し、新しいパスワードを2回入力する。
+¥item 「パスワードを変更」をクリックして完了する。
+¥end{enumerate}
+
+¥subsubsection{Ubuntu (WSL) でのパスワード変更}
+
+Ubuntu (WSL) でパスワードを変更するには、ターミナルで次のコマンドを実行する。
+
+¥begin{enumerate}
+¥item ターミナルウィンドウを開く。
+¥item 「¥texttt{passwd}」と入力し、 ¥KEYTOP{Enter} キーを押す。
+¥item 「Current password:」に対して、現在のパスワードを入力し、 ¥KEYTOP{Enter} を押す。
+¥item 「New password:」に対して、新しいパスワードを入力し、 ¥KEYTOP{Enter} を押す。
+¥item 「Retype new password:」に対して、もう一度新しいパスワードを入力し、
+ ¥KEYTOP{Enter} を押す。
+¥item 「passwd: password updated successfully」と表示されれば変更は成功。
+表示されない場合は、もう一度最初からやり直す。
+¥end{enumerate}
+
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.7]{passwd_ubuntu.eps}}
+¥caption{Ubuntu でのパスワード変更（イメージ）}
+¥end{figure}
+
+¥subsubsection{パスワードの変更に失敗したときのエラー・メッセージ}
+
+パスワードの変更に失敗すると、次のようなエラー・メッセージが出ることがある。
+主なものとその意味を説明しよう。
+
+¥begin{enumerate}
+¥item 「¥textbf{Authentication failure}」または「¥textbf{passwd: Authentication token manipulation error}」
+
+→ 現在のパスワードが間違っていた。
+
+¥item 「¥textbf{BAD PASSWORD: The password is shorter than 8 characters}」
+
+→ 新しいパスワードが短すぎる（8文字以上が推奨）。
+
+¥item 「¥textbf{BAD PASSWORD: The password fails the dictionary check}」
+
+→ パスワードが一般的な単語や名前を含んでいて、簡単に推測できる。
+
+¥item 「¥textbf{BAD PASSWORD: The password is too similar to the old one}」
+
+→ 新しいパスワードが古いパスワードと似すぎている。
+
+¥item 「¥textbf{Password unchanged}」または「¥textbf{Passwords do not match}」
+
+→ 新しいパスワードとして入力したものが1回目と2回目で異なっていた。
+¥end{enumerate}
+
+¥newpage
+
+¥section{グラフィカルユーザーインターフェース入門}
+
+ここでは、macOSのAquaインターフェースとUbuntuのGNOMEデスクトップ環境について簡単に紹介する。
+これらは、かつてUNIXシステムで使われていたX Window Systemの現代版と考えることができる。
+画面上でウィンドウやアイコンを操作する方法は基本的に似ているが、見た目や一部の機能は異なっている。
+
+¥subsection{マウスとタッチパッドの使い方}
+
+現代のコンピュータでは、マウスやノートパソコンのタッチパッドを使用して操作を行う。
+macOSとUbuntuでは、主に以下のようなマウス操作が使われる。
+
+¥begin{enumerate}
+¥item ¥textbf{クリック}：マウスの左ボタンを1回押す。アイテムの選択や操作の確定に使う。
+¥item ¥textbf{ダブルクリック}：マウスの左ボタンを素早く2回押す。アプリケーションやファイルを開くのに使う。
+¥item ¥textbf{右クリック}：マウスの右ボタンを押す。コンテキストメニュー（状況に応じたメニュー）を表示するのに使う。
+¥item ¥textbf{ドラッグ＆ドロップ}：マウスの左ボタンを押しながらマウスを移動し、目的の場所でボタンを離す。アイテムを移動するのに使う。
+¥end{enumerate}
+
+macOSでは、標準設定のAppleマウスやトラックパッドは物理的な右ボタンがない場合がある。
+その場合は、¥KEYTOP{Control} キーを押しながらクリックするか、2本指でクリックすることで右クリックと同じ機能が使える。
+
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.7]{modern_mouse.eps}}
+¥caption{現代のマウスとその操作（イメージ）}
+¥end{figure}
+¥newpage
+
+¥subsection{画面の構成要素}
+
+¥subsubsection{macOSの画面構成}
+
+macOSの画面は、次のような要素で構成されている。
+
+¥begin{enumerate}
+¥item ¥textbf{デスクトップ}：背景画像が表示される作業領域。ファイルやフォルダを置くことができる。
+¥item ¥textbf{メニューバー}：画面上部にある横長のバー。アップルメニューやアプリケーションのメニュー、システム状態などが表示される。
+¥item ¥textbf{Dock}：画面下部（または側面）にあるアイコンが並んだバー。よく使うアプリケーションや開いているアプリケーションのショートカットが並ぶ。
+¥item ¥textbf{Finder}：ファイルやフォルダを管理するためのアプリケーション。
+¥item ¥textbf{ウィンドウ}：各アプリケーションが開く作業領域を囲む枠組み。
+¥end{enumerate}
+
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.7]{macos_desktop_elements.eps}}
+¥caption{macOS の画面構成（イメージ）}
+¥end{figure}
+
+¥subsubsection{Ubuntu (GNOME) の画面構成}
+
+Ubuntu (GNOME) の画面は、次のような要素で構成されている。
+
+¥begin{enumerate}
+¥item ¥textbf{デスクトップ}：背景画像が表示される作業領域。
+¥item ¥textbf{トップバー}：画面上部にある横長のバー。「アクティビティ」ボタン、時計、システム状態などが表示される。
+¥item ¥textbf{アクティビティ画面}：「アクティビティ」ボタンをクリックすると表示される画面。アプリケーション一覧やウィンドウの一覧が表示される。
+¥item ¥textbf{ドック}：よく使うアプリケーションのショートカットが表示されるバー。
+¥item ¥textbf{ウィンドウ}：各アプリケーションが開く作業領域。
+¥end{enumerate}
+
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.7]{ubuntu_desktop_elements.eps}}
+¥caption{Ubuntu (GNOME) の画面構成（イメージ）}
+¥end{figure}
+
+ウィンドウの構成要素は、macOSとUbuntu共通で以下のような要素がある。
+
+¥begin{enumerate}
+¥item ¥textbf{タイトルバー}：ウィンドウの上部にある横長のバー。ウィンドウのタイトルが表示され、ドラッグしてウィンドウを移動できる。
+¥item ¥textbf{コントロールボタン}：ウィンドウを閉じる・最小化・最大化するためのボタン。
+¥item ¥textbf{スクロールバー}：ウィンドウの内容が大きい場合に表示され、内容をスクロールするために使う。
+¥item ¥textbf{ステータスバー}：ウィンドウ下部に表示される情報バー。
+¥end{enumerate}
+
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.7]{window_elements.eps}}
+¥caption{ウィンドウの構成要素（イメージ）}
+¥end{figure}
+
+¥newpage
+
+¥subsection{アプリケーションを起動する}
+
+アプリケーションを起動する方法はいくつかある。
+代表的な方法を紹介しよう。
+
+¥subsubsection{macOSでアプリケーションを起動する}
+
+macOSでは、以下の方法でアプリケーションを起動できる。
+
+¥begin{enumerate}
+¥item ¥textbf{Dockから起動}：画面下部のDockにあるアイコンをクリックする。
+¥item ¥textbf{Launchpadから起動}：Dockの「Launchpad」アイコンをクリックし、表示されたアイコン一覧から選択する。
+¥item ¥textbf{Spotlight検索から起動}：¥KEYTOP{Command}+¥KEYTOP{Space} キーを押してSpotlight検索を開き、アプリケーション名を入力して選択する。
+¥item ¥textbf{Finderから起動}：「アプリケーション」フォルダを開き、アプリケーションのアイコンをダブルクリックする。
+¥end{enumerate}
+
+¥subsubsection{Ubuntu (GNOME) でアプリケーションを起動する}
+
+Ubuntuでは、以下の方法でアプリケーションを起動できる。
+
+¥begin{enumerate}
+¥item ¥textbf{ドックから起動}：画面左側のドックにあるアイコンをクリックする。
+¥item ¥textbf{アクティビティから起動}：左上の「アクティビティ」をクリックしてアプリケーション一覧を表示し、選択する。
+¥item ¥textbf{検索から起動}：「アクティビティ」を開いて、アプリケーション名を入力して検索し、選択する。
+¥end{enumerate}
+
+¥subsubsection{ターミナルからコマンドで起動}
+
+macOSとUbuntu共通で、ターミナルを開いてコマンドを入力することでもアプリケーションを起動できる。
+ターミナルでは、「¥textbf{コマンド名}」と入力して ¥KEYTOP{Enter} キーを押す。
+バックグラウンドで起動して、ターミナルを引き続き使えるようにしたい場合は「¥textbf{コマンド名} ¥texttt{¥&}」と入力する。
+
+では実際に、次のようなコマンドをターミナルで実行してみよう。
+
+¥bigskip
+
+¥noindent
+¥begin{minipage}[t]{20zw}
+¥begin{itemize}
+¥item ¥texttt{open -a Calculator} （macOSの場合）
+¥item ¥texttt{gnome-calculator ¥&} （Ubuntuの場合）
+¥item ¥texttt{firefox ¥&} （Webブラウザ）
+¥item ¥texttt{gedit ¥&} （テキストエディタ、Ubuntu）
+¥item ¥texttt{open -a TextEdit} （テキストエディタ、macOS）
+¥item ¥texttt{nautilus ¥&} （ファイルマネージャ、Ubuntu）
+¥end{itemize}
+¥end{minipage}
+¥begin{minipage}[t]{20zw}
+¥begin{itemize}
+¥item ¥texttt{open -a Finder} （ファイルマネージャ、macOS）
+¥item ¥texttt{gnome-terminal ¥&} （ターミナル、Ubuntu）
+¥item ¥texttt{open -a Terminal} （ターミナル、macOS）
+¥item ¥texttt{evince ¥&} （PDFビューア、Ubuntu）
+¥item ¥texttt{open -a Preview} （PDFビューア、macOS）
+¥item ¥texttt{eog ¥&} （画像ビューア、Ubuntu）
+¥end{itemize}
+¥end{minipage}
+
+¥subsubsection{¥texttt{¥&}を最後に付け忘れると}
+
+Ubuntuでコマンドの最後に「¥texttt{¥&}」を付けずに実行すると、
+そのプログラムが終了するまで、ターミナルでは他のコマンドが入力できなくなる。
+
+¥begin{progls}
+username@hostname:~$ ¥slbfl{firefox}
+(firefoxが起動するが、ターミナルで他のコマンドが入力できない)
+¥end{progls}
+
+このような場合は、まず「¥KEYTOP{Ctrl}+z」と入力し
+(入力すると「¥verb+^Z+」と表示される)、
+それに続けて「¥texttt{bg}¥retrn」と入力する。
+すると、プログラムはバックグラウンドで実行され、ターミナルで再び入力できるようになる。
+
+¥begin{progls}
+username@hostname:~$ ¥slbfl{firefox}
+¥slbfl{^Z}
+[1]+  Stopped                 firefox
+username@hostname:~$ ¥slbfl{bg}
+[1]+ firefox &
+username@hostname:~$ (普通にコマンドが打てるようになる)
+¥end{progls}
+
+¥subsubsection{macOSのアプリケーションメニューから選択}
+
+macOSでは、画面左上のAppleメニューから「アプリケーション」にアクセスしたり、
+Dockからよく使うアプリケーションを選択できる。
+
+¥begin{enumerate}
+¥item 画面左上のAppleロゴをクリックする。
+¥item 「最近使った項目」を選択すると、最近使ったアプリケーションの一覧が表示される。
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.7]{macos_recent_apps.eps}}
+¥caption{macOSの最近使った項目メニュー（イメージ）}
+¥end{figure}
+¥item または、Finderを開いて「アプリケーション」フォルダに移動し、起動したいアプリケーションをダブルクリックする。
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.7]{macos_applications.eps}}
+¥caption{macOSのアプリケーションフォルダ（イメージ）}
+¥end{figure}
+¥end{enumerate}
+
+¥subsubsection{Ubuntuのアクティビティから選択}
+
+Ubuntuでは、画面左上の「アクティビティ」からアプリケーションを検索して起動できる。
+
+¥begin{enumerate}
+¥item 画面左上の「アクティビティ」ボタンをクリックする。
+¥item 「アプリケーション」タブを選択すると、インストールされているアプリケーションの一覧が表示される。
+¥item または、検索ボックスにアプリケーション名を入力して検索する。
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.7]{ubuntu_activities.eps}}
+¥caption{Ubuntuのアクティビティ画面（イメージ）}
+¥end{figure}
+¥item 起動したいアプリケーションのアイコンをクリックすると、アプリケーションが起動する。
+¥end{enumerate}
+
+¥subsection{アプリケーションを終了する}
+
+アプリケーションを終了（ウィンドウを閉じる）方法にはいくつかの種類がある。
+
+¥subsubsection{ウィンドウの閉じるボタンをクリックする}
+
+macOSとUbuntu共通で、ウィンドウの左上（macOS）または右上（Ubuntu）にある「閉じる」ボタン（×マーク）をクリックすると、そのウィンドウを閉じることができる。
+
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.7]{window_close_buttons.eps}}
+¥caption{ウィンドウの閉じるボタン（イメージ）}
+¥end{figure}
+
+¥subsubsection{アプリケーションメニューから終了を選ぶ}
+
+多くのアプリケーションでは、メニューバーの「ファイル」メニューに「終了」または「閉じる」という項目がある。
+これを選択することでアプリケーションを終了できる。
+
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.7]{menu_exit.eps}}
+¥caption{メニューからの終了（イメージ）}
+¥end{figure}
+
+¥subsubsection{ターミナルでの終了方法}
+
+ターミナルウィンドウの場合は、以下の方法で終了できる。
+
+¥begin{enumerate}
+¥item 「¥texttt{exit}」コマンドを入力して ¥KEYTOP{Enter} キーを押す。
+¥begin{progls}
+username@hostname:~$ ¥slbfl{exit}
+¥end{progls}
+
+¥item または、¥KEYTOP{Ctrl}+¥KEYTOP{D} キーを押す（EOFシグナルを送信する）。
+¥end{enumerate}
+
+¥subsubsection{強制終了}
+
+アプリケーションが応答しなくなった場合は、強制終了が必要になることがある。
+
+macOSの場合：
+¥begin{enumerate}
+¥item ¥KEYTOP{Option}+¥KEYTOP{Command}+¥KEYTOP{Esc} キーを同時に押す。
+¥item 表示されたダイアログで強制終了したいアプリケーションを選択する。
+¥item 「強制終了」ボタンをクリックする。
+¥end{enumerate}
+
+Ubuntuの場合：
+¥begin{enumerate}
+¥item ターミナルを開き、「¥texttt{xkill}」と入力して ¥KEYTOP{Enter} キーを押す。
+¥item マウスカーソルが×印に変わるので、強制終了したいウィンドウをクリックする。
+¥end{enumerate}
+
+¥subsection{ウィンドウのアイコン化}
+
+アイコン化ボックスをクリックすると、ウィンドウがアイコン(小さいマーク)化される。
+元に戻すには、アイコンをクリックすればよい。
+
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.7]{iconize.eps}}
+¥end{figure}
+
+%¥newpage
+
+¥subsection{ウィンドウの移動}
+
+ウィンドウのタイトル・バーを持てば、ウィンドウを移動することができる。
+
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.7]{move.eps}}
+¥end{figure}
+
+¥subsection{ウィンドウの大きさの変更}
+
+ウィンドウの大きさは、「リサイズ・ボックス」を持って、
+ドラッグすることで変更できる。
+
+¥begin{enumerate}
+¥item 大きくするとき
+
+単にリサイズ・ボックスをクリックし、そのままドラッグして広げる。
+¥item 小さくするとき
+
+大きくするときと同様だが、一旦、少しだけ広げてからでないと、小さくできない。
+¥end{enumerate}
+
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.7]{resize.eps}}
+¥end{figure}
+
+%¥newpage
+
+¥subsection{重なったウィンドウを一番上にする}
+
+重なったウィンドウを上にする方法は何通りかある。
+ここでは、いくつか紹介しよう。
+
+¥subsubsection{上にしたいウィンドウのタイトル・バーをクリック}
+
+下になっているウィンドウのタイトル・バーをクリックすると、一番上に出すことが
+できる。
+
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.7]{raise.eps}}
+¥end{figure}
+
+¥newpage
+
+¥subsubsection{ウィンドウ・マネージャのメニューを使う}
+
+何もないところで ¥KEYTOP{ボタン 1} を押して、Twm のメニューを出し、
+その中の「Modify」から「Raize」を選ぶ。
+マウス・カーソルが「●」になるので、これで上にしたいウィンドウをクリックする。
+
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.7]{raise02.eps}}
+¥end{figure}
+
+¥newpage
+{~}

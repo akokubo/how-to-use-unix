@@ -1,0 +1,100 @@
+This is pTeX, Version p3.0.1, based on TeX, Version 3.14159 (SJIS) (Web2C 7.3.3) (format=platex 2002.1.19)  17 OCT 2002 00:32
+**bsd1st2.tex
+(./bsd1st2.tex
+pLaTeX2e <2001/09/04>+0 (based on LaTeX2e <2001/06/01> patch level 0)
+(c:/usr/local/share/texmf/ptex/platex/base/jarticle.cls
+Document Class: jarticle 2001/10/04 v1.3 Standard pLaTeX class
+\c@@paper=\count81
+(c:/usr/local/share/texmf/ptex/platex/base/jsize10.clo
+File: jsize10.clo 2001/10/04 v1.3 Standard pLaTeX file (size option)
+)
+\c@part=\count82
+\c@section=\count83
+\c@subsection=\count84
+\c@subsubsection=\count85
+\c@paragraph=\count86
+\c@subparagraph=\count87
+\c@figure=\count88
+\c@table=\count89
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\symmincho=\mathgroup4
+LaTeX Font Info:    Overwriting symbol font `mincho' in version `bold'
+(Font)                  JY1/mc/m/n --> JY1/gt/m/n on input line 597.
+LaTeX Info: Redefining \mathrm on input line 599.
+LaTeX Info: Redefining \mathbf on input line 600.
+\toclineskip=\dimen118
+\@lnumwidth=\dimen119
+\bibindent=\dimen120
+\heisei=\count90
+) (./bsd1st2.aux)
+\openout1 = `bsd1st2.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <10> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 7.
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <10> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 7.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <24.88> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 7.
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <24.88> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 7.
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <17.28> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 9.
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <17.28> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 9.
+
+Overfull \hbox (35.14345pt too wide) in paragraph at lines 7--10
+[]\JY1/gt/m/n/24.88 ‚e‚’‚…‚…‚a‚r‚c‚Í‚¶‚ß‚Ä•¨Œê  \JY1/gt/m/n/17.28 ‚»
+ []
+
+LaTeX Font Info:    Font shape `JY1/mc/bx/n' in size <12> not available
+(Font)              Font shape `JY1/gt/m/n' tried instead on input line 13.
+LaTeX Font Info:    Font shape `JT1/mc/bx/n' in size <12> not available
+(Font)              Font shape `JT1/gt/m/n' tried instead on input line 13.
+LaTeX Font Info:    Try loading font information for JY1+mrm9 on input line 18.
+
+LaTeX Font Info:    No file JY1mrm9.fd. on input line 18.
+
+LaTeX Font Warning: Font shape `JY1/mrm9/m/n' undefined
+(Font)              using `JY1/mc/m/n' instead on input line 18.
+
+LaTeX Font Info:    Try loading font information for JT1+mrm9 on input line 18.
+
+LaTeX Font Info:    No file JT1mrm9.fd. on input line 18.
+
+LaTeX Font Warning: Font shape `JT1/mrm9/m/n' undefined
+(Font)              using `JT1/mc/m/n' instead on input line 18.
+
+[1
+
+] (./bsd1st2.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 275 strings out of 30603
+ 2809 string characters out of 67010
+ 49335 words of memory out of 1200001
+ 3454 multiletter control sequences out of 10000+15000
+ 9676 words of font info for 39 fonts, out of 400000 for 1000
+ 14 hyphenation exceptions out of 1000
+ 22i,4n,19p,118b,212s stack positions out of 300i,100n,500p,50000b,40000s
+
+Output written on bsd1st2.dvi (1 page, 808 bytes).

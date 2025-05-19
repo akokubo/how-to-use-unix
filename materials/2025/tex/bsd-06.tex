@@ -1,0 +1,904 @@
+\chapter{エディタ Mule と Canna による日本語入力}
+
+ここまでのところでは、
+コマンドの実行結果をリダイレクトしてファイルを作っていた。
+自分でファイルを作ったり、書き換えたりするにはエディタを使う。
+この章の内容をマスターすれば、自由にプログラムを書いたり、
+文書を作成したりすることができるようになる。
+
+\section{エディタ}
+
+文章やプログラムなどを書いたり編集したりするのに使うソフトを、エディタという。
+たとえば、 Windows では「メモ帳」、 MacOS X では「TextEdit」などが
+エディタである。
+
+ UNIX システムには、様々なエディタがある。
+代表的なのは \ruby{GNU}{グニュー} \ruby{Emacs}{イーマックス} 系と
+ \ruby{vi}{ヴィジュアル} 系のエディタである。
+ GNU Emacs 系のエディタには、 GNU Emacs、Mule、XEmacs などがある。
+
+\begin{minipage}[t]{21zw}
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.28]{emacsview.eps}}
+\caption{GNU Emacs}
+\end{figure}
+\end{minipage}
+\hspace*{5mm}
+\begin{minipage}[t]{21zw}
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.28]{muleview.eps}}
+\caption{Mule}
+\end{figure}
+\end{minipage}
+
+\begin{minipage}[t]{21zw}
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.28]{xemacsview.eps}}
+\caption{XEmacs}
+\end{figure}
+\end{minipage}
+
+ Emacs とは、(Edit MACroS: 編集マクロ)が語源であり、
+実に様々な機能を持っていて、自分でカスタマイズすることもできる。
+今回は、その中でも \ruby{Mule}{ミュール} を中心に、
+基本的なことだけを紹介していこう。
+
+なお、 Mule とは「Multilingual Enhancement to GNU Emacs」の略で、
+日本の電総研を中心に開発された多言語拡張版 Emacs である。
+日本語、英語だけでなく、韓国語、中国語、ロシア語、ヘブライ語・・・など、
+実にいろいろな言語を編集することもできる。
+もっとも、最近の GNU Emacs や XEmacs では Mule の成果を取り入れて、
+同様に多言語表示が行えるようになっている。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=1.0]{emacsmuls.eps}}
+\caption{GNU Emacs を使用してさまざまな言語で「こんにちわ」を表示}
+\end{figure}
+
+
+\section{Mule の使い方: 基本編その 1 -- 起動と終了、文字の入力}
+
+\subsection{Mule の起動}
+
+ X Window System を使っているとき、 Mule は次のようにして起動する。
+
+\begin{coml}{6.5cm}
+\texttt{mule} 「ファイル名」 \texttt{\&}
+\end{coml}
+
+%\newpage
+
+では「\texttt{mule renshuu1 \&}」と入力して、「\texttt{renshuu1}」
+というファイルを編集してみよう。
+
+\begin{progls}
+% \slbfl{mule renshuu1 \&}
+%
+\end{progls}
+
+すると、下のようなウィンドウが開く。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.5]{mulestart.eps}}
+\end{figure}
+
+\subsection{Mule の終了}
+
+最初に簡単に Mule の終了の仕方を紹介しておこう。
+実際に使う上では、いくつか注意した方がよい点があるが、
+それは後の方で紹介することにする。
+
+Mule を終了するには、 \texttt{[Files]} メニューから、
+\texttt{[Exit Emacs]} を選択する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.5]{muleexit.eps}}
+\end{figure}
+
+%\newpage
+
+\subsection{Mule の各部名称}
+
+では、再び「\texttt{mule renshuu1 \&}」と入力して、
+ Mule を起動しよう。
+
+\begin{progls}
+% \slbfl{mule renshuu1 \&}
+%
+\end{progls}
+
+ここで、各部の名前を紹介しておこう。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulename.eps}}
+\end{figure}
+
+\begin{itemize}
+\item \textbf{メニューバー}
+
+一番上に表示されるメニュー。
+これを使うと、簡単に Mule を操作できる。
+
+\item \textbf{バッファ}
+
+真ん中の広い部分。
+ここに文章やプログラムなどを入力する。
+
+\item \textbf{モード行}
+
+黒いラインの部分。
+ファイル名、
+ファイルの漢字コード、
+ファイルのどの辺が見えているかなどの情報が表示される。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.8]{modeline.eps}}
+\end{figure}
+\item \textbf{ミニ・バッファ}
+
+画面の一番下。
+コマンドを打ち込むと、ここに表示される。
+ファイル名を指定したりするときにも使う。
+\item \textbf{スクロールバー}
+
+画面右側の黒い部分。
+マウスの \KEYTOP{ボタン 2} でドラッグすると、
+スクロールさせることができる。
+\end{itemize}
+
+\subsection{文字を打つ前に}
+
+文字を打つ前に、最初にモード行のところで「ファイル名」を確認しよう。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulefilename.eps}}
+\end{figure}
+
+ここに自分で指定したファイル名が入っていれば、文字を入力しても OK だ。
+
+もしも「\texttt{*scratch*}」と書かれていたら、それは Mule の起動時に
+ファイル名を指定し忘れた\footnote{おそらく「\texttt{mule 「ファイル名」 \&}」
+ではなく、「\texttt{mule \&}」と起動したのだろう。}ということだろう。
+このまま編集を続けると、書いたものを保存し忘れる危険性がある。
+そこで、今のうちにファイル名を指定しておこう。
+
+ファイル名を指定するには、 \texttt{[Files]} メニューから、
+ \texttt{[Open File]} を選ぶ。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{muleopenfile.eps}}
+\end{figure}
+
+すると、下のミニ・バッファにファイル名を入力して指定できるように
+なるので、入力して \KEYTOP{Enter} する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulesetfilename.eps}}
+\end{figure}
+
+モード行を見ると、ファイル名が正しくついたことがわかる。
+これで OK である。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulesettedfilename.eps}}
+\end{figure}
+
+\newpage
+
+\subsection{文字を打ってみよう}
+
+カーソルを Mule のウィンドウに入れて、文字を打って見よう。
+文字を消すには \KEYTOP{Delete} を使う。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulefreetype.eps}}
+\end{figure}
+
+\subsection{カーソルの移動}
+
+ Mule でカーソルを移動する方法は幾つかある。
+ X Window System を使っている場合、一番簡単なのは、
+マウスと矢印キーを使うことだ。
+
+慣れてくると、いちいちマウスを使ったり、矢印キーを押したりすると、
+すばやく打てなくて面倒になってくる。
+その日の来ることを信じて、次の方法も憶えておこう
+
+\begin{table}[H]
+\caption{カーソルの移動}
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|l|l|ll|}
+\hline
+\multicolumn{1}{|c}{\textbf{移動方向}} & \multicolumn{1}{|c}{\textbf{コマンド}}
+ & \multicolumn{2}{|c|}{\textbf{意味}} \\
+\hline
+↑ & {\tt C-p} & ひとつ前の行へ & previous\\
+↓ & {\tt C-n} & ひとつ次の行へ & next\\
+→ & {\tt C-f} & 一文字前に & forward\\
+← & {\tt C-b} & 一文字後ろに & backward\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{cmove01.eps}}
+\end{figure}
+
+なお Mule では、 \underline{\KEYTOP{Ctrl}+\texttt{p}のことを「\texttt{C-p}」と書く}。
+
+\bigskip
+
+また、これ以外にも「\texttt{M-x}」というのもある。
+「\texttt{M}」は「\KEYTOP{Esc} を一瞬押すこと」を意味している。
+つまり「\texttt{M-x}」と書いたら、「一瞬 \KEYTOP{Esc} を押して、
+ \texttt{x} を押す」という意味になる。
+このとき \KEYTOP{Esc} は、 \KEYTOP{Ctrl} のように押しっぱなし
+にしてはいけない。
+
+\bigskip
+
+移動に関しては、他にも知っていると便利なコマンドが幾つかある。
+
+\begin{table}[H]
+\caption{カーソルの特殊移動}
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|l|l|}
+\hline
+動作 & コマンド\\
+\hline
+ファイルの先頭 & \verb+M-<+\\
+ファイルの最後 & \verb+M->+\\
+行の先頭 & \texttt{C-a}\\
+行の後ろ & \texttt{C-e}\\
+N 行目に行く & \texttt{M-x goto-line\retrn 行番号\retrn }\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{cmove02.eps}}
+\end{figure}
+
+\subsection{キャンセルとアンドゥ}
+
+Mule の中では、コマンドのキャンセルは「\texttt{C-g}」である。
+変になったり、わけがわからなくなったら、とりあえず「\texttt{C-g}」
+と入力してみよう。
+
+また、アンドゥ(実行したコマンドを元に戻す)は「\texttt{C-x u}」である。
+
+\begin{table}[H]
+\caption{キャンセルとアンドゥ}
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|l|l|}
+\hline
+動作 & コマンド\\
+\hline
+キャンセル & \texttt{C-g}\\
+アンドゥ & \texttt{C-x u}\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+%\newpage
+
+\section{Canna による日本語入力}
+
+Mule で日本語入力をするソフトは Wnn、 Canna、 Sj3、 SKK など幾つかあるが、
+演習室の Mule では「Canna(かんな)」を使う。
+では、実際に使ってみよう。
+
+\subsubsection{日本語モードと英語モードの切り替え}
+
+Canna で、日本語モードと英語モードの切り替えは「\texttt{C-o}」である。
+「\texttt{C-o}」と打つと、モード行に \texttt{[あ]} と表示されて、
+日本語モードになったことがわかる。
+
+また、ここでもう一度「\texttt{C-o}」すると、 \texttt{[あ]} が消えて、
+英語モードにもどる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.8]{muleimeonoff.eps}}
+\end{figure}
+
+\subsubsection{日本語の入力}
+
+\textbf{ローマ字入力}
+\bigskip
+
+日本語はローマ字入力になっていて、 Windows などとおおよそ同じである。
+小さい「ぁ」などの入力は「xi」などになっている。
+また、「ん」の入力は、「nn」、「n'」、「mn」などになる。
+
+\begin{table}[H]
+\caption{ローマ字表: 直音}
+\begin{small}
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+ア行 & あ/a & い/i & う/u & え/e & お/o\\
+\hline
+カ行 & か/ka & き/ki & く/ku & け/ke & こ/ko\\
+\hline
+サ行 & さ/sa & し/si(shi) & す/su & せ/se & そ/so\\
+\hline
+タ行 & た/ta & ち/ti(chi) & つ/tu(tsu) & て/te & と/to\\
+\hline
+ナ行 & な/na & に/ni & ぬ/nu & ね/ne & の/no\\
+\hline
+ハ行 & は/ha & ひ/hi & ふ/hu(fu) & へ/he & ほ/ho\\
+\hline
+マ行 & ま/ma & み/mi & む/mu & め/me & も/mo\\
+\hline
+ヤ行 & や/ya &  & ゆ/yu &  & よ/yo\\
+\hline
+ラ行 & ら/ra & り/ri & る/ru & れ/re & ろ/ro\\
+\hline
+ワ行 & わ/wa & ゐ/wi &  & ゑ/we & を/wo\\
+\hline
+ガ行 & が/ga & ぎ/gi & ぐ/gu & げ/ge & ご/go\\
+\hline
+ザ行 & ざ/za & じ/zi(ji) & ず/zu & ぜ/ze & ぞ/zo\\
+\hline
+ダ行 & だ/da & ぢ/di & づ/du & で/de & ど/do\\
+\hline
+バ行 & ば/ba & び/bi & ぶ/bu & べ/be & ぼ/bo\\
+\hline
+パ行 & ぱ/pa & ぴ/pi & ぷ/pu & ぺ/pe & ぽ/po\\
+\hline
+\end{tabular}
+\end{center}
+\end{small}
+\end{table}
+
+\begin{table}[H]
+\caption{ローマ字表: 拗音}
+\begin{small}
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|l|l|l|l|}
+\hline
+カ行 & きゃ/kya & きゅ/kyu & きょ/kyo\\
+\hline
+サ行 & しゃ/sya(sha) & しゅ/syu(shu) & しょ/syo(sho)\\
+\hline
+タ行 & ちゃ/tya(cha) & ちゅ/tyu(chu) & ちょ/tyo(cho)\\
+\hline
+ナ行 & にゃ/nya & にゅ/nyu & にょ/nyo\\
+\hline
+ハ行 & ひゃ/hya & ひゅ/hyu & ひょ/hyo\\
+\hline
+マ行 & みゃ/mya & みゅ/my & みょ/myo\\
+\hline
+ラ行 & りゃ/rya & りゅ/ryu & りょ/ryo\\
+\hline
+ガ行 & ぎゃ/gya & ぎゅ/gyu & ぎょ/gyo\\
+\hline
+ザ行 & じゃ/zya(ja) & じゅ/zyu(ju) & じょ/zyo(jo)\\
+\hline
+ダ行 & ぢゃ/dya & ぢゅ/dyu & ぢょ/dyo\\
+\hline
+バ行 & びゃ/bya & びゅ/byu & びょ/byo\\
+\hline
+パ行 & ぴゃ/pya & ぴゅ/pyu & ぴょ/pyo\\
+\hline
+\end{tabular}
+\end{center}
+\end{small}
+\end{table}
+
+\bigskip
+\textbf{単語一個を変換}
+\bigskip
+
+単語を変換してみよう。
+まず最初に日本語モードする。
+そして、ためしに「かんじ(実際の入力は kanji)」と打ってみよう。
+画面には「 $|$かんじ$|$ 」と表示される。
+
+ここでこのまま \retrn すると、ひらがなが入力される。
+
+漢字に変換するには \KEYTOP{スペース} を押す。
+\KEYTOP{スペース} を押していくと、今度は候補が下のミニ・バッファに表示される。
+気に入った候補が選ばれたら、 \retrn すると確定する。
+また、変換を途中でやめる場合には、「\texttt{C-g}」である。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulekanjilist.eps}}
+\end{figure}
+
+\newpage
+
+%\bigskip
+\textbf{文字種の変換}
+\bigskip
+
+カタカナや(全角の)英数など、文字種を変えるには、 \KEYTOP{↑} や \KEYTOP{↓}、
+または「\texttt{C-n}」を何回か入力する。
+なお半角のカタカナは UNIX では使用しない方が無難である。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.8]{mulejishuhenkan.eps}}
+\end{figure}
+
+まとめると次のようになる。
+
+\begin{table}[H]
+\caption{変換のコマンド}
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|l|l|}
+\hline
+動作 & コマンド\\
+\hline
+日本語 / 英語入力モードの切り替え & \texttt{C-o}\\
+漢字へ変換 & \KEYTOP{スペース}\\
+カタカナや英数に変換 & \KEYTOP{↓}や\KEYTOP{↑}、または \texttt{C-p}\\
+変換のキャンセル & \texttt{C-g}\\
+変換の確定 & \retrn\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\newpage
+
+\textbf{文節を変換}
+\bigskip
+
+では、文節を日本語変換してみよう。
+
+ためしに「あくまのにんぎょう」と打って変換してみよう。
+
+すると、「 $|$悪魔の 人形$|$ 」と表示されて、「あくまの」と「にんぎょう」の
+ところで文が区切られて変換された。
+
+ところが、実は\underline{この人は「あ」「熊の」「人形」と区切って変換して欲しかった}
+としよう。
+
+ここで文節の切り替えが必要になってくる。
+先に文節関係のコマンドを全部書いておくと、次のようになる。
+
+\begin{table}[H]
+\caption{文節操作}
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|l|l|}
+\hline
+動作 & コマンド\\
+\hline
+文節を縮める & \texttt{C-i}\\
+文節を伸ばす & \texttt{C-o}\\
+一つ前の文節にカーソルを移動する & \texttt{C-b}\\
+次の文節にカーソルを移動する & \texttt{C-f}\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+つまり、まず「あくまの」という文節を縮めて、「あ」と「くまの」に分ける必要が
+あるので、「\texttt{C-i}」を何回か打つ。
+
+すると、「 $|$あ 熊野 人形$|$ 」と、文節はうまくわかれた。
+
+次に、 2 番目の文節を正しく変換しなおす必要があるので、「\texttt{C-f}」と打って
+カーソルを 2 番目の文節に移す。
+
+そして \KEYTOP{スペース} で変換して、「熊の」になったところで、軽く \retrn して、
+変換を確定する。
+これで「 $|$あ 熊の 人形$|$ 」と、希望する変換になったので、再び \retrn して
+全体を確定する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.8]{muleakuma.eps}}
+\end{figure}
+
+\newpage
+%\bigskip
+\textbf{記号入力}
+\bigskip
+
+記号を入力するには \KEYTOP{Insert} か \KEYTOP{F.1} を押して、
+ミニ・バッファにリストを表示させて選ぶ。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulekigou01.eps}}
+\end{figure}
+
+記号入力を終えても、そのままでは記号入力モードのままなので、
+「\texttt{C-g}」を入力して元のモードに戻る。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulekigou02.eps}}
+\end{figure}
+
+\newpage
+%\bigskip
+\textbf{部首入力}
+\bigskip
+
+部首入力は \KEYTOP{F.3}。
+部首を選ぶと漢字のリストが出るので、ここから選択する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulebushu.eps}}
+\end{figure}
+
+\bigskip
+\textbf{コード入力}
+\bigskip
+
+コード入力は \KEYTOP{F.2}。
+16 進の漢字コードを知っていれば自由に入力することができる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mule16code.eps}}
+\end{figure}
+
+\newpage
+
+\section{Mule の使い方: 基本編その2 -- ファイルの保存}
+
+\subsection{ファイルの保存}
+
+ファイルを保存する前に、まずミニ・バッファのファイル名を確認してみよう。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulefilenameis.eps}}
+\end{figure}
+
+\subsubsection{ファイル名が指定されている場合}
+
+ファイル名が指定されている場合には、
+メニュー・バーの \texttt{[Files]} から
+ \texttt{[Save Buffer]} を選択する。
+または、「\texttt{C-x} \texttt{C-s}」と入力してもよい。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulesavebuffer.eps}}
+\end{figure}
+
+\newpage
+
+なお、既にファイルが保存されている場合には、 \texttt{[Save Buffer]} 
+が表示されない。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulenosavebuffer.eps}}
+\end{figure}
+
+\subsubsection{ファイル名が指定されていない、または別なファイル名で保存したい場合}
+
+ファイル名を指定し忘れて「\texttt{*scratch*}」になっている場合、
+または別なファイル名で保存したい場合には、
+ \texttt{[Files]} から
+ \texttt{[Save Buffer As]} を選択する。
+「\texttt{C-x} \texttt{C-w}」と入力してもよい。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulesavebufferas01.eps}}
+\end{figure}
+
+\newpage
+
+すると、ミニ・バッファにファイル名を入力するように言われるので、
+ファイル名を入力して、 \retrn する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulesavebufferas02.eps}}
+\end{figure}
+
+%\newpage
+
+\subsection{Mule の終了}
+
+一部、繰り返しになるが、 Mule の終了の仕方を紹介しよう。
+\texttt{[Files]} から \texttt{[Exit Emacs]} を選ぶと終了できる。
+または、「\texttt{C-x} \texttt{C-c}」と入力してもよい。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{muleexitemacs.eps}}
+\end{figure}
+
+%\newpage
+
+もしも何かファイルの内容を変更して、保存しないで終了しようとすると、
+ウィンドウが開いて、保存するかどうか聞かれる。
+
+セーブしたければ、 \fbox{Yes} を、セーブしたくないときは \fbox{No} を
+クリックする。
+ここで \fbox{No} を選ぶと、セーブしていないけれど本当に終わっていいかと
+聞かれ、ここで更に \fbox{Yes} を選ぶと終了する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{muleexityn.eps}}
+\end{figure}
+
+なお、「\texttt{C-x} \texttt{C-c}」と入力した場合には、
+ウィンドウが現れずに、ミニ・バッファに同様の質問がでるので、
+「\texttt{y}」か「\texttt{n}」などで答える。
+%\newpage
+
+\subsection{\texttt{[Files]} メニューの項目}
+
+ここで、 \texttt{[Files]} メニューの主な項目を紹介しておこう。
+
+\begin{table}[H]
+\caption{\texttt{[Files]} メニューの主な項目}
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|l|l|}
+\hline
+{\textbf{英語}} & {\textbf{意味}} \\
+\hline
+Open File... & ファイルを開いて編集する\\
+Save Buffer & 保存する\\
+Save Buffer As... & 名前を付けて保存する\\
+Insert File... & カーソルの位置に別のファイルを読み込む\\
+Kill Current Buffer & 現在、編集しているものを廃棄する\\
+\hline
+Make New Frame & 新しいウィンドウを開く\\
+Delete Frame & このウィンドウを閉じる\\
+Split Window & 画面を上下に分割する\\
+One Window & 分割された画面のうちカーソルがあるもの以外を閉じる\\
+\hline
+Exit Emacs & Mule を終了する\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\newpage
+
+\subsection{Mule のつくり出すファイル}
+
+Mule では、ファイルを編集して保存すると、
+バックアップとして元のファイル名の後ろに「\verb+~+」の付いたファイルを作る。
+このため、編集した 1 回前の状態のファイルだけは自動的に保存されている。
+もしも、編集しそこねた場合には、
+このファイルを元のファイルに上書きコピーすればよい
+\footnote{もしもファイル名が「\texttt{A}」なら、「\texttt{cp A\TILDE ~A}」とか。}
+。
+
+また、ファイルの編集中に、元のファイル名の最初と最後に「\verb+#+」を
+付けたファイルを作る。
+これは、ファイルをセーブして終了すると自動的に消えるが、
+セーブしない場合にはそのまま残る。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulecreatefile.eps}}
+\end{figure}
+
+\newpage
+
+\section{Mule の使い方: 応用編 -- カット \& ペースト}
+
+ここでは、知っていると便利な機能を紹介しよう。
+
+\subsection{部分を選択してコピーして貼り付け}
+
+エディタには、部分を選択して、コピーして貼り付けたり、
+切り取ったりする機能が備わっている。
+ Mule の場合を紹介しよう。
+
+まず、部分を選択するには、次の図のようにマウスで \KEYTOP{ボタン 1}
+を押しながらドラッグしてやればよい。
+なお、選択したい範囲の最初の部分にカーソルを移動し、そこで「\texttt{C-@}」
+ないしは「\texttt{C-}\KEYTOP{スペース}」と入力し、
+選択したい範囲の最後の部分までカーソルを移動しても同様の効果がある。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{muleselect.eps}}
+\end{figure}
+
+%\newpage
+
+この部分をコピーする(コンピュータに記憶させる)には、
+メニュー・バーの \texttt{[Edit]} から \texttt{[Copy]} を選ぶ
+\footnote{本当は X Windows System でマウスを使って選択した場合には、
+自動的にここまで行われてしまうので不要である。}。
+または、「\texttt{M-w}」と入力してもよい。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulecopy.eps}}
+\end{figure}
+
+%\newpage
+
+次に、今、記憶させたものを、貼り付けたいところにカーソルを移動する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulemovecursor.eps}}
+\end{figure}
+
+%\newpage
+
+メニュー・バーの \texttt{[Edit]} から \texttt{[Paste Most Recent]} を選ぶ。
+または、「\texttt{C-y}と入力してもよい。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulepastemostrecent.eps}}
+\end{figure}
+
+\newpage
+
+記憶された内容が、貼り付けられる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulepasted.eps}}
+\end{figure}
+
+\newpage
+
+\subsection{部分を選択して切り取り}
+
+さきほどと同様に、切り取りたい部分を、マウスでドラッグして選択する。
+これは選択したい範囲の最初の部分にカーソルを移動し、
+そこで「\texttt{C-@}」ないしは
+「\texttt{C-}\KEYTOP{スペース}」と入力し、
+選択したい範囲の最後の部分までカーソルを移動しても
+同様の効果がある。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.6]{muleselect2.eps}}
+\end{figure}
+
+%\newpage
+
+この部分を切り取るには、
+メニュー・バーの \texttt{[Edit]} から \texttt{[Cut]} を選ぶ。
+または、「\texttt{C-w}」と入力してもよい。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.6]{mulecut.eps}}
+\end{figure}
+
+\newpage
+
+選択した部分が、切り取られる。
+なお、この切り取った部分は、
+コピーして貼り付けるときと同様に、別な場所に貼り付けることもできる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.6]{mulecut2.eps}}
+\end{figure}
+
+\subsection{ウィンドウ間で選択して貼り付け}
+
+Mule と Kterm など、他の X Window System のアプリケーションとの間で
+選択して貼り付ける方法を紹介しよう。
+
+Kterm などでは、 \KEYTOP{ボタン 1} でドラッグして選択、
+\KEYTOP{ボタン 2} で貼り付けが行われる。
+これは、 Mule と Kterm 間でも、 Mule と Mule 間でも、 Kterm と Kterm 間でも
+同様に行える。
+
+\bigskip
+
+具体的にやってみよう。
+まず、 Kterm の画面を開き、貼り付けたい元の部分を表示する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulewopen.eps}}
+\end{figure}
+
+\newpage
+
+\KEYTOP{ボタン 1} を押しながらドラッグして、貼り付けたい部分を選択する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulewselect.eps}}
+\end{figure}
+
+Mule の画面で、貼り付けたい先の部分に\textbf{「マウス」}カーソルを移動する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulewcursor.eps}}
+\end{figure}
+
+\newpage
+
+\KEYTOP{ボタン 2} を押すとペーストされる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mulewpaste.eps}}
+\end{figure}
+
+この方法で、 Mule と Mule 間、 Kterm と Kterm 間でも
+選択して貼りつけたりすることができる。
+
+%\newpage
+%
+%\section{Mule の使い方: 応用編その 2 -- 画面分割}
+%
+%ここでは、 Mule の画面分割について紹介しよう。
+%
+%\subsection{上下に画面分割}
+%
+%複数のファイルを同時に編集したい場合がある。
+%この場合、いくつも Mule を起動してもよいが、
+%画面を分割して操作することもできる。
+%
+%画面を上下に分割するには、スクロール・バーの分割したい位置で、
+%\texttt{C-ボタン2} を実行する。
+%
+%または、 \texttt{C-x} \texttt{2} と入力しても同様の効果がある。
+%
+%\begin{figure}[H]
+%\centering{\includegraphics[scale=0.8]{mule20.eps}}
+%\end{figure}
+%
+%すると、画面が上下に分割される。
+%
+%上下の画面は、マウスでクリックすれば、カーソルを行き来させられる。
+%これは、 \texttt{C-o} と入力することでも、同様の効果がある。
+%
+%この画面はそれぞれ、独立に別のファイルを読み込んで編集することもできる。
+%
+%\begin{figure}[H]
+%\centering{\includegraphics[scale=0.8]{mule21.eps}}
+%\end{figure}
+%
+%画面を消したいときには、消したい方のバッファのモード行でボタン 3 を押す。
+%
+%または、残したい方の画面にカーソルを入れて、 \texttt{C-x} \texttt{1} と
+%入力しても同様の効果がある。
+%
+%\begin{figure}[H]
+%\centering{\includegraphics[scale=0.8]{mule22.eps}}
+%\end{figure}
+%
+%\newpage
+%
+%すると、画面が一つにもどる。
+%
+%\begin{figure}[H]
+%\centering{\includegraphics[scale=0.8]{mule23.eps}}
+%\end{figure}
+%
+%\subsection{左右に画面分割}
+%
+%同様に左右に分割することもできる。
+%
+%左右に分割するには、モード行の分割したい位置で、
+%\texttt{C-ボタン2} を実行する。
+%
+%または、 \texttt{C-x} \texttt{3} と入力しても同様の効果がある。
+%
+%\begin{figure}[H]
+%\centering{\includegraphics[scale=0.8]{mule25.eps}}
+%\end{figure}
+%
+%\newpage
+%
+%左右のカーソルの行き来は、マウスでできる。
+%または、 \texttt{C-o} でも同様である。
+%
+%\begin{figure}[H]
+%\centering{\includegraphics[scale=0.8]{mule24.eps}}
+%\end{figure}
+%
+%さきほどと同様、画面を消したいときには、消したい方のバッファのモード行で
+%ボタン 3 を押す。
+%
+%または、残したい方の画面にカーソルを入れて、 \texttt{C-x} \texttt{1} と
+%入力しても同様の効果がある。
+%
+%\begin{figure}[H]
+%\centering{\includegraphics[scale=0.8]{mule26.eps}}
+%\end{figure}
+%
+%すると、画面が一つにもどる。
+%
+%\begin{figure}[H]
+%\centering{\includegraphics[scale=0.8]{mule23.eps}}
+%\end{figure}
+\newpage
+{~}

@@ -1,0 +1,66 @@
+\documentclass[11pt]{jarticle}
+\usepackage{bsd}
+\pagestyle{empty}
+\begin{document}
+\setlength{\baselineskip}{7mm}
+\begin{center}
+\textbf{\Large UNIX 演習}\\
+\bigskip
+
+2002 年 10 月 17 日
+\end{center}
+
+\section*{試験の実施について}
+
+ UNIX 演習は必修科目で UNIX の使い方を身につけることが目的であり、単位の認定条件でもある。
+そこで 10/24 の演習の時間に以下の項目について、一人 2 分程度の実技試験を行なう。
+
+試験時間は長くとれないので、基本的にほぼ即答できなければ不可となる。
+試験の順番は、出席番号順でなく、乱数で決定するので、当日の遅刻は認めない。
+やむをえない事情で出席できない場合はあらかじめ連絡すること。
+当日発生した不慮のトラブルに関しては、後日個別に面談を行なう。
+
+なお、単位は、出席、レポート、試験の結果で判断する。
+レポートは全部提出され、試験が通っていないと単位は出ない。
+出席が著しく悪い場合も同様である。
+
+\subsection*{今回の実技試験の範囲と形式}
+
+\begin{enumerate}
+\item \texttt{ls、 cp、 rm、 mv、 cat、 cal} といったコマンドやリダイレクト
+に関して知っていて、使いこなせるか。
+\item キー・タイプが十分速いか。
+\end{enumerate}
+
+試験は、ポンポンと問題を出し、それに全部で 3 問正解すれば合格。
+ただし、合格するまでに 2 問以上間違えてはいけない。
+
+キー・タイプがのろいと、試験時間内に課題が終わらない可能性があるので注意すること。
+具体的には、次に例題を用意してみたので、参考にして欲しい。
+テキストを見れば簡単なので、わからないところは復習しておこう。
+簡単とは言え、十分慣れておかないと、即答することはできないかもしれない。
+
+\section*{復習クイズ}
+
+\begin{enumerate}
+\item ファイルのリストを表示して下さい。
+\item 今月のカレンダーを「\texttt{kongetsu}」というファイルに入れて下さい。
+\item 「\texttt{kongetsu}」の中身を表示して下さい。
+\item 「\texttt{kongetsu}」を「\texttt{thismonth}」というファイル名でコピーして下さい。
+\item 「\texttt{thismonth}」というファイルを消して下さい。
+\item 「\texttt{kongetsu}」というファイルの名前を「\texttt{10gatsu}」に変えて下さい。
+\end{enumerate}
+
+\section*{クイズの答え}
+
+どのくらい解けたかな？ 間違ったところは、テキストを見て復習しよう。
+
+\begin{enumerate}
+\item 「\texttt{ls}」
+\item 「\texttt{cal > kongetsu}」
+\item 「\texttt{cat kongetsu}」
+\item 「\texttt{cp kongetsu thismonth}」
+\item 「\texttt{rm thismonth}」
+\item 「\texttt{mv kongetsu 10gatsu}」
+\end{enumerate}
+\end{document}

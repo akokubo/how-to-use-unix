@@ -1,0 +1,450 @@
+\chapter{プログラミング言語の使い方}
+
+ここでは、 UNIX システムで使用可能なプログラミング言語を
+簡単に紹介する。
+紹介しているプログラムは、円の半径を読み込んで、
+円周(2×$\pi$×半径)と円の面積($\pi$×半径×半径)を求めて
+表示するものである。
+
+\section{コンパイラ系}
+
+コンパイラ系の各言語は本格的なプログラミングを行うのに向いている。
+特に C はさまざまな場面で用いられていて、応用範囲も広い。
+コンパイラ系では、ソース・プログラムを書き、それをコンパイラで
+マシン語の実行型ファイルに変換してから実行する。
+以下に紹介した C、Pascal、FORTRAN では、コンパイルの方法は
+次のように共通の形式になっている。
+
+\begin{coml}{15.5cm}
+{\large 「コンパイラ・コマンド」~~\texttt{-o}~~「実行型ファイル名」~~「ソース・ファイル名」}
+\end{coml}
+
+以下の例では、「実行型ファイル名」に、「ソース・ファイル名」から拡張子を
+取り除いたものを使っているが、別な名前\footnote{たとえば「\texttt{ls}」、
+「\texttt{rm}」なども指定できる。ただし、そうするとややこしくなる。
+自分なりに適当な名前を考えて付けよう。}を指定してもいい。
+
+また、コンパイルしてできた実行型ファイルを実行するには、次のようにする。
+
+\begin{coml}{5.5cm}
+{\large \texttt{./}「実行型ファイル名」}
+\end{coml}
+
+\subsection{C}
+
+\noindent
+\textbf{プログラム例}
+
+\begin{progls2}{circle.c}
+#include <stdio.h>
+
+int main()
+\{
+  /* 使用する変数の指定 */
+  double pi, hankei, enshuu, menseki;
+  /* 円周率 */
+  pi = 3.141593;
+\end{progls2}
+\begin{progls2}{}
+  /* 半径を端末から読み込む */
+  printf("円の半径を入力してください{\bcsl}n");
+  scanf("%lf", &hankei);
+
+  /* 円周と面積を求める */
+  enshuu = 2.0 * pi * hankei;
+  menseki = pi * hankei * hankei;
+
+  /* 表示 */
+  printf("半径 = %f{\bcsl}n", hankei);
+  printf("円周 = %f、面積 = %f{\bcsl}n", enshuu, menseki);
+
+  return(0);
+\}
+\end{progls2}
+
+\noindent
+\textbf{実行例}
+
+\begin{progls}
+% \slbfl{cc -o circle circle.c}
+% \slbfl{./circle}
+円の半径を入力してください
+\slbfl{20}
+半径 = 20.000000
+円周 = 125.663720、面積 = 1256.637200
+%
+\end{progls}
+
+\subsection{Pascal}
+
+\noindent
+\textbf{プログラム例}
+
+\begin{progls2}{circle.p}
+program circle(input, output);
+{ 使用する変数の指定 }
+var pi     : real;
+   hankei  : real;
+   enshuu  : real;
+   menseki : real;
+
+begin
+   \{ 円周率 \}
+   pi := 3.141593;
+
+   \{ 半径を端末から読み込む \}
+   writeln('円の半径を入力してください');
+   readln(hankei);
+
+   \{ 円周と面積を求める \}
+   enshuu := 2.0 * pi * hankei;
+   menseki := pi * hankei**2;
+
+   \{ 表示 \}
+   writeln('半径 = ', hankei);
+   writeln('円周 = ', enshuu, '、面積 = ', menseki);
+end.
+\end{progls2}
+
+\newpage
+
+\noindent
+\textbf{実行例}
+
+\begin{progls}
+% \slbfl{gpc -o circle circle.p}
+% \slbfl{./circle}
+円の半径を入力してください
+\slbfl{20}
+半径 =  2.000000000000000e+01
+円周 =  1.256637200000000e+02、面積 =  1.256637200000000e+03
+%
+\end{progls}
+
+\subsection{FORTRAN}
+
+\noindent
+\textbf{プログラム例}
+
+\begin{progls2}{circle.f}
+      PROGRAM CIRCLE
+C 使用する変数の指定
+      IMPLICIT NONE
+      REAL PI, HANKEI, ENSHUU, MENSEKI
+C 円周率
+      PI = 3.141593
+C 半径を端末から読み込む
+      WRITE(*,*) '円の半径を入力してください'
+      READ(*,*) HANKEI
+C 円周と面積を求める
+      ENSHUU = 2.0 * PI * HANKEI
+      MENSEKI = PI * HANKEI**2
+C 表示
+      WRITE(*,*) '半径 = ', HANKEI
+      WRITE(*,*) '円周 = ', ENSHUU, '、面積 = ', MENSEKI
+      STOP
+      END
+\end{progls2}
+
+\noindent
+\textbf{実行例}
+
+\begin{progls}
+% \slbfl{f77 -o circle circle.f}
+/usr/lib/libg2c.so: warning: tempnam() possibly used unsafely; consider using mk
+stemp()
+% \slbfl{./circle}
+ 円の半径を入力してください
+\slbfl{20}
+ 半径 =   20.
+ 円周 =   125.663719、面積 =   1256.63721
+%
+\end{progls}
+
+\newpage
+
+\section{バイト・コンパイラ系}
+
+\subsection{Java}
+
+バイト・コンパイラ系の Java では、
+ソース・プログラムを書き、それをコンパイラ(\texttt{javac})で
+中間コードと呼ばれる形式に変換し、
+ Java 仮想機械と呼ばれるプログラム(\texttt{java})にロードして
+実行する。
+このことによって、さまざまなマシン上で同じように動くプログラムを
+書くことができ、 WWW 関係のプログラミングでよく用いられている。
+
+まず、コンパイルするには次のようにする。
+
+\begin{coml}{8cm}
+\texttt{javac}~~「ソース・ファイル名」
+\end{coml}
+
+Java 仮想機械にロードして実行するには次のようにする。
+なお、「クラス名」というのは、
+以下の例では「\texttt{Circle}」である。
+
+\begin{coml}{5.3cm}
+\texttt{java}~~「クラス名」
+\end{coml}
+
+\noindent
+\textbf{プログラム例}
+
+\begin{progls2}{Circle.java}
+import java.io.*;
+class Circle \{
+  public static void main(String[] args) throws IOException \{
+    /* 円周率 */
+    double pi = 3.141593;
+
+    /* 半径を端末から読み込む */
+    System.out.println("円の半径を入力してください");
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    String str = br.readLine();
+    double hankei = Double.parseDouble(str);
+
+    /* 円周と面積を求める */
+    double enshuu = 2.0 * pi * hankei;
+    double menseki = pi * hankei * hankei;
+
+    /* 表示 */
+    System.out.println("半径 = " + hankei);
+    System.out.println("円周 = " + enshuu + "、面積 = " + menseki);
+  \}
+\}
+\end{progls2}
+
+\noindent
+\textbf{実行例}
+
+\begin{progls}
+% \slbfl{javac Circle.java}
+% \slbfl{java Circle}
+円の半径を入力してください
+\slbfl{20}
+半径 = 20.0
+円周 = 125.66372、面積 = 1256.6372
+%
+\end{progls}
+
+\section{インタプリタ系}
+
+インタプリタ系では、プログラムを書き、
+それをインタプリタにロードして実行する。
+手軽にプログラミングできるのが特徴である。
+Perl、 Python、 Ruby は、 WWW で掲示板などに使われる CGI を作るのに
+よく用いられる言語だ。
+また、ここでは紹介していないが、 Web ブラウザ上で動く
+インタプリタ系の言語の一種である JavaScript は、
+ HTML と組み合わせて利用し、たとえばマウスをボタンに重ねると
+ボタンの画像が変わったりするようなしくみに使われている。
+
+以下に紹介したもののうち、 Python、Perl、 Ruby の場合、
+個別に書かなかったが、プログラムを書いたらパーミッションを
+実行可能にして(「\texttt{chmod 755 「プログラム・ファイル名」}」)から
+実行すること。
+ BASIC の実行の仕方はこれらと異なっているので個別に紹介した。
+
+\subsection{Python}
+
+\noindent
+\textbf{プログラム例}
+
+\begin{progls2}{circle.py}
+#!/usr/local/bin/python
+import sys
+# 円周率
+pi = 3.141593
+
+# 半径を端末から読み込む
+print "円の半径を入力してください";
+hankei = float(sys.stdin.readline());
+
+# 円周と面積を求める
+enshuu = 2.0 * pi * hankei;
+menseki = pi * hankei * hankei;
+
+# 表示
+print '半径 = ', hankei;
+print '円周 = ', enshuu, '、面積 = ', menseki;
+\end{progls2}
+
+\noindent
+\textbf{実行例}
+
+\begin{progls}
+% \slbfl{./circle.py}
+円の半径を入力してください
+\slbfl{20}
+半径 =  20.0
+円周 =  125.66372 、面積 =  1256.6372
+%
+\end{progls}
+
+\newpage
+
+\subsection{Perl}
+
+\noindent
+\textbf{プログラム例}
+
+\begin{progls2}{circle.pl}
+#!/usr/bin/perl
+# 円周率
+$pi = 3.141593;
+
+# 半径を端末から読み込む
+print "円の半径を入力してください{\bcsl}n";
+$hankei = {\TL}STDIN{\TG};
+chomp $hankei;
+
+# 円周と面積を求める
+$enshuu = 2.0 * $pi * $hankei;
+$menseki = $pi * $hankei * $hankei;
+
+# 表示
+print "半径 = $hankei{\bcsl}n";
+print "円周 = $enshuu、面積 = $menseki{\bcsl}n";
+\end{progls2}
+
+\noindent
+\textbf{実行例}
+
+\begin{progls}
+% \slbfl{./circle.pl}
+円の半径を入力してください
+\slbfl{20}
+半径 = 20
+円周 = 125.66372、面積 = 1256.6372
+%
+\end{progls}
+
+\subsection{Ruby}
+
+\noindent
+\textbf{プログラム例}
+
+\begin{progls2}{circle.rb}
+#!/usr/local/bin/ruby
+# 円周率
+pi = 3.141593
+
+# 半径を端末から読み込む
+print "円の半径を入力してください{\bcsl}n"
+hankei = readline()
+hankei = hankei.to_f
+
+# 円周と面積を求める
+enshuu = 2.0 * pi * hankei
+menseki = pi * hankei * hankei
+
+# 表示
+print "半径 = ", hankei, "{\bcsl}n"
+print "円周 = ", enshuu, "、面積 = ", menseki, "{\bcsl}n"
+\end{progls2}
+
+\noindent
+\textbf{実行例}
+
+\begin{progls}
+% \slbfl{./circle.rb}
+円の半径を入力してください
+\slbfl{20}
+半径 = 20.0
+円周 = 125.66372、面積 = 1256.6372
+%
+\end{progls}
+
+\subsection{BASIC}
+
+BASIC の場合、プログラムを書き、 BASIC を起動(この場合は「\texttt{bwbasic}」と入力)して、
+その中でプログラムをロード(\texttt{load "「ファイル名」"})し、
+「\texttt{run}」コマンドで実行する。
+BASIC を終了するには、「\texttt{quit}」コマンドである。
+
+\noindent
+\textbf{プログラム例}
+
+\begin{progls2}{circle.bas}
+10 REM 円周率
+20 LET PI = 3.141593
+30 REM 半径を端末から読み込む
+40 PRINT "円の半径を入力してください"
+50 INPUT HANKEI
+60 REM 円周と面積を求める
+70 LET ENSHUU = 2 * PI * HANKEI
+80 LET MENSEKI = PI * HANKEI * HANKEI
+90 REM 表示
+100 PRINT "半径 ="; HANKEI
+110 PRINT "円周 ="; ENSHUU; "、面積 ="; MENSEKI
+120 END
+\end{progls2}
+
+\noindent
+\textbf{実行例}
+
+\begin{progls}
+% \slbfl{bwbasic}
+Bywater BASIC Interpreter/Shell, version 2.20 patch level 1
+Copyright (c) 1993, Ted A. Campbell
+
+bwBASIC: \slbfl{load "circle.bas"}
+bwBASIC: \slbfl{run}
+円の半径を入力してください
+? \slbfl{20}
+半径 = 20
+円周 = 125.6637200、面積 = 1256.6372000
+bwBASIC: \slbfl{quit}
+%
+\end{progls}
+
+\newpage
+
+余談だが、最近の Windows などでは
+「\texttt{cscript}」という
+コマンドで、 VBscript(Visual Basic Scripting Edition)などの
+プログラムをロードして使うこともできるようになっている。
+VBscript で BASIC のものと同様なプログラムを書くと以下のようになる。
+同じ BASIC という名前がついていても、見た目が随分異なった
+プログラムになることがわかるだろう。
+
+\noindent
+\textbf{プログラム例}
+
+\begin{progls2}{circle.vbs}
+' 円周率
+pi = 3.141593
+
+' 半径を端末から読み込む
+Wscript.echo("円の半径を入力してください")
+hankei = CDbl(Wscript.StdIn.ReadLine)
+
+' 円周と面積を求める
+enshuu = 2 * pi * hankei
+menseki = pi * hankei * hankei
+
+' 表示
+Wscript.echo("半径 = " & hankei)
+Wscript.echo("円周 = " & enshuu & "、面積 = " & menseki)
+\end{progls2}
+
+\textbf{実行例}
+
+実行するには、 Windows XP で「スタート」→「すべてのプログラム」→「アクセサリ」→
+「コマンド プロンプト」として、「コマンド プロンプト」をまず起動する。
+起動したら、以下のように実行する。
+
+\begin{progls}
+E:{\yen}ei00{\yen}ei00000>\slbfl{cscript circle.vbs}
+Microsoft (R) Windows Script Host Version 5.6
+Copyright (C) Microsoft Corporation 1996-2001. All rights reserved.
+
+円の半径を入力してください
+\slbfl{20}
+半径 = 20
+円周 = 125.66372、面積 = 1256.6372
+
+E:{\yen}ei00{\yen}ei00000>
+\end{progls}

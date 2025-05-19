@@ -1,0 +1,287 @@
+¥chapter{UNIX システムとは何か}
+¥pagenumbering{arabic}
+
+¥ruby{UNIX}{ユニックス} システムとは、 ¥ruby{OS}{オーエス} の一種である。
+そして、この本では、 ¥ruby{macOS}{マックオーエス} および ¥ruby{WSL}{ダブリュエスエル}
+(Windows Subsystem for Linux) 上の ¥ruby{Ubuntu}{ウブントゥ} という
+ OS を使って、 UNIX 系のシステムの使い方を紹介していく。
+と言っても、よくわからないと思うので、まずこの章では OS、
+それから UNIX システムなどについて簡単に説明することにしよう。
+
+¥section{OS とは何か}
+
+短く説明すると、 OS とは、 ¥ruby{Operating System}{オペレーティング・システム}
+(操作するためのシステム) の略で、コンピュータを快適に使いこなすための、
+基本システムのプログラムである。
+
+それでは、具体的に紹介していこう。
+
+¥subsection{どんな OS があるのか}
+
+いわゆるパソコンと呼ばれているもので動く OS には、
+ Microsoft 社の ¥ruby{Windows}{ウィンドウズ} シリーズ、
+ Apple 社の ¥ruby{macOS}{マックオーエス}（以前は Mac OS X と呼ばれていた）シリーズ、
+東京大学の坂村教授の ¥ruby{TRON}{トロン}、
+ ¥ruby{DOS}{ドス} と呼ばれるいくつかの OS、
+そしてこの本で取り上げる UNIX 系のシステムなどがある。
+
+パソコンで動く UNIX 系のシステムは、 PC-UNIX とも呼ばれていて、
+ ¥ruby{Linux}{リナックス} （¥ruby{Ubuntu}{ウブントゥ}、¥ruby{Fedora}{フェドラ}、¥ruby{CentOS}{セントオーエス}など）
+や FreeBSD などがよく使われている。
+また、 macOS は BSD 系の UNIX をベースとした OS になっている。
+さらに、Windows 10以降では WSL (Windows Subsystem for Linux) という機能を使うことで、
+Windows上で Ubuntu などの Linux ディストリビューションを実行できるようになっている。
+
+¥begin{minipage}[H]{21zw}
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=1.0]{winxpdesktop.eps}}
+¥caption{Windows のデスクトップ}
+¥end{figure}
+¥end{minipage}
+¥hspace*{5mm}
+¥begin{minipage}[H]{21zw}
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=1.0]{MacOSXdesktop2.eps}}
+¥caption{macOS のデスクトップ}
+¥end{figure}
+¥end{minipage}
+
+¥begin{minipage}[H]{21zw}
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=1.0]{MSDOSdesktop2.eps}}
+¥caption{Windows Terminal で実行される WSL (Ubuntu)}
+¥end{figure}
+¥end{minipage}
+¥hspace*{5mm}
+¥begin{minipage}[H]{21zw}
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=1.0]{gnomedesktop2.eps}}
+¥caption{Ubuntu のデスクトップ(GNOME使用)}¥label{GNOME}
+¥end{figure}
+¥end{minipage}
+
+¥subsection{OS の役割とは}
+
+コンピュータはいろいろなハードがつなぎ合わされて作られている。
+これらをうまく適切にコントロールするには、
+実際にはとても複雑な処理が必要となる。
+その複雑な部分を包み込んで活用して、
+ユーザから見たときには
+簡単な操作でコントロールすることができるようにするのが OS の役割である。
+
+%¥bigskip
+
+例えば、コンピュータでUSBメモリを使いたいとしよう。
+ Windows の場合を思い出してみよう。
+デスクトップにある「エクスプローラー」というアイコンをクリックすると
+ウィンドウが開いて、その中に接続したUSBメモリを表すアイコンが見える。
+このアイコンがUSBメモリを表していて、
+更にクリックすると中に入っているファイルのリストを見ることができる。
+
+
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.38]{winfloppy01.eps}}
+¥caption{Windows のファイル一覧}
+¥end{figure}
+
+また、ファイルをUSBメモリにコピーするには、ファイルの
+アイコンを持って、このUSBメモリのアイコンに重ねてやればいい。
+
+このようなアイコンの操作は、アイコンというシンボルを使って
+簡略化、抽象化された「記号操作」の一種であると言える。
+
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=1.0]{wincopy01.eps}}
+¥caption{Windows でのファイルのコピー動作}
+¥end{figure}
+
+ところで、このとき実際にコンピュータは何をしているのだろうか?
+
+まず、USBメモリを認識し、デバイスドライバを読み込み、
+USBメモリ上のファイルシステムを認識して、どこにどんなデータが書かれているかという
+インデックスを探して、それを読む。
+次にファイルの中身を読むには、またメモリ上の別の場所にアクセスして・・・。
+
+などという、気の遠くなるような複雑な操作が行なわれているのである。
+
+¥bigskip
+
+こんなに複雑な操作を全部自分で一々やっていては、とてもコンピュータを
+気軽には使えないだろう。
+
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=1.0]{readfloppy01.eps}}
+¥caption{USBメモリを読むときのハードウェアの動作}
+¥end{figure}
+
+ Windows という OS では、このような複雑なハードに関する操作を
+包み込んで見えないようにしている。
+ユーザは単にアイコンをクリックするような「記号の操作」で、
+簡単にコンピュータのシステムを使えるようになっているのである。
+これは別に Windows だけでなく、他の OS でも同様である。
+
+¥newpage
+
+¥section{UNIX システムとはどういう OS か}
+
+¥subsection{UNIX システムの特徴}
+
+ UNIX システムは 1970 年代のはじめに基本的な部分が開発され、
+それ以降も発展し続けてきた歴史の長い OS である。
+ちょっと難しい話になるが、最初に UNIX システムの特徴を短くまとめておこう。
+
+¥begin{enumerate}
+¥item ¥textbf{マルチユーザ}
+
+一台のマシンを何人もの人が同時に使うことができる。
+¥item ¥textbf{マルチタスク}
+
+一台のマシンで同時にいくつもの命令(タスク)を実行することができる。
+¥item ¥textbf{階層型ファイル・システム}
+
+ファイル・システムがツリー状に構成されている。
+¥item ¥textbf{デバイスなどの取り扱いの統一}
+
+周辺機器などのデバイスにいたるまですべてがファイルとして統一的に取り扱われる。
+¥item ¥textbf{ネットワーク機能}
+
+システムが開発された初期の頃からネットワークを利用するためのシステムが用意されていた。
+¥item ¥textbf{主に C 言語で書かれたソース・コード}
+
+システムの多くの部分が C 言語で書かれていて、
+いろいろなマシンに移植しやすい。
+¥end{enumerate}
+
+これらのいくつかの特徴は、現在では多くの OS に備えられ、
+当たり前のこととなっているが、
+当時としてはシンプルかつ先進的なものであった。
+
+¥subsection{UNIX システムと Windows}
+
+具体的な話に入ろう。
+macOS や WSL 上の Ubuntu などの UNIX 系システムでは、Windows とやり方は異なるものの、
+文章を書いたり、プログラムを作ったり、電子メールを使ったり、
+Web にアクセスしたり、絵を描いたりすることができる¥footnote{ちなみに、
+このテキストも、多くの部分は macOS や Ubuntu で作成している。}。
+
+では、この 2 つの OS ではどこが違うのかを見てみよう。
+
+¥begin{enumerate}
+¥item ¥textbf{コマンド・ライン・ベースと GUI}
+
+ UNIX では、基本的にコンピュータに何かをさせるときには、
+コマンドをキーボードから打ち込む。
+コマンドは簡単な英語を短縮したものが多い。
+このようなシステムを、コマンド・ライン・ベースのシステムと呼ぶ。
+
+一方、 Windows では、アイコンと呼ばれる「絵」をクリックしたり、
+持って移動したりして、コンピュータを使う。
+このようなシステムを ¥ruby{GUI}{ジーユーアイ}
+(¥ruby{Graphical}{グラフィカル} ¥ruby{User}{ユーザ} ¥ruby{Interface}{インタフェース})
+のシステムと呼ぶ。
+
+ただし、現代の UNIX 系システムではすべて GUI を備えている。
+macOS は洗練された独自の Aqua インターフェースを持ち、
+Ubuntu などの Linux は ¥ruby{GNOME}{ノーム} や ¥ruby{KDE}{ケーディーイー} などの
+デスクトップ環境を使って Windows のようにアイコンを用いた操作が可能である。
+特に Linux のデスクトップ環境はユーザの好みによって、大幅に環境を変えることが
+できるという特徴を持っている。
+特にウィンドウ・マネー
+
+¥begin{minipage}[H]{21zw}
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=1.0]{twmdesktop2.eps}}
+¥caption{Twm}
+¥end{figure}
+¥end{minipage}
+¥hspace*{5mm}
+¥begin{minipage}[H]{21zw}
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=1.0]{fvwm2desktop2.eps}}
+¥caption{Fvwm}
+¥end{figure}
+¥end{minipage}
+
+¥begin{minipage}[H]{21zw}
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=1.0]{qvwmdesktop2.eps}}
+¥caption{Qvwm}
+¥end{figure}
+¥end{minipage}
+¥hspace*{5mm}
+¥begin{minipage}[H]{21zw}
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=1.0]{afterstepdesktop2.eps}}
+¥caption{AfterStep}
+¥end{figure}
+¥end{minipage}
+
+¥begin{minipage}[H]{21zw}
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=1.0]{wmakerdesktop2.eps}}
+¥caption{WindowMaker}
+¥end{figure}
+¥end{minipage}
+¥hspace*{5mm}
+¥begin{minipage}[H]{21zw}
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=1.0]{kdedesktop2.eps}}
+¥caption{KDE}
+¥end{figure}
+¥end{minipage}
+
+¥begin{minipage}[H]{21zw}
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=1.0]{enlightenmentdesktop2.eps}}
+¥caption{Enlightenment}
+¥end{figure}
+¥end{minipage}
+
+¥noindent
+ジャーというソフトを変更すると、
+全く異なった外見と操作方法になる。
+ウィンドウ・マネー
+ジャーには、図¥ref{GNOME}の GNOME の他、
+KDE、Xfce、MATE、Cinnamon、i3、Sway などが現在よく使われている。
+また、古いものとして Twm、Fvwm、AfterStep、WindowMaker、Enlightenment なども存在する。
+一方、macOS では標準で Aqua と呼ばれる GUI 環境が提供されている。
+
+¥item ¥textbf{マルチユーザとシングルユーザ}
+
+UNIX 系のシステムでは、ネットワークごしにログインすることができて、
+一台のマシンを同時に何人もで使うことができる。
+
+例えば、何人もで同時にログインしてファイルを置いたりするようなことが
+できる必要のある
+インターネット・サービス・プロバイダの WWW サーバなどには、
+ UNIX 系のシステムが使われていることが多い。
+
+一方、 Windows は基本的にはコンピュータの前に座って、
+一人で使うシステムである。
+他のマシンからハードディスクの中身を見たりすることはできるが、
+それ以上のことをするには特殊なソフトが必要になることが多い。
+
+¥item ¥textbf{オープンとクローズド}
+
+UNIX 系のシステムのうち、特に Linux (Ubuntu など) はオープンソースであり、
+C 言語などで書かれたソース・コードが完全に公開されている。
+
+たとえば、Ubuntu は ¥texttt{https://www.ubuntu.com/} が公式サイトであり、
+日本語情報は ¥texttt{https://jp.ubuntu.com/} で見ることができる。
+ここから無料で自由にダウンロードすることができ、
+ソース・コードは中を読むことも自分で自由に修正することもできる。
+
+一方、macOS は商用 OS であるが、その中核（Darwin カーネル）は
+オープンソースとして公開されている。また、macOS には多くのオープンソース
+ソフトウェアが含まれており、開発者向けのツール群も充実している。
+
+Ubuntu や macOS の場合、C コンパイラをはじめとした数多くの
+プログラミング言語や便利なソフトウェアが無料で最初から付いていたり、
+簡単にインストールできたりするので、お金をかけずに自由に
+プログラムを作ることができる。
+
+一方、Windows は商品であり、ソース・コードは一般に公開されていない。
+Windows 用のさまざまなソフトウェアも商品である場合が多い。
+ただし、WSL を使えば Windows 上でも Ubuntu などの Linux 環境を利用でき、
+オープンソースの開発環境を活用できるようになっている。
+¥end{enumerate}

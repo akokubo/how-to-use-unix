@@ -1,0 +1,286 @@
+\documentclass[11pt]{jarticle}
+
+\usepackage[dvips]{graphicx}
+\usepackage[dvips]{color}
+\usepackage{float}
+\usepackage{ascmac}
+\usepackage{alltt}
+\usepackage{bsd}
+
+\begin{document}
+\setlength{\baselineskip}{6mm}
+\begin{center}
+\textbf{\huge UNIX 演習}\\
+\textnormal{2002 年 11 月 21 日}
+\end{center}
+
+今回の演習は、実技試験とレポートの提出である。
+
+以下の文章を読んで、フリーのソフトについて思ったことなどを 7 行以上
+書いて、プリントアウトして、この時間内に提出する。
+
+参考までに例をあげれば、「フリーのソフト、俺はこう思う」、
+「ストールマンの考え方に賛成/反対だ」、「Linux って、○○と思う」などなど。
+基本的には、下の文章を読んで思ったことを書いてくれれば OK で、
+この例は別に参考にしなくてもいい。
+
+なお、ファイルの印刷方法は、前にも紹介したが、
+「\texttt{a2ps-j 「ファイル名」 | lpr -P「プリンタ名」}」だ。
+プリンタ名には \texttt{pr01} 〜 \texttt{pr05} までが入る。
+
+\bigskip
+\bigskip
+
+\noindent
+\textbf{\large 試験の順番}
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=1.0]{OSS-sec.eps}}
+\end{figure}
+
+\newpage
+
+\begin{center}
+\textbf{\LARGE オープン・ソース・ソフトウェア}
+\end{center}
+
+これまで、紹介してきたように、 FreeBSD はフリーのソフトウェアだ。
+ FreeBSD の日本のサイトは、 \texttt{http://www.jp.freebsd.org/} で、
+ここから FreeBSD がまるごと全部ダウンロードできる他、
+いろんな情報もここで読むことができる。
+
+\bigskip
+
+ところで、このフリー・ソフトの「フリー」って言葉には、いろんな意味がある。
+
+まず、ソフトが「無料」で手に入るという意味のフリー。
+それから、 C 言語などで書かれたソース・コード\footnote{コンピュータは
+マシン語しか理解できない。
+しかし、マシン語で直接プログラムを作るのは大変である。
+そこで、人間に理解しやすい C 言語などで最初にプログラムを作って、
+それをマシン語に翻訳する。
+このとき、最初に作った C 言語などのプログラムをソースという。
+ソースを見れば、そのプログラムが実際にどういうしくみになっているかが全部わかる。}
+が公開されていて、
+中身を見ることもできれば、いじることもできるとか、
+そういうソフトへのアクセスが「自由」って意味のフリーもある
+\footnote{B 演習室のマシンには、 \texttt{/usr/src} 以下に基本部分の
+ソース・コードが置いてあり、自由に見ることができる。
+ C 言語をマスターすれば、この中を読んでいじれるようになるかもしれない。}。
+
+ま、いずれにせよ、「フリー」と一言で言っても、人によっていろんな意味があって、
+ちょっとややこしい。
+
+\bigskip
+
+ところで、最近の話題と言えば、フリー・ソフトに代わって使われだした、
+「オープン・ソース・ソフトウェア」だ。
+このオープン・ソースというのは、今までフリー・ソフトと言っていたもののうち、
+ソースが公開されていて、誰でも自由にアクセスできるもののことを言う。
+
+%で、今、オープン・ソースがなんで話題かと言うと、
+%まずは PC-UNIX の一つ Linux の大流行。
+%それから Netscape のブラウザをはじめとして、今まで売り物で中身が秘密だった
+%ソフトが続々オープン・ソースになっていること。
+%それから「オープン・ソースなんかがはやっちゃ、うちの商売がちとまずいぜ」という
+%マイクロソフト社の極秘内部文書がネットに流れちゃったことなどが原因だ。
+
+\bigskip
+
+今回は、このオープン・ソースの話をしよう。
+
+\section{AT \& T の UNIX 戦略}
+
+まずは、ちょっと話を振り返ってみよう。
+
+ UNIX が最初はソース付き、しかもほとんど実費で、大学などに配られていた。
+ただし、「使って何があっても俺知らねーよ」という条件だった。
+そういう時代だったので、オーストラリアのライオン先生が
+ UNIX の全部のソース・コードに一行ずつ説明をつけちゃったという、
+トンデモない本
+\footnote{John Lions著、岩本信一訳、『Lion's Commentary on UNIX』、ASCII 出版局、 1998 年。
+さすがに、もし Windows のソース・コードが全部解説してある本があったらビックリだろう・・・。}
+まであった。
+
+この話が変わってきたのは、 AT \& T 社が UNIX を製品として
+売るようになってからだ。
+つまり、 UNIX は売り物になっちゃったから、ソースを勝手に配ることはできなく
+なったというわけだ\footnote{ちなみに今では初期の UNIX のソース・コードは公開されている。
+PDP-11 のエミュレータ上でこれを動かすことができる。
+詳しいやり方は \texttt{http://web.kyoto-inet.or.jp/people/m-ito/simh/simh.html}}。
+
+\section{GNU は UNIX じゃないぜ}
+
+そこに現れたのが、伝説のスーパー・ハッカー、リチャード・M・ストールマンだ。
+
+\bigskip
+
+このストールマンの考え方はチョー過激で、
+「どんなコンピュータやソフトだって、みんなのもんさ。
+みんなで勝手にいじるから、どんどんいいものができるんだぜ。
+ソフトの中身を秘密にして金もうけしているよーな奴はクソだ。」
+っていう感じだった。
+
+\bigskip
+
+てなわけで、ストールマンは、フリー・ソフトウェア財団\footnote{\texttt{http://www.fsf.org/home.ja.html}}を作って、
+ GNU というプロジェクト\footnote{\texttt{http://www.gnu.org/gnu/thegnuproject.ja.html}}を始めた。
+
+この GNU という計画、元の UNIX よりもいいものを作って、
+全部フリーで配ってしまおうという、とても凄いものだった。
+この計画は、世界中の人が寄付をしたり、作ったソフトを提供したりして、大成功してしまう。
+実際、みんなが使っている FreeBSD も GNU のソフトがいっぱい使われている。
+
+\section{Linux のはじめて}
+
+さて、ここでもう一つの伝説が始まる。
+
+\bigskip
+
+今、パソコン用の UNIX で世界的に有名なのは Linux(リナックス)\footnote{日本語での情報は \texttt{http://www.linux.or.jp/}}だ。
+ちなみに FreeBSD は、おそらく Linux の次に有名で、特に日本ではユーザが多い。
+
+この世界で一番メジャーな Linux は、なんと元々は、
+フィンランドの大学生リーヌス・トーヴァルズくんが、
+ちょっとしたお勉強のつもりで作ったものだったんだ。
+
+\bigskip
+
+ 90 年代のはじめの頃、パソコン用の UNIX でソースが読めたものと言えば、
+タネンバウム先生が教育用に作った MINIX\footnote{\texttt{http://www.cs.vu.nl/{\TILDE}ast/minix.html}}だった。
+で、当時、大学生だったリーヌスくんは、 MINIX を手本にして
+\footnote{パクったという意味ではない。あくまでお手本。}、
+自分で UNIX っぽいカーネル\footnote{OS の一番コアになる部分}を作り、
+その頃はやりだしたインターネットで、ソースも付けて大公開した。
+これが Linux のはじまりだった
+(ちなみに、初期の頃、タネンバウム先生の「Linux は時代遅れだ(LINUX is obsolated)」\footnote{日本語のダイジェストは \texttt{http://www.law.co.jp/okamura/OpenSource\_Web\_Version/appen\_A/appen\_A.html}}というニューズ・グループへの
+投稿ではじまった論争は有名である)。
+
+後は、次から次へと好きもののハッカーが、たくさん集まってきて、
+この Linux をガンガン改良するもんだから、
+あっという間に本モノの UNIX にも負けないくらい立派なものに
+なってしまったというわけ。
+
+\bigskip
+
+こんな話信じられる?
+
+\bigskip
+
+これは、本当にすごいことなんだ。
+
+まず、ただの大学生がちょっと勉強のつもりで作った OS が、
+世界で一番メジャーな UNIX になってしまったってこと。
+それから、みんなでよってたかって作った物が、
+ちゃんとしたものになったってこと。
+
+\bigskip
+
+フレデリック・P・ブルックス Jr. の『人月の神話』
+\footnote{日本語訳は滝沢徹、牧野祐子、富澤昇訳、アジソン・ウェスレイ・
+パブリッシャーズ・ジャパン株式会社発行。}
+という有名な本があるんだけど、これには
+「たくさんの人で、でかいソフトを作るとチョー悲惨なことが起こる」
+というのが解説されている。
+
+ま、単純に言えば、何人かでソフトを作るには、それぞれのパーツが
+ちゃんとくっつくように、相談しておく必要がある。
+ところが、この相談って、人が増えれば増えるほど、爆発的に大変になるんだ。
+しかも、ソフトがだんだんでかくなってくると、バグもたくさん入りこんで
+発見することがほとんど不可能になってくる。
+
+\bigskip
+
+そのはずだった。
+たくさんの人が、一つのソフトを勝手にいじくりまわしたら、
+とてもうまくいくはずはなかった。
+ところが、 Linux は、なぜかうまくいっていた・・・。
+
+\section{伽藍とバザール}
+
+みんなが適当にやったのに、うまくいったのは、何も Linux だけではない。
+ WWW でチャットや掲示板を作るのによく使われる Perl という言語や、
+ Apache という WWW サーバのソフトなんかも似たような方法でうまくいっていた。
+
+なんで、いい加減に見える方法なのに、うまく行くのかを考察したのが
+エリック・S・レイモンドの『伽藍とバザール』
+\footnote{エリック・S・レイモンド著、『伽藍とバザール』、山形浩生訳、光芒社。
+本として売られてはいるが、オープンソースの精神に従って公開されていて、
+ \texttt{http://www.post1.com/home/hiyori13/jindex.html} からリンクをたどると、ちゃんと
+全部読むことができる。}
+という文書だ。
+
+伽藍(カセドラル)というのは、教会の立派な大聖堂のことで、これは今までの
+ソフト開発の方法を表している。
+つまり、きちんと組織されたプロジェクト・チームの人たち(神父さんたち)が、
+リーダーの指示にしたがって、ぼくらの見えないところ(教会の中)で、
+秘密の儀式みたいにおごそかにソフトを作っているというわけ。
+
+一方、バザールというのは、 RPG なんかでよくある、オアシスなんかでいきなり
+開かれている市(フリーマーケットに近いか?)のことで、これが Linux の開発方法だ。
+つまり、一応、プロジェクトの代表者(市の責任者)はいるけど、単なる調整役。
+あっちこっちから、いろんな人がやってきて、ソフトにいろいろな改造を
+加えていく(自分で店を広げて商売する)。
+
+レイモンドは、自分がバザール方式でソフトを作った経験を元にこう言っている。
+自分がおもしろいと思ったものを作ってバンバン公開しよう、
+そうすりゃ、使うユーザは勝手に増えてくる。
+ユーザの意見は大切にして、どんどん取り入れ、みんなに開発者に加わってもらおう、
+そうすりゃすごい勢いでソフトが進化する。
+で、開発者が増えれば、バグがなんかのはずみで生まれても、誰かが見つけてくれるさ。
+
+\section{Netscape とマイクロソフト}
+
+ Netscape 社は、ちょうどこの頃、マイクロソフトに追い詰められていた。
+そのとき、 Netscape 社の人が、『伽藍とバザール』を読んで、ブラウザのソースを
+公開することになった。
+
+で、次期ブラウザ(当時) Netscape 5.x 以降では、みんなでよってたかってハックした結果が、
+どんどん取り入れられることなっていた。
+しかし、ソースが公開されて、 2 年以上も、まともに動く次期ブラウザは公開できなかった。
+挙句の果て、プロジェクトの責任者が辞職したりする羽目にもなった。
+
+ま、これは、なんでもかんでも単にオープン・ソースにすりゃいいってもんでもない
+という例になってしまったわけだ。
+
+とはいえ、その後、 Netscape は盛り返し、バージョン 6 が公開され、
+現在では大きな進化を遂げたバージョン 7 が公開\footnote{\texttt{http://www.netscape.co.jp/}}されている。
+また、フリーの開発バージョンである Mozilla\footnote{日本語版は \texttt{http://www.mozilla.gr.jp/}}も使えるようになった。
+
+\bigskip
+
+しかし、 Netscape 社の例が起爆剤になって、 Linux 用のいくつかの商用ソフトが
+オープン・ソース化されつつある。
+オープン・ソースの場合、会社はソフトを売って儲けるのではなくて、
+ソフトに関する様々なサポートを提供するという商売していくという方向に
+シフトしていくようだ。
+
+また、オープン・ソースではないにせよ、様々なソフトが Windows 用だけでなく、
+ Linux 用にも開発されるようになってきた。
+
+\bigskip
+
+でもって、最後に登場するのがマイクロソフトだ。
+マイクロソフトは、最初、「フリーのものなんて、役に立ちゃしねーよ」という
+態度を取っていたが、 Windows NT をやめて Linux を入れはじめる
+会社も現れてとうとう焦りはじめた。
+
+それがうかがえるのが、ネットに流れたマイクロソフトの内部極秘文書、
+通称「ハロウィーン文書」だ\footnote{これも山形浩生の日本語訳が、
+\texttt{http://www.post1.com/home/hiyori13/jindex.html} から辿ることができる。}。
+この中では、 Linux が Windows NT にとって、どれだけ危険かが分析してあって、
+しかも Linux をぶっつぶすための作戦まで書かれていたのだ。
+この文書、マイクロソフトが Linux を認めたってことで多いに話題になった。
+
+一時期は、開発が遅れに遅れまくった、次期 Windows NT だった Windows 2000 
+(当時)の一部をオープン・ソース化するという、かなりウソくさい噂まで流れたくらいだ。
+
+\section{そして現在}
+
+現在では、オープン・ソースは日常化してきており、数多くのソフトがオープン・ソースで
+公開されるようになってきた。
+
+その一方で、企業にとってはどこまで本当に商売になるのかは、いまだ未知の部分が大きい。
+オープン・ソースとソースを公開しないソフトのすみわけで頭を悩ませている
+というのが現状だろう。
+\end{document}

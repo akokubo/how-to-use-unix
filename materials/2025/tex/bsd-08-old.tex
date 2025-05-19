@@ -1,0 +1,752 @@
+\chapter{ディレクトリとパス}
+
+\section*{ファイル・システムの全体像}
+
+ UNIX システムでは、ファイル・システムは、ツリー状の階層化ディレクトリ構造を
+している。
+これは簡単に言うと、
+\begin{enumerate}
+\item たくさんあるファイルを、種類ごとに\textbf{「ディレクトリ」}と
+呼ばれる箱に分けてしまうことで整理する。
+\item ディレクトリの中にも、またディレクトリを作れる。
+\item ディレクトリの構造図を書くと、木が枝をひろげたよう(ツリー状)に見える。
+\end{enumerate}
+ということだ。
+
+このようなディレクトリ構造は、後に UNIX システムを真似した MS-DOS や
+ Windows などにも採り入れられた。
+ Windows では、ディレクトリのことをフォルダと呼んでいる。
+
+\bigskip
+
+ところで、 UNIX システムには、いろいろなファイルやコマンドがあるが、
+ディレクトリの中を自由に移動できるようになると、
+これらのことをより詳しく知ることができるようになる。
+また、ユーザ個人でも、自分のファイルをディレクトリに分類して格納しておくと、
+ファイルが整理されて、とても便利だ。
+
+この章では、ディレクトリの移動、作成、消去などについて紹介する。
+
+\section{UNIX システムのディレクトリ構造}
+
+\subsection{ディレクトリの全体像}
+
+最初に UNIX システムの全体像を紹介してしまおう。
+次のページの図 \ref{dirstru} は、 UNIX のディレクトリ構造である。
+なお、主なものだけしか描いてない。
+
+\begin{itemize}
+\setlength{\parindent}{1zw}
+\item \textbf{\large ルート・ディレクトリ /}
+
+一番上に、 \texttt{/} と書かれるルート・ディレクトリと呼ばれるものがある。
+「ルート -- root 」というのは「(木の)根」のことだ。
+そして、その下に \texttt{home}、 \texttt{bin} 、 \texttt{etc} など、
+いろいろなディレクトリが、枝をひろげている。
+そして、それらのディレクトリの先にも、またディレクトリがあって、
+枝が更にひろがっている。
+これがツリー状と言われる理由だ。
+絵としては、木が上下さかさまに描かれていると思ってくれればいい。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.8]{dirstru.eps}}
+\caption{UNIX システムのディレクトリ構造}\label{dirstru}
+\end{figure}
+
+
+では、ルート・ディレクトリの下を一つずつ説明していこう。
+
+\item \textbf{\large ホーム・ディレクトリ home}
+
+まず、 \texttt{/} の下には、 \texttt{home} というディレクトリがあり、
+この中に人の名前のついたディレクトリがある。
+これらは、 UNIX システムで \textbf{「ホーム・ディレクトリ」}と呼ばれている。
+
+つまり、 \texttt{kokubo} さんのホーム・ディレクトリは、 \texttt{/} の下の
+ \texttt{home} の下の \texttt{kokubo} だ。
+なおこれは、 \texttt{/home/kokubo} と表す。
+要するに、ディレクトリの区切りマークが「\texttt{/}」というわけだ。
+
+また同様に、 \texttt{tomoda} さんのホーム・ディレクトリは、 \texttt{/} の下の
+ \texttt{home} の下の \texttt{tomoda} で、
+この場所のことを \texttt{/home/tomoda} と表す。
+
+ login した直後、それぞれのユーザは、自分のホーム・ディレクトリに、まず入る。
+ここまでの演習で作ったファイルも、みんなここにある。
+
+例えば、 \texttt{kokubo} さんは、 login すると、 \texttt{/home/kokubo} に入る。
+そして、ここまでの演習で \texttt{kokubo} さんの作ったファイルは、
+ここに置いてあるということだ。
+
+\item \textbf{\large bin}
+
+ \texttt{bin} というのは「バイナリ -- binary」の略で、本来は、
+文字ではないデータが入っているファイルのことだ。
+ちなみに、マシン語で書かれたコマンドや、画像、音声データなどが、
+本来の意味ではバイナリである。
+ UNIX システムでは、これらの内、コマンドを入れるためのディレクトリに
+ \texttt{bin} を使う。
+
+ \texttt{/} の下の \texttt{bin}、つまり \texttt{/bin} には、
+ UNIX システムの一番基本的なコマンドが置いてある。
+
+\item \textbf{\large etc}
+
+ \texttt{etc} は「エトセトラ -- etc.」である。
+ UNIX システムでは、ここにシステムの各種設定用のファイルが置かれている。
+
+\item \textbf{\large tmp}
+
+ \texttt{tmp} は「テンポラリ -- temporary」である。
+主に、システムが一時的にファイルを作るときに、ここを使う。
+
+\item \textbf{\large usr}
+
+ \texttt{usr} は「ユーザ -- user」という意味だ。
+この中は更に分かれていて、 \texttt{/usr/bin} にはユーザが使う各種コマンド、
+ \texttt{/usr/include} には C 言語のヘッダー・ファイルというものが、
+ \texttt{/usr/lib} にはユーザ・コマンドが使うライブラリというデータが
+置かれている。
+
+また、 \texttt{/usr/local} 以下には、オプションのコマンドなどが
+置かれている。
+これらは、 UNIX の基本システムには付いて来ないものだが、
+便利なものも多い。
+例えば、 Mule などもここに置かれている。
+
+なお、この図には書いていないが、 \texttt{/usr/local} の下にも、
+更に \texttt{bin} や \texttt{lib} などがある。
+
+\item \textbf{\large var}
+
+ \texttt{var} は「変化する -- variable」という意味。
+ login の記録や、メールなどのシステムの記録などの、日々変化するものが置かれている。
+\end{itemize}
+
+\newpage
+
+\subsection{B 演習室の実際}
+
+ここまでで紹介してきたのは、あくまでも標準のスタイルだ。
+ディレクトリの構造は、システムの管理者の好みに応じて
+変えることができる。
+
+B 演習室では、ホーム・ディレクトリの様子は、図 \ref{Benshu} のようになっている。
+なお、ホーム・ディレクトリ以外は標準の構成のままである。
+
+図を見てもらうとわかるが、 \texttt{/} の下に \texttt{home} があるところ
+までは標準と一緒だ。
+違うのは、この中が更に学年によって \texttt{inf8} 、
+ \texttt{ei97}、 \texttt{ei98}、 \texttt{ei99} と切り分けてあるところだ。
+そして、その中にそれぞれのユーザのホーム・ディレクトリがある。
+
+つまり、 \texttt{ei99001} さんのホーム・ディレクトリは
+ \texttt{/home/ei99/ei99001} だ。
+同様に \texttt{ei99002} さんは \texttt{/home/ei99/ei99002} となる。
+
+そして、この章の後の方で説明するが、例えば \texttt{ei99001} さんは、
+自分でホーム・ディレクトリの中に \texttt{Report} だとか、
+ \texttt{Sono1} とかのディレクトリを作って、ファイルを整理することが
+できる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.8]{Benshu.eps}}
+\caption{B 演習室の実際のホーム・ディレクトリの構造}\label{Benshu}
+\end{figure}
+
+\section{パス}
+
+ UNIX システムでは、ツリー状のディレクトリ構造の中で、
+ファイルやディレクトリの場所を指定するのに、
+ \textbf{パス} というものを使う。
+「パス -- path」というのは、通り道や、経路という意味だ。
+パスには、絶対パスと相対パスがある。
+
+このパスをマスターすることで、好きな場所に移動して UNIX の中を探検したり、
+ファイルを好きな場所にコピーしたりすることができる\footnote{セキュリティ上、
+いじれないようになっている場所もある。}ようになる。
+
+パスは UNIX システムをマスターする上で、最重要ポイントの一つだ。
+
+\subsection{根っこからの通り道: 絶対パス}
+
+既に、ここまでのところで紹介してしまったが、
+ \texttt{/home/kokubo}のように、 \underline{一番上のルート・}\\
+\underline{ディレクトリから、順番にディレクトリを書いて表す}
+方法を、\textbf{「絶対パス」}と呼ぶ。
+
+\bigskip
+
+図 \ref{absol} を使って説明しよう。
+まず、一番上にルート・ディレクトリがあり、
+これは絶対パスで表すと \texttt{/} になる。
+
+そして、 \texttt{/} の下に \texttt{home} があって、
+これは絶対パスでは \texttt{/home} となる。
+
+
+その下は学年ごとにディレクトリが用意されていて、 \texttt{ei99} は
+絶対パスでは \texttt{/home/ei99} となる。
+
+その中に \texttt{ei99000} さんのホーム・ディレクトリがあって、
+これは \texttt{/home/ei99/ei99000} だ。
+
+たとえば、 \texttt{ei99000} さんは、自分のホーム・ディレクトリの中に
+ \texttt{Report} というディレクトリを作ることができて、
+これは \texttt{/home/ei99/ei99000/Report} になる。
+
+そして、またその中にディレクトリやファイルを作ることもできる。
+たとえば \texttt{11gatsu} というディレクトリを作ると、
+これは絶対パスでは \texttt{/home/ei99/ei99000/Report/11gatsu} になる。
+
+このように根っこ(ルート・ディレクトリ)から順番に、書いていくのが絶対パスである。
+
+\bigskip
+
+なお、この図の例では、ディレクトリだけを書いたが、ファイルの場合も全く同様だ。
+ \texttt{ei99000} さんのホーム・ディレクトリ \texttt{/home/ei99/ei99000} に
+ \texttt{ThisMonth} というファイルがある場合、
+このファイルは絶対パスでは \texttt{/home/ei99/ei99000/ThisMonth} と書く。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.8]{abosule.eps}}
+\caption{絶対パスでの表し方}\label{absol}
+\end{figure}
+
+\subsection{自分がいるところが中心: 相対パス}
+
+絶対パスを使って、ルート・ディレクトリから、順番書いていけば、
+どんなディレクトリでも表せる。
+しかし、絶対パスだと、だんだんディレクトリが下の方になってくると、
+どんどん長くなって面倒だ。
+しかも、自分のホーム・ディレクトリの中にあるファイルまで、わざわざ長々と指定
+しなければならない。
+
+\bigskip
+
+そこで、 UNIX システムでは、\textbf{「相対パス」}という、
+もう一つの方法が用意されている。
+相対パスでは、俺が世界の中心という感じで、自分が今いるところを基準にして
+指定する。
+
+\bigskip
+
+では、図 \ref{relative} を見ながら説明しよう。
+これは、さっき絶対パスの説明に使ったものと全く同じだ。
+
+まず、 \texttt{ei99000} さんは、今自分のホーム・ディレクトリにいるとしよう。
+
+この下に、 \texttt{Report} というディレクトリがある。
+これは、相対パスでは、単に \texttt{Report} である。
+絶対パスだと、わざわざ \texttt{/home/ei99/ei99000/Report} と長くて面倒だが、
+相対パスではこんなに短くなる。
+
+それから、 \texttt{Report} の下の \texttt{11gatsu} も、
+ \texttt{Report/11gatsu} ととても簡単になる。
+
+このように相対パスとは、
+\underline{自分が今いるところから、順番にパスを書いていく}方法である。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.8]{relative1.eps}}
+\caption{相対パスので表し方}\label{relative}
+\end{figure}
+
+この例でわかるように、自分がいるところより下の方は、
+「相対パス」を使うと、「絶対パス」よりも簡単に表わせる。
+
+
+\bigskip
+
+では、逆に上の方はどうか？
+
+ UNIX システムでは、 1 つ上のディレクトリを「\texttt{..}」と表す。
+つまり、自分のホームの一つ上 \texttt{/home/ei99} は、単に \texttt{..} となる。
+
+この\textbf{「ピリオド 2 つで、 1 つ上」}は、とてもよく使うので覚えておこう。
+
+\bigskip
+
+では、 2 つ上はどうか？
+
+1 つ上が「\texttt{..}」で、ディレクトリの区切りが「\texttt{/}」なので、
+2 つ上は「\texttt{../..}」となる。
+つまり、 \texttt{/home} は、相対パスでは \texttt{../..} となる。
+
+同様にルート・ディレクトリ \texttt{/} は、相対パスでは \texttt{../../..} である。
+
+\bigskip
+
+最後にもう一つ。
+\textbf{自分が今いる場所は、相対パスでは「\texttt{.}」}と、
+ピリオド 1 つで表わす。
+これもよく使うので覚えておこう。
+
+つまり、今 \texttt{/home/ei99/ei99000} にいるなら、ここは相対パスで
+表すと \texttt{.} となる。
+
+\bigskip
+
+なお、以上の例は、あくまで \texttt{/home/ei99/ei99000} にいる場合の話だ。
+相対パスは自分が今いるところを中心に指定するので、
+別なディレクトリにいる場合、話が全く変わってくる。
+
+例えば、 \texttt{/home/ei99/ei99000/Report} にいる場合、
+自分のホーム・ディレクトリは一つ上にあるので、相対パスでは \texttt{..} となる。
+ \texttt{11gatsu} は、今いるところのすぐ下にあるので、相対パスでは
+ \texttt{11gatsu} になる。
+このように相対パスは、現在どこのディレクトリに自分がいるかによって変わってしまう。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.8]{relative2.eps}}
+\caption{\texttt{Report} の中にいるときの相対パス}\label{relative2}
+\end{figure}
+
+\bigskip
+
+ UNIX システムでは、絶対パスで指定しても、相対パスで指定しても、
+効果は全く同じで、自分で好きな方を使っていい。
+ただ、自分が今いるところの近くを指定するには「相対パス」を、
+ルート・ディレクトリの近くを指定するには「絶対パス」を使った方が簡単だ。
+このように使い分けるので、両方を知っておいた方が便利だ。
+
+\begin{BOXNOTE}
+\textbf{\large ☆練習☆}
+\begin{enumerate}
+\item 下の図の \fbox{1} の絶対パスは？
+\item では、今、あなたは \fbox{a} にいる。すると \fbox{1} の相対パスは？
+\item では、あなたが \fbox{b} にいるときの、 \fbox{1} の相対パスは？
+\item \fbox{2} の絶対パスは？
+\item では、今あなたが \fbox{a} にいるとき、 \fbox{2} の相対パスは？
+\item では、今あなたが \fbox{b} にいるときはの \fbox{2} の相対パスは？
+\end{enumerate}
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.8]{quiz.eps}}
+\end{figure}
+
+\bigskip
+\textbf{\large 答え}
+
+\begin{enumerate}
+\item ~~~\texttt{/home/ei99}
+\item ~~~\texttt{..}
+\item ~~~\texttt{ei99}
+\item ~~~\texttt{/home/ei99/ei99069}
+\item ~~~\texttt{../ei99069}
+\item ~~~\texttt{ei99/ei99069}
+\end{enumerate}
+\end{BOXNOTE}
+\newpage
+
+\section{ディレクトリ操作コマンド}
+
+では、具体的に、コマンドを使ってディレクトリを移動したり、
+ディレクトリを作ったりしてみよう。
+
+\subsection{現在いるディレクトリは?: \texttt{pwd}}
+
+login した直後にいる場所が、きみのホーム・ディレクトリだと、前の方で説明した。
+では、それがどこか見てみよう。
+
+今いるディレクトリを表示するには、 \texttt{pwd} コマンドを使う。
+ \texttt{pwd} は「\textbf{p}rint \textbf{w}orking \textbf{d}irectory」の略で、
+「今お仕事をしているディレクトリを表示してね」という意味だ。
+
+使い方は、単に
+
+\begin{center}
+\begin{minipage}{1.8cm}
+\begin{shadebox}
+\smallskip
+{\Large \texttt{pwd}}
+\smallskip
+\end{shadebox}
+\end{minipage}
+\end{center}
+
+\noindent
+である。
+では、実行してみよう。
+
+\begin{progls}
+% \slbfl{pwd}
+/home/ei99/ei99000
+%
+\end{progls}
+
+ \texttt{ei99000} さんの場合、今いるのは、 \texttt{/home/ei99/ei99000} だ。
+
+なお、現在の状況は図 \ref{now} のようになっているものとしておく。
+
+\subsection{ディレクトリを移動: \texttt{cd}}
+
+では、ディレクトリの冒険の旅に出かけよう。
+ディレクトリを移動するには、 \texttt{cd} を使う。
+これは「\textbf{c}hange \textbf{d}irectory -- チェンジ・ディレクトリ」の略だ。
+使い方は、
+\begin{center}
+\begin{minipage}{4cm}
+\begin{shadebox}
+\smallskip
+{\Large \texttt{cd} 「パス」}
+\smallskip
+\end{shadebox}
+\end{minipage}
+\end{center}
+
+\noindent
+である。
+この「パス」というのは、絶対パス、相対パスのどちらでもいい。
+
+\subsubsection{ 1 つ上へ移動}
+
+では、 1 つ上のディレクトリに移動してみよう。
+現在、図 \ref{now} のように、 \texttt{/home/ei99/ei99000} にいる。
+ 1 つ上のディレクトリは、相対パスでは \texttt{..} で、
+絶対パスでは \texttt{/home/ei99}だ。
+
+ 1 つ上に移動するには、 \texttt{cd ..} でも、
+\texttt{cd /home/ei99} でも、どちらでもいい。
+とは言え、明らかに \texttt{cd ..} の方が楽なので、こちらを実行してみよう。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.8]{abrel.eps}}
+\caption{現在いるディレクトリと、関係するパス}\label{now}
+\end{figure}
+
+\begin{progls}
+% \slbfl{cd ..}
+%
+\end{progls}
+
+これで、ディレクトリを一つ登れた。
+ \texttt{pwd} で確認してみよう。
+
+\begin{progls}
+% \slbfl{pwd}
+/home/ei99
+%
+\end{progls}
+
+確かに、 \texttt{/home/ei99} にいることがわかる。
+
+では、ここにどんなファイルがあるか \texttt{ls} で見てみよう。
+すると、情報システム工学科 1 年みんなのディレクトリが見える。
+
+\begin{progls}
+% \slbfl{ls}
+ei99001 ei99006 ei99011 ei99016 ei99021 ei99026 ei99031 ei99036 ei99041
+ei99002 ei99007 ei99012 ei99017 ei99022 ei99027 ei99032 ei99037 ei99042
+ei99003 ei99008 ei99013 ei99018 ei99023 ei99028 ei99033 ei99038 ei99043
+ei99004 ei99009 ei99014 ei99019 ei99024 ei99029 ei99034 ei99039 ei99044
+ei99005 ei99010 ei99015 ei99020 ei99025 ei99030 ei99035 ei99040 ei99100
+%
+\end{progls}
+
+また、 \texttt{ls -F} と打ってみよう。
+
+\texttt{-F} は「\textbf{f}ile -- ファイル(の種類)」の意味で、
+次のようにディレクトリの後には \texttt{/} を付けて表示してくれるので、
+ずいぶん見やすくなる。
+
+\begin{progls}
+% \slbfl{ls -F}
+ei99001/        ei99010/        ei99019/        ei99028/        ei99037/
+ei99002/        ei99011/        ei99020/        ei99029/        ei99038/
+ei99003/        ei99012/        ei99021/        ei99030/        ei99039/
+ei99004/        ei99013/        ei99022/        ei99031/        ei99040/
+ei99005/        ei99014/        ei99023/        ei99032/        ei99041/
+ei99006/        ei99015/        ei99024/        ei99033/        ei99042/
+ei99007/        ei99016/        ei99025/        ei99034/        ei99043/
+ei99008/        ei99017/        ei99026/        ei99035/        ei99044/
+ei99009/        ei99018/        ei99027/        ei99036/        ei99100/
+%
+\end{progls}
+
+ \texttt{ls -F} の \texttt{-F} のように、「\texttt{-なんとか}」のような
+形の引数を\textbf{「コマンドのオプション」}という。
+
+コマンドには、それぞれのコマンドによって、いろいろなオプションがある。
+そして、オプションを付けると、コマンドの働きを変えることができるようになっている。
+どんなオプションがあるかはオンライン・マニュアルに載っている。
+
+\subsubsection{一気に絶対パスで移動}
+
+次は、絶対パスを使って、一気に \texttt{/bin} ディレクトリに移動してみよう。
+\texttt{/bin} は UNIX の最も基本的なコマンドの置いてあるディレクトリである。
+
+\texttt{cd /bin} と打とう。
+
+\begin{progls}
+% \slbfl{cd /bin}
+%
+\end{progls}
+
+これで、一気に \texttt{/bin} まで移動できた。
+ \texttt{pwd} で確認してみよう。
+
+\begin{progls}
+% \slbfl{pwd}
+/bin
+%
+\end{progls}
+
+と、確かに \texttt{/bin} にいることがわかる。
+どんなファイルがあるか \texttt{ls} で見てみよう。
+
+\begin{progls}
+% \slbfl{ls}
+[               dd              kill            pwd             sleep
+cat             df              ln              rcp             stty
+chio            domainname      ls              red             sync
+chmod           echo            mkdir           rm              test
+cp              ed              mv              rmail
+csh             expr            pax             rmdir
+date            hostname        ps              sh
+%
+\end{progls}
+
+なお、ここで \texttt{ls -F} すると、次のようになる。
+ここで、 \texttt{*} マークは実行できるコマンドの目印である。
+
+\begin{progls}
+% \slbfl{ls -F}
+[*              dd*             kill*           pwd*            sleep*
+cat*            df*             ln*             rcp*            stty*
+chio*           domainname*     ls*             red*            sync*
+chmod*          echo*           mkdir*          rm*             test*
+cp*             ed*             mv*             rmail*
+csh*            expr*           pax*            rmdir*
+date*           hostname*       ps*             sh*
+%
+\end{progls}
+
+\texttt{cd} は、ここまで見てきたように、「相対パス」と「絶対パス」の両方が
+使える。
+じゃ、どっち使えばいいの? ということだが、単純に言うと、
+「自分のいるとこの近くなら、相対パス」、「遠くなら絶対パス」が
+便利なことが多い。
+
+\subsubsection{ホームに戻る}
+
+では、ホーム・ディレクトリに戻ることにしよう。
+
+これはとても簡単で、単に \texttt{cd} と打てばいい。
+いつ、どこにいても、自分のホーム・ディレクトリには、 \texttt{cd} だけで戻れる。
+
+では、やってみよう。
+
+\begin{progls}
+% \slbfl{cd}
+%
+\end{progls}
+
+ \texttt{pwd} で確認してみよう。
+
+\begin{progls}
+% \slbfl{pwd}
+/home/ei99/ei99000
+%
+\end{progls}
+
+確かに、ホーム・ディレクトリに戻れたことがわかる。
+
+\newpage
+
+\subsection{ディレクトリを作る: \texttt{mkdir}}
+
+ディレクトリを作るには \texttt{mkdir} だ。
+これは「\textbf{m}ake \textbf{dir}ectory -- メイク・ディレクトリ」で、
+そのままの意味だ。
+
+使い方は次の通り。
+
+\begin{center}
+\begin{minipage}{10cm}
+\begin{shadebox}
+\smallskip
+{\Large\bf \texttt{mkdir} 「作りたいディレクトリの名前」}
+\smallskip
+\end{shadebox}
+\end{minipage}
+\end{center}
+
+
+では、自分のホームの下に {\tt Enshu} とかいうディレクトリを作ってみよう。
+
+\begin{progls}
+% \slbfl{mkdir Enshu}
+%
+\end{progls}
+
+では、 \texttt{ls} で確認してみよう。
+
+\begin{progls}
+% \slbfl{ls}
+1998nen         2000nen         RMAIL           ThisYear       exam1
+1999nen         Enshu           ThisMonth       Years
+%
+\end{progls}
+
+これでは、 \texttt{Enshu} はあるが、ファイルかディレクトリか区別が
+つかないので、 \texttt{ls -F} してみよう。
+
+\begin{progls}
+% \slbfl{ls}
+1998nen         2000nen         RMAIL           ThisYear       exam1
+1999nen         Enshu/          ThisMonth       Years
+%
+\end{progls}
+
+たしかに、 \texttt{Enshu} というディレクトリがあるのがわかる。
+
+では、 \texttt{Enshu} の中に入ってみよう。
+これは、絶対パスなら \texttt{/home/ei99/ei99000/Enshu} で、
+相対パスでは \texttt{Enshu} なので、相対パスの方が簡単だ。
+ \texttt{cd Enshu} と打とう。
+
+\begin{progls}
+% \slbfl{cd Enshu}
+%
+\end{progls}
+
+では、 \texttt{pwd} で確認してみよう。
+
+\begin{progls}
+% \slbfl{pwd}
+/home/ei99/ei99000/Enshu
+%
+\end{progls}
+
+\subsection{ディレクトリを消す: \texttt{rmdir}}
+
+ディレクトリを消すには、 \texttt{rmdir} だ。
+これは「\textbf{r}e\textbf{m}ove \textbf{dir}ectory -- ディレクトリ削除」の
+略だ。
+使い方は次の通りだ。
+
+\begin{center}
+\begin{minipage}{10cm}
+\begin{shadebox}
+\smallskip
+{\Large\bf \texttt{rmdir} 「消したいディレクトリの名前」}
+\smallskip
+\end{shadebox}
+\end{minipage}
+\end{center}
+
+では、実際にやってみよう。
+
+まず、自分のホーム・ディレクトリにもどろう。
+今、ホーム・ディレクトリは一つ上なので、相対パスでは \texttt{..} 。
+また、絶対パスでは \texttt{/home/ei99/ei99000} になる。
+
+よってこの場合、相対パスで \texttt{cd ..} と打った方が簡単だ。
+しかし、単にホームに戻るには \texttt{cd} なので、これでもいい。
+今回はこちらを使おう。
+
+\begin{progls}
+% \slbfl{cd}
+%
+\end{progls}
+
+次のように \texttt{pwd} で確認すると、確かにホームにいることがわかる。
+
+\begin{progls}
+% \slbfl{pwd}
+/home/ei99/ei99000
+%
+\end{progls}
+
+では、次のようにして、さっき作った \texttt{Enshu} を消してみる。
+
+\begin{progls}
+% \slbfl{rmdir Enshu}
+%
+\end{progls}
+
+これで、消えたはずだ。
+\texttt{ls -F} で確認してみよう。
+
+\begin{progls}
+% \slbfl{ls -F}
+1998nen         2000nen         ThisMonth       Years
+1999nen         RMAIL           ThisYear        exam1
+%
+\end{progls}
+
+確かに消えている。
+
+\bigskip
+
+注・ディレクトリの中に何かファイルが残っていると、 \texttt{rmdir} で
+ディレクトリを消すことはできない。
+
+\subsection{ファイルの移動、コピー}
+
+\texttt{mv} や \texttt{cp} で別のディレクトリにファイルを移動したり、
+コピーする方法を紹介しよう。
+
+例えば、 \texttt{ThisMonth} というファイルを \texttt{CAL} という
+ディレクトリに移動するには次のようにする。
+
+まず、 \texttt{CAL} というディレクトリがあるかどうか確認する。
+
+\begin{progls}
+% \slbfl{ls -F}
+1998nen         2000nen         ThisMonth       Years
+1999nen         RMAIL           ThisYear        exam1
+%
+\end{progls}
+
+すると、上のようにないことがわかる。
+そこで \texttt{CAL} を \texttt{mkdir} で作る。
+
+\begin{progls}
+% \slbfl{mkdir CAL}
+%
+\end{progls}
+
+ファイルを移動やコピーする場合でも、 \texttt{mv} や \texttt{cp} の使い方は、
+普通に移動したりコピーする場合と全く同じだ。
+ただ、ファイル名として、パスを書いてやればいい。
+
+つまり、 \texttt{ThisMonth} を \texttt{CAL} に移動するには、
+\texttt{mv ThisMonth CAL/ThisMonth} である。
+
+なお、これは、 \texttt{mv ThisMonth CAL/.} とも書ける。
+「\texttt{.}」をファイル名の代わりに使うと、「同じ名前で」という意味になるのだ。
+
+このように「\texttt{.}」は、ディレクトリのときには「現在の場所」、
+ファイル名のときには「同じ名前で」という意味になるので、混同しないように
+注意しよう。
+
+\bigskip
+
+では、実際にやってみる。
+
+\begin{progls}
+% \slbfl{mv ThisMonth CAL/.}
+%
+\end{progls}
+
+\texttt{ls -F} で確かめてみると、たしかに \texttt{ThisMonth} がないことがわかる。
+\begin{progls}
+% \slbfl{ls -F}
+1998nen         2000nen         RMAIL           Years
+1999nen         CAL/            ThisYear        exam1
+%
+\end{progls}
+
+\texttt{CAL} に入って中を見て見ると、 \texttt{ThisMonth} があることがわかる。
+\begin{progls}
+% \slbfl{cd CAL}
+% \slbfl{ls -F}
+ThisMonth
+%
+\end{progls}
+
+なお、これは \texttt{mv} を使った例だが、代わりに \texttt{cp} を使えば、
+コピーになる。
+\newpage
+{~}

@@ -1,0 +1,431 @@
+\chapter{電子メールとニュース}
+
+\section*{mnews でメールとニュースを使ってみよう}
+
+\texttt{mnews} はミニ・ニュースリーダーの略である。
+\texttt{mnews} を使うと、電子メールやニュースの読み書きができる。
+
+この章では、その方法を紹介しよう。
+なお、電子メールやニュースを使うには、マナーを忘れないように。
+
+\section{\texttt{mnews} の起動と終了}
+
+ \texttt{mnews} を起動するには、「\texttt{mnews}」と打つ。
+
+\begin{progls}
+% \slbfl{mnews}
+\end{progls}
+
+すると、下のような画面になって、 \texttt{mnews} が起動する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews01.eps}}
+\end{figure}
+
+なお、最初に終了する方法も紹介しておこう。
+ \texttt{mnews} を終了するには、「\texttt{Q}」と打つ。
+
+\section{\texttt{mnews} でニュースを読む}
+
+\subsection{ニュースを読む}
+
+\subsubsection{階層を降りるにはスペース}
+
+\texttt{mnews} を起動すると項目が並んでいて、それらはニュース・グループや
+電子メールを表している。
+
+ニュース・グループの名前は、「\texttt{fj.rec.games.video.playstaion}」
+や「\texttt{au.announce}」などのようになっていることは、既によく知っている
+ことと思う。
+ \texttt{mnews} を起動すると、このような名前の、一番先頭の「\texttt{fj}」や
+「\texttt{au}」の部分が見えている。
+
+たとえば、「\texttt{au.anounce}」を読むには、矢印キーを使って、まず「\texttt{au}」に
+カーソルを合わせて、 \KEYTOP{スペース} を押す。
+すると、「\texttt{au}」の中に入って、「\texttt{au}」で始まるニュース・グループ
+の一覧が見える。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews21.eps}}
+\end{figure}
+
+次に「\texttt{au.anounce}」にカーソルを合わせて、 \KEYTOP{スペース} を押す。
+すると、「\texttt{au.announce}」の記事の一覧が現れる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews22.eps}}
+\end{figure}
+
+ただし、このとき、読んでいない記事が多いと、「ソートする記事数を入力して
+下さい」と言われる。
+ソートというのは、同じような話題ごとに記事を並べ替えることだ。
+
+ここでは、好きな個数を指定すればいい。
+大きい数を指定すると、それだけ時間がかかる。
+ちなみに、ソートしなくてよければ、「\texttt{0}」と答えればよい。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews-sort.eps}}
+\end{figure}
+
+次に、読みたい記事にカーソルを合わせて \KEYTOP{スペース} を押す。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews23.eps}}
+\end{figure}
+
+すると、記事が表示される。
+続けて \KEYTOP{スペース} を押して行けば、次のページが表示される。
+更に \KEYTOP{スペース} を押して、記事の最後まで進むと、次の記事が表示される。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews24.eps}}
+\end{figure}
+
+\subsubsection{階層をのぼるには「\texttt{q}」}
+
+逆に、今、\texttt{[au.announce]} の記事を読んでいて、記事の一覧に戻りたければ、
+「\texttt{q}」を押す。
+そして、もう一段元に戻りたければ、更に「\texttt{q}」を押せばよい。
+
+つまり、下の階層に降りるには \KEYTOP{スペース} を押し、
+上の階層にもどるには「\texttt{q}」を押せばよい。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.8]{mnews00.eps}}
+\end{figure}
+
+\subsubsection{いらないニュース・グループを見えなくするには}
+
+趣味によっては、読まないニュース・グループはたくさんあるだろう。
+これらを表示しなくする方法を紹介しよう。
+
+まず、読まないニュース・グループにカーソルを合わせて「\texttt{u}」と打つ。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews25.eps}}
+\end{figure}
+
+「購読モードを切り替えるか」と聞かれるので、「\texttt{y}」と答える。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.8]{mnews26.eps}}
+\end{figure}
+
+すると、ニュース・グループに「\texttt{U}」というマークが付く。
+このマークが付いたニュース・グループは、次回から画面に表示されなくなる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews27.eps}}
+\end{figure}
+
+
+ちなみに、間違って「\texttt{U}」を付けてしまった場合は、
+もう一度「\texttt{u}」と打つと元にもどる。
+
+\bigskip
+
+こうやって消してしまったニュース・グループはふだんは表示されないが、
+ \texttt{mnews} の中で「\texttt{L}」と打つと、モードが切り替わって、
+一時的に見えるようになる。
+この段階で、「\texttt{U}」マークを「\texttt{u}」と打って消すと、
+次回からは表示されるようになる。
+
+\bigskip
+
+\begin{BOXNOTE}
+{\large\bf ☆練習☆}
+\begin{enumerate}
+\item 何か適当なニュース・グループを読んでみよう。
+\end{enumerate}
+\end{BOXNOTE}
+
+\subsection{ニュースに記事を投稿するには}
+
+ニュースに投稿したものは、全世界に流れてしまうので、十分注意事項を守って
+使って欲しい。
+
+なお、投稿のテストをしたい場合には、 \texttt{au.test} で行う。
+ここに投稿したものは、青森大学の中から外へは出ていかない。
+
+\bigskip
+
+ニュースを投稿するには、まず、投稿したいニュース・グループに入って、他の記事が
+見えている状態にする。
+そして、「\texttt{a}」と打つと、投稿するかと聞かれるので、「\texttt{y}」と答える。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews28.eps}}
+\end{figure}
+
+次にタイトルを聞かれるので、英語かローマ字で打つ。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews29.eps}}
+\end{figure}
+
+次に配布範囲を聞かれるので、何も打たずに \KEYTOP{Enter} する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews30.eps}}
+\end{figure}
+\newpage
+
+すると、 Mule が起動する。
+ここで、「\texttt{--text follows this line--}」よりも下に、記事の本文を書く。
+
+書き終わったら、「\texttt{file}」メニューから、「\texttt{exit emacs}」を
+選び、セーブして終了する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews31.eps}}
+\end{figure}
+
+すると、確認画面になるので、読んで確認する。
+ \texttt{jless} とほぼ一緒で、 \KEYTOP{スペース} を押すと、先の画面が読める。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews32.eps}}
+\end{figure}
+
+\KEYTOP{スペース} を押して記事を読んでいき、ファイルの最後にたどりつくと、
+画面下にメッセージが出て、送っていいかどうか聞かれる。
+
+ここで、「\texttt{y}」を押すと送信される。
+
+「\texttt{n}」を押すと、また編集し直すか聞かれる。
+編集し直すを選ぶと Mule が立ち上がって書き直せる。
+編集し直さないを選ぶと、記事の送信が中止される。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.8]{mnews13.eps}}
+\end{figure}
+
+記事を送信すると元の画面に戻る。
+\newpage
+
+\subsection{ニュースに記事にフォローするには}
+
+記事をフォローするのは、全世界向けに書く必要のある場合だけにする。
+個人的なことは、相手にメールで送ること。
+
+フォローするには、ニュース・グループに入って、フォローしたい記事を
+表示し、「\texttt{F}」と打つ。
+すると、フォローするか聞かれるので「\texttt{y}」と打つ。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews33.eps}}
+\end{figure}
+
+すると、 Mule が起動して、相手の記事が変換されて読み込まれる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews34.eps}}
+\end{figure}
+
+ここで、投稿先のニュース・グループや、記事の題名などを確認し、
+必要ならば修正する。
+それから、引用された記事で、フォローするのに不要な部分はすべて消し、
+フォローを書き加える。
+
+なお、意味もなく長い引用を全世界に流すことは無駄なので、引用は必要最小限
+にとどめる。
+
+書き終わったら、 Mule を終了する。
+後は、普通に投稿するときと全く同様だ。
+
+\section{\texttt{mnews} で電子メールを使う}
+
+\texttt{mnews} でメールを使ってみよう。
+
+まず最初に、矢印キーを使って、
+画面で下の方にある「\texttt{MAIL}」か「\texttt{RMAIL}」にカーソルを移動し、
+ \KEYTOP{スペース} を押す。
+
+なお、ここでは「\texttt{RMAIL}」の方を使うことにする。
+「\texttt{RMAIL}」にカーソルを移動して、 \KEYTOP{スペース} を押してみよう。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews02.eps}}
+\end{figure}
+
+
+すると、次のような画面になる。
+もし、このとき、過去に読んだメールがあれば、一覧が表示される。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews03.eps}}
+\end{figure}
+\newpage
+
+新しく届いたメールが届いているかどうかをチェックするには、
+「\texttt{I}」と打つ。
+すると、「ユーザ名」を聞かれる。
+そこに書かれているものが正しければ、 \KEYTOP{Enter} しよう。
+間違っている場合は、消して入力しなおす。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews04.eps}}
+\end{figure}
+
+すると次は、「\texttt{パスワード}」を聞かれるので、「電子メール用の
+パスワード」を入力して、 \KEYTOP{Enter} する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews05.eps}}
+\end{figure}
+
+もし新着のメールがあれば、新たに表示される。
+来ているメールは、カーソルを合わせて、 \KEYTOP{スペース} を押すと読める。
+
+なおこの例では、メールが来ていなかった。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.8]{mnews06.eps}}
+\end{figure}
+
+\subsection{メールを送る}
+
+メールを送るには、メールのリストが表示されている状態にして、
+「\texttt{m}」(mail の意味) と打つ。
+すると、送るかどうか確認されるので、「\texttt{y}」と打つ。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews07.eps}}
+\end{figure}
+
+すると、送り先を聞かれる。
+送り先の電子メールのアドレスを、ここに打ち込んで \KEYTOP{Enter}する。
+
+今回は、練習のために自分自身に送ってみよう。
+なお、自分自身の電子メールアドレスは、
+「\texttt{[自分の ID]@edu.aomori-u.ac.jp}」だ。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews08.eps}}
+\end{figure}
+
+すると、\texttt{Cc:} (カーボン・コピー) 先を聞かれるので、必要なら
+電子メールのアドレスを打ち込んで \KEYTOP{Enter} する。
+不要なら、消してしまっていい。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews09.eps}}
+\end{figure}
+
+\begin{center}
+\begin{minipage}{14cm}
+\begin{itembox}[l]{\texttt{Cc:} とは？}
+\setlength{\parindent}{1zw}
+\texttt{Cc:} は、同じ内容のメールを 2 人以上に出したいときに使う。
+ 1 人目のアドレスを \texttt{To:} に書き、 2 人目からは \texttt{Cc:} に書く。
+
+ちなみに、自分のアドレスを書くと、送ったメールを取っておくのに
+使える( \texttt{mnews} のデフォルトはそうなっている)。
+\end{itembox}
+\end{minipage}
+\end{center}
+
+次に、メールの題名を聞かれるので、なるべく英語またはローマ字で書く。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews10.eps}}
+\end{figure}
+\newpage
+
+すると、 Mule が起動する。
+「\texttt{--text follows this line--}」の下に、メールの本文を書く。
+書き終わったら、「\texttt{file}」メニューから、「\texttt{exit emacs}」を
+選び、セーブして終了する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews11.eps}}
+\end{figure}
+
+すると、確認画面になるので、読んで確認する。
+ \texttt{jless} とほぼ一緒で、 \KEYTOP{スペース} を押すと、先の画面が読める。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews12.eps}}
+\end{figure}
+
+\KEYTOP{スペース} を押してメールを読んでいき、ファイルの最後にたどりつくと、
+画面下にメッセージが出て、送っていいかどうか聞かれる。
+
+ここで、「\texttt{y}」を押すと発送される。
+
+「\texttt{n}」を押すと、また編集し直すか聞かれる。
+編集し直すを選ぶと Mule が立ち上がって書き直せる。
+編集し直さないを選ぶと、メールの発送が中止される。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.8]{mnews13.eps}}
+\end{figure}
+
+メールを発送すると元の画面に戻る。
+
+\bigskip
+
+今送ったメールが届いているはずなので、確認してみよう。
+新しく届いたメールを読むのには「\texttt{I}」を押す。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews14.eps}}
+\end{figure}
+
+自分で送ったメールがうまく届いていれば、表示されるはずだ。
+自分で送ったメールにカーソルを合わせて、 \KEYTOP{スペース} で読んでみよう。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews15.eps}}
+\end{figure}
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews16.eps}}
+\end{figure}
+
+\begin{BOXNOTE}
+{\large\bf ☆練習☆}
+\begin{enumerate}
+\item 自分にテストのメールを出して読んでみよう。
+\end{enumerate}
+\end{BOXNOTE}
+
+\subsection{メールに返事を書く}
+
+メールに返事を書くには、まず返事を書きたいメールを読んで表示させる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews17.eps}}
+\end{figure}
+
+そして、メールを表示した状態で、「\texttt{R}」(リプライの意味) と打つ。
+すると、返事を書くかどうか聞かれるので「\texttt{y}」と答える。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.8]{mnews18.eps}}
+\end{figure}
+
+すると、 Mule が立ち上がり、相手のメールが引用されている。
+
+\bigskip
+
+まず、 \texttt{To:}(送り先) や、 \texttt{Cc:}(コピーの送り先) などを確認して、
+問題があったら、書き直そう。
+問題がなければ、\underline{引用されたもののうち、不要な部分をすべて消して、} 
+返事を書き加える。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews19.eps}}
+\end{figure}
+
+書き終わったら、 Mule を終了し、セーブする。
+すると、メールの確認画面になる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{mnews20.eps}}
+\end{figure}
+
+後は、普通に送るときと全く一緒で、 \KEYTOP{スペース} を押して確認していき、
+ファイルの最後にたどり着くと、送るかどうか聞かれるので、「\texttt{y}」と
+答える。

@@ -1,0 +1,59 @@
+@startuml
+!theme plain
+skinparam defaultTextAlignment center
+skinparam defaultFontName Consolas
+skinparam classAttributeIconSize 0
+hide circle
+
+folder "/" as root
+folder "home" as home
+folder "taro" as taro
+file "ima.txt" as ima.txt
+folder "practice" as practice
+file "syslog\nまたはsystem.log" as syslog
+
+
+' 構造をつなぐ
+root -down-> home
+home -down-> taro
+taro -down-> ima.txt
+taro -down-> practice
+practice -down-> syslog
+
+note right of root
+  絶対パス「/」一番上
+  相対パス「../..」一つ上 の 一つ上
+end note
+
+note right of home
+  絶対パス「/home」一番上の中の「home」
+  相対パス「..」一つ上
+end note
+
+note right of taro
+  絶対パス「/home/taro」一番上の中の「home」の中の「taro」
+  相対パス「.」
+end note
+
+note left of taro
+  現在ここにいるとする
+end note
+
+note right of ima.txt
+  絶対パス「/home/taro/ima.txt」一番上の中の「home」の中の「taro」の中の「ima.txt」
+  相対パス「ima.txt」
+  現在いるところにある「ima.txt」
+end note
+
+
+note right of practice
+  絶対パス「/home/taro/practice」一番上の中の「home」の中の「taro」の中の「practice」
+  相対パス「practice」現在いるところにある「practice」
+end note
+
+note right of syslog
+  絶対パス「/home/taro/practice/syslog」一番上の中の「home」の中の「taro」の中の「practice」の中の「syslog」
+  相対パス「practice/syslog」
+end note
+
+@enduml

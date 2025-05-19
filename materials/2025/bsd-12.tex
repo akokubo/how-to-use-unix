@@ -1,0 +1,664 @@
+\chapter{WWW と電子メール}
+
+もともと、 WWW (World Wide Web) は UNIX の世界を中心に広まったものだ。
+この章では Netscape Communicator などを使って WWW と電子メールの
+使い方を紹介しよう。
+
+\section{Web ブラウザいろいろ}
+
+UNIX にはいろいろな Web ブラウザがある。
+はじめて画像を表示することができた Mosaic、
+ Netscape の各種バージョン、
+テキスト・ベースの Lynx、試験的に作られた Arena、
+HTML エディタと Web ブラウザが融合した Amaya、
+最近脚光を浴びている Opera。
+
+
+\begin{minipage}[H]{21zw}
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.25]{mosaic.eps}}
+\caption{XMosaic}
+\end{figure}
+\end{minipage}
+\hspace*{5mm}
+\begin{minipage}[H]{21zw}
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.25]{netscape3.eps}}
+\caption{Netscape 3}
+\end{figure}
+\end{minipage}
+
+\begin{minipage}[H]{21zw}
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.25]{netscape6.eps}}
+\caption{Netscape 6}
+\end{figure}
+\end{minipage}
+\hspace*{5mm}
+\begin{minipage}[H]{21zw}
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.25]{mozilla.eps}}
+\caption{Mozilla}
+\end{figure}
+\end{minipage}
+
+\begin{minipage}[H]{21zw}
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.35]{lynx.eps}}
+\caption{lynx}
+\end{figure}
+\end{minipage}
+\hspace*{5mm}
+\begin{minipage}[H]{21zw}
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.25]{arena.eps}}
+\caption{Arena}
+\end{figure}
+\end{minipage}
+
+\begin{minipage}[H]{21zw}
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.25]{amaya.eps}}
+\caption{Amaya}
+\end{figure}
+\end{minipage}
+\hspace*{5mm}
+\begin{minipage}[H]{21zw}
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.25]{opera.eps}}
+\caption{Opera}
+\end{figure}
+\end{minipage}
+
+\bigskip
+
+今回は、これら Web ブラウザのうち
+ Netscape Communicator (ver. 4 系)、それから w3m について紹介する。
+
+\section{Netscape Communicator の使い方}
+
+現在、 UNIX の世界で一番メジャーだと思われるブラウザが
+ Netscape Communicator である。
+
+ Netscape は、 UNIX の場合、完全に個人で環境設定でき、
+ブックマークの使用も問題なくできる。
+
+\subsection{起動}
+
+まず、 Netscape Communicator を起動するには、
+ \texttt{netscape} というコマンドを入力する。
+\begin{progls}
+% \slbfl{netscape &}
+\end{progls}
+
+\newpage
+
+すると、ウィンドウが次々と開いて図 \ref{nsstart} のような画面になる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.4]{nsstart.eps}}
+\caption{Netscape Communicator の起動直後}\label{nsstart}
+\end{figure}
+
+\subsection{使用許諾条件}
+
+使用許諾条件が表示される。
+これを受け入れる場合にのみ使用できる。
+受け入れるならば、 \KEYTOP{同意する} をクリックする。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.4]{nslicense.eps}}
+\end{figure}
+
+\newpage
+
+\subsection{初回起動時メッセージ}
+
+メッセージがいくつかでて、 Netscape が起動する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.4]{nsinit.eps}}
+\end{figure}
+
+%\newpage
+
+しばらくすると、 Netscape 社のページに接続しようとして動きはじめる。
+しかし、設定が済んでいないうちは接続できないので、「停止」
+ボタンを押して止める。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.6]{nsnotconnect.eps}}
+\end{figure}
+
+\newpage
+
+キャッシュを作成した等のメッセージは \KEYTOP{確認} をクリックして閉じる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.6]{nscache01.eps}}
+\end{figure}
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.6]{nscache01.eps}}
+\end{figure}
+
+\newpage
+
+\subsection{設定}
+
+Netscape の設定を行う。
+まず、メニュー・バーの「編集」から「設定」を選ぶ。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.6]{nsopenpref.eps}}
+\end{figure}
+
+\subsubsection{プロキシの設定(必須)}
+
+最初にプロキシの設定を行う。
+まず、画面左側に出ている「カテゴリ」の中の「詳細」を開く。
+これを開くには、左側にある「△」のマークをクリックすればよい。
+
+次に現われたサブ・メニューの中から「プロキシ」を選択する。
+
+画面右側に移って「手動でプロキシを設定する」の左側のチェック・ボックスを
+クリックしてチェックする。
+その後、すぐ右側にある「表示」をクリックする。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.6]{nsproxy01.eps}}
+\end{figure}
+
+\newpage
+
+現われたウィンドウの「HTTP プロキシ」に「\texttt{cache.edu.aomori-u.ac.jp}」を、
+そのポートに「\texttt{8080}」を指定する。
+その後で「確認」をクリック。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.6]{nsproxy02.eps}}
+\end{figure}
+
+\subsubsection{起動時に表示するページの設定}
+
+画面左側の [Navigator] メニューをクリックする。
+次に、画面右側の「ホーム ページ」の「場所」の部分に、
+起動時に表示したいページの URL を指定する。
+たとえば「\texttt{http://www.aomori-u.ac.jp/}」など。
+もしも、起動時に空白ページを表示したい場合には、
+「ブラウザの開始時」の「空白ページ」を選択しておく。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{nshomepage.eps}}
+\end{figure}
+
+\subsubsection{メールの設定}
+
+\noindent
+\textbf{個人情報}
+
+画面左側の [メール と ニュース] の左の△をクリックして開き、
+その中の [個人情報] を選択する。
+
+画面右側に現われたダイアログに「名前」をローマ字などで、
+「電子メール アドレス」には
+「\texttt{ei0X0XX@} \texttt{edu.aomori-u.ac.jp}」など自分のものを、
+「組織」にはたとえば「Dept. Info. Sys. Eng., Aomori Univ.(青森大学情報システム工学科)」などを入力する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{nsmailpersonal.eps}}
+\end{figure}
+
+\bigskip
+
+\noindent
+\textbf{メール サーバ}
+
+画面左側の [メール と グループ] の [メール サーバ] を選択する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{nspopserver01.eps}}
+\end{figure}
+
+\newpage
+
+画面右側の「受信メール サーバ」から「\texttt{pop}」を選択し、
+「編集」をクリックする。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{nspopserver02.eps}}
+\end{figure}
+
+現われたダイアログの「全般」タブを選択する。
+「サーバ名」に「\texttt{msedu0.edu.aomori-u.ac.jp}」を指定する。
+「ユーザ名」に「\texttt{ei0X0XX}」など、自分のものを指定する。
+ほかのオプションも好みで設定していいだろう。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{nspopserver03.eps}}
+\end{figure}
+
+\newpage
+
+今後、基本的には常に FreeBSD 側でメールを読もうという人以外
+\footnote{たとえば、基本的には Windows でメールを読む。
+ FreeBSD 側はサブで使うという人}は、サーバにメールを残す
+ように設定をしておこう。
+まず、「POP」タブを選択する。
+現われたダイアログの「サーバにメッセージを残す」にチェックを入れる。
+後は、「確認」をクリックする。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{nspopserver04.eps}}
+\end{figure}
+
+「送信メール サーバ」に「\texttt{msedu0.edu.aomori-u.ac.jp}」を指定する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{nssmtpserver.eps}}
+\end{figure}
+
+\subsubsection{ネットニューズの設定}
+
+Netscape でネットニューズを読もうという人だけ以下の設定を行う。
+
+まず、画面左側の [メール と グループ] の [グループ サーバ] を選択する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{nsnews01.eps}}
+\end{figure}
+
+次に画面右側から「追加」をクリックする。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{nsnews02.eps}}
+\end{figure}
+
+「サーバ」に「\texttt{news0.mono.aomori-u.ac.jp}」を指定し、
+「確認」をクリック。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{nsnews03.eps}}
+\end{figure}
+
+\newpage
+
+すると、新たに「\texttt{news0.mono.aomori-u.ac.jp}」が現われているので
+これを選択し、
+「標準に設定」をクリック。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{nsnews04.eps}}
+\end{figure}
+
+「\texttt{news0.mono.aomori-u.ac.jp}」が
+「標準設定」になった。
+
+次には、「\texttt{news}」を選択し、
+「削除」をクリックする。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{nsnews05.eps}}
+\end{figure}
+
+「ニュース サーバ \texttt{news} とそのすべてのニュースグループを
+削除してもよいですか？」と聞かれるが、
+「確認」をクリックして削除する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{nsnews06.eps}}
+\end{figure}
+
+\newpage
+
+\subsubsection{設定終了}
+
+すべての設定が終了したら、画面左下の「確認」をクリックする。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.5]{nsprefend01.eps}}
+\end{figure}
+
+\newpage
+
+\subsection{ホーム ページの表示}
+
+「ホーム」をクリックすると、「ホーム ページ」に指定した
+URL が表示される。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.5]{nsprefend02.eps}}
+\end{figure}
+
+\subsection{Netscape の操作}
+
+Netscape の操作は、基本的にメニューのボタンと「場所」ダイアログの
+ 2 つで行える。
+
+まず、メニューの方は、以下のようになっていて、非常に直感的に構成
+されている。
+ほとんど説明する必要はないと思われるので、割愛する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{nsbar.eps}}
+\end{figure}
+
+\newpage
+
+それから、「場所」ダイアログ・ボックスには、直接 URL を入力することができ、
+入力して \KEYTOP{Enter} することでページを表示させられる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{nsurlset.eps}}
+\end{figure}
+
+\subsection{Netscape で日本語入力}
+
+たとえば、検索エンジンなどのページで、
+ダイアログ・ボックスに日本語を入力し、
+検索を実行したくなることがある。
+Netscape では\footnote{正確には Netscape に限らず、
+X Windows System のアプリケーション一般も同様}、
+XIM プロトコルを通じて \texttt{kinput2} というソフトを
+使って日本語入力を使用することができる。
+
+\texttt{kinput2} による日本語入力の on / off は、
+ \KEYTOP{Shift}+\KEYTOP{スペース} である。
+日本語変換には Mule と同様に Canna が使われている。
+ on / off が、この場合は \KEYTOP{Shift}+\KEYTOP{スペース}、
+Mule の場合は「\texttt{c-o}」ということ以外はほとんど同じ操作である。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{nskinput201.eps}}
+\end{figure}
+
+\newpage
+
+\subsection{Netscape でメールを使う}
+
+\subsubsection{Netscape Messenger の起動}
+
+Netscape でメールを使うには、メニューバーの「Communicator」から
+「Messenger メールボックス」を選択する。
+
+また、「\texttt{netscape \&}」の代わりに「\texttt{netscape -mail \&}」
+として起動すると、最初からメール・モードで立ち上がる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{nsmail01.eps}}
+\end{figure}
+
+Netscape Messenger が起動する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.5]{nsmail02.eps}}
+\end{figure}
+
+\newpage
+
+\subsubsection{メールを書く}
+
+メールを書くには「新規作成」をクリックする。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{nsmail03.eps}}
+\end{figure}
+
+「メッセージの作成」ウィンドウが開く。
+宛先「\texttt{To:}」にメール・アドレスを、
+「\texttt{件名:}」(\texttt{Subject:})に題名を、
+そして本文を記入する。
+メールが書きあがったら「送信」ボタンをクリックすると送信される。
+なお、日本語入力は、 \texttt{kinput2} によるもので、
+ \KEYTOP{Shift}+\KEYTOP{スペース} で on / off である。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.5]{nsmail04.eps}}
+\end{figure}
+
+\newpage
+
+\subsubsection{メールを読む}
+
+メールを読むには「取り込み」をクリックする。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{nsmail05.eps}}
+\end{figure}
+
+すると、メールのパスワードを聞かれるので、ダイアログ・ボックスに入力して、
+「確認」をクリックする。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.5]{nsmail06.eps}}
+\end{figure}
+
+メールが届いていると、メールをサーバから読み出し、
+一覧が画面の右側に表示される。
+この一覧からメールを選ぶと、すぐ下の部分に表示される。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.5]{nsmail07.eps}}
+\end{figure}
+
+\newpage
+\section{テキスト・ブラウザ w3m}
+
+w3m は伊藤彰則さんの作られたテキスト・ブラウザだ。
+このブラウザは、最近のバージョンは画像も表示可能だが、
+元々は基本的に文字だけで Web ページを表示するものだった。
+文字の表示だけだと、非常に高速に Web ページを表示することが可能になり、
+ストレスなく Web ブラウジングが可能になる。
+
+起動するには、次のようにする。
+
+\begin{progls}
+% \slbfl{w3m -v}
+\end{progls}
+
+すると、次のような画面になって、 w3m が起動する。
+使い方は、基本的に \texttt{jless} などのページャーと同様である。
+
+\begin{progls}
+                                \textcolor{blue}{Welcome to w3m!}
+
+              \textcolor{blue}{This is w3m version w3m/0.2.3.2+cvs-1.196-img-1.17}
+                            \textcolor{blue}{Written by Akinori Ito}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\colorbox{black}{\textcolor{white}{≪↑↓Viewing <W3M startup page>}}
+\end{progls}
+
+Web ページを見るには次のようにする。
+まず、「\texttt{U}」と打つ。
+すると、画面一番下に URL を入力できるようになる。
+
+\begin{progls}
+Goto URL:
+\end{progls}
+
+ここにたとえば、 \texttt{http://www.aomori-u.ac.jp/} などの URL
+を指定して \KEYTOP{Enter} する。
+
+\begin{progls}
+Goto URL: \slbfl{http://www.aomori-u.ac.jp/}
+\end{progls}
+
+すると、下の図のように、画像まで読み込んでページを表示してくれる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.7]{w3m01.eps}}
+\caption{w3m の画面}
+\end{figure}
+
+カーソルの移動やコマンドは、次のようになっている。
+
+\begin{table}[H]
+\caption{カーソルの移動}
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{コマンド} & \textbf{動作}\\
+\hline
+\KEYTOP{↑} & ひとつ前の行へ\\
+\KEYTOP{↓} & ひとつ次の行へ\\
+\KEYTOP{→} & 一文字前に\\
+\KEYTOP{←} & 一文字後ろに\\
+\hline
+\KEYTOP{TAB} & 次のリンクの位置へ\\
+\hline
+\KEYTOP{スペース} & 下の画面へ\\
+b & 上の画面へ\\
+\hline
+\TL & 左の画面へ\\
+\TG & 右の画面へ\\
+\hline
+J & 一行上にスクロール\\
+K & 一行上にスクロール\\
+\hline
+/「文字」\KEYTOP{Enter} & 前方サーチ\\
+?「文字」\KEYTOP{Enter} & 後方サーチ\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[H]
+\caption{さまざまなコマンド}
+\begin{center}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{コマンド} & \textbf{動作}\\
+\hline
+q & 終了\\
+\hline
+リンクの上で\KEYTOP{Enter} & リンク先へ飛ぶ\\
+B & 前のページにもどる\\
+\hline
+U & URL を指定する\\
+\hline
+v & ページのソースを表示(表示を戻すには B)\\
+\hline
+M-b & ブックマークの表示\\
+M-a & ブックマークへの追加\\
+\hline
+o & オプションの設定\\
+H & ヘルプの表示\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+ w3m では、画像がそのまま表示されるが、
+これはむしろ表示しない方がブラウザの動作はスムーズだ。
+もしも、表示しないように設定したければ、
+「\texttt{o}」と入力してオプションを表示してみよう。
+
+\begin{progls}
+\blsq                            \textbf{Option Setting Panel}
+                 \textbf{(w3m version w3m/0.2.3.2+cvs-1.196-img-1.17)}
+
+\textcolor{blue}{外部ビューアの編集}
+
+表示関係
+
+タブ幅                                  [\textcolor{red}{\underline{8                   }}]
+文字幅 (4.0...32.0)                     [\textcolor{red}{\underline{7                   }}]
+一行の高さ (4.0...64.0)                 [\textcolor{red}{\underline{14                  }}]
+表示用漢字コード                        [\textcolor{red}{EUC-JP}                               ]
+文書の文字コード                        [\textcolor{red}{auto detect}      ]
+システムの文字コード                    [\textcolor{red}{EUC-JP}   ]
+フレームの自動表示                      ( )ON  (\textcolor{red}{*})OFF
+targetが未指定の場合に_selfを使用する   ( )ON  (\textcolor{red}{*})OFF
+リンク先の自動表示                      ( )ON  (\textcolor{red}{*})OFF
+ディレクトリリストに外部コマンドを使う  (\textcolor{red}{*})ON  ( )OFF
+ディレクトリリスト用コマンド            [\textcolor{red}{\underline{file:///$LIB/dirlist}}]
+ファイル名のマルチカラム表示            ( )ON  (\textcolor{red}{*})OFF
+エンティティを ASCII の代替表現で表す   ( )ON  (\textcolor{red}{*})OFF
+TEXTAREA の行を折り返して表示           ( )ON  (\textcolor{red}{*})OFF
+空のIMG ALT属性の時にリンク名を表示する (\textcolor{red}{*})ON  ( )OFF
+背景画像等へのリンクを作る              ( )ON  (\textcolor{red}{*})OFF
+\colorbox{black}{\textcolor{white}{≪↑↓Viewing <Option Setting Panel>}}
+\end{progls}
+
+この画面を下にスクロールすると、「インライン画像を表示」という
+オプションがある。
+「\texttt{OFF}」の前の「\texttt{( )}」で \KEYTOP{Enter} を入力し、
+チェックを入れる。
+
+\begin{progls}
+インライン画像を表示                    ( )ON  (\textcolor{red}{*})OFF
+\end{progls}
+
+そして「\textcolor{red}{\texttt{[OK]}}」の上で \KEYTOP{Enter} する。
+今度は、さきほど見ていたページが文字データとして表示される。
+
+\begin{progls}
+\textcolor{green}{青森大学・青森短期大学}
+\textcolor{green}{[t]}                        \textcolor{green}{* カット}
+    \textcolor{green}{*}                        \textcolor{green}{大学院}
+    \textcolor{green}{What's New}               \textcolor{green}{経営学部}
+    \textcolor{green}{*}                        \textcolor{green}{*} \textcolor{blue}{経営学科／産業デザイン学科}
+    \textcolor{green}{メッセージ}               \textcolor{green}{社会学部}
+    \textcolor{green}{*}                        \textcolor{green}{*} \textcolor{blue}{社会学科／社会福祉学科}
+    \textcolor{green}{入試情報}                 \textcolor{green}{工学部}
+    \textcolor{green}{*}                        \textcolor{green}{*} \textcolor{blue}{電子システム工学科／情報システム工学科／生物工学}
+    \textcolor{green}{大学案内}                 \textcolor{green}{青森短期大学}
+    \textcolor{green}{*}                        \textcolor{green}{*} \textcolor{blue}{商経科第一部／商経科第二部}
+    \textcolor{green}{キャンパスニュース}
+    \textcolor{green}{*}                        \textcolor{green}{トピックス}
+    \textcolor{green}{サイトマップ}             \textcolor{green}{*}
+    \textcolor{green}{*}                        ◆ \textcolor{blue}{青森大学工学部創立10周年記念講演会(第11回青森大}
+    \textcolor{green}{リンク集}                    \textcolor{blue}{月12日(土)13:30より、青森大学メモリアルホールで}
+                                \textcolor{blue}{場は無料です。}
+                             ◆ \textcolor{blue}{出張講義のページをリニューアルしました。随時受付}
+                                \textcolor{blue}{ご利用ください。}
+                             ◆ \textcolor{blue}{青森大学・青森短期大学オープンキャンパスへ参加し}
+                                \textcolor{blue}{３回オープンキャンパスは９月21日(土)です。}
+                             ◆ \textcolor{blue}{本学図書館新館2階展示資料室にて「没後90年石川啄}
+                                \textcolor{blue}{催中です(～9/20迄)。}
+\colorbox{black}{\textcolor{white}{≪↑↓Viewing <青森大学・青森短期大学>}}
+\end{progls}
+
+この状態だと、いろいろなページを高速に表示することができて非常に便利である。
+このように、絵を見たい場合、文字を高速に表示したい場合、
+それぞれに合わせて適切なブラウザを選択しよう。
+
+\section*{この章で紹介したコマンド}
+
+\begin{center}
+\begin{minipage}{13cm}
+\begin{itembox}[l]{WWW 関連コマンド他}
+\begin{description}
+\item[\texttt{netscape} :] Netscape Communicator
+
+使い方: \texttt{netscape \&}~~~~Netscape Communicator 起動
+
+~~~~~~~~~~~\texttt{-mail} オプションをつけるとメール・モードで起動
+\item[\texttt{w3m} :] テキスト・ベース Web ブラウザ
+
+使い方: \texttt{w3m -v}~~~~~~~~~~w3m 起動
+\end{description}
+\end{itembox}
+\end{minipage}
+\end{center}
+

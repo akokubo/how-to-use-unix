@@ -1,0 +1,130 @@
+This is pTeX, Version p3.0.1, based on TeX, Version 3.14159 (SJIS) (Web2C 7.3.3) (format=platex 2002.1.19)  24 OCT 2002 13:27
+**ACM
+(./ACM.tex
+pLaTeX2e <2001/09/04>+0 (based on LaTeX2e <2001/06/01> patch level 0)
+(c:/usr/local/share/texmf/ptex/platex/base/jarticle.cls
+Document Class: jarticle 2001/10/04 v1.3 Standard pLaTeX class
+\c@@paper=\count81
+(c:/usr/local/share/texmf/ptex/platex/base/jsize11.clo
+File: jsize11.clo 2001/10/04 v1.3 Standard pLaTeX file (size option)
+)
+\c@part=\count82
+\c@section=\count83
+\c@subsection=\count84
+\c@subsubsection=\count85
+\c@paragraph=\count86
+\c@subparagraph=\count87
+\c@figure=\count88
+\c@table=\count89
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\symmincho=\mathgroup4
+LaTeX Font Info:    Overwriting symbol font `mincho' in version `bold'
+(Font)                  JY1/mc/m/n --> JY1/gt/m/n on input line 597.
+LaTeX Info: Redefining \mathrm on input line 599.
+LaTeX Info: Redefining \mathbf on input line 600.
+\toclineskip=\dimen118
+\@lnumwidth=\dimen119
+\bibindent=\dimen120
+\heisei=\count90
+)
+(c:/usr/local/share/texmf/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(c:/usr/local/share/texmf/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks15
+)
+(c:/usr/local/share/texmf/tex/latex/graphics/graphics.sty
+Package: graphics 2001/07/07 v1.0n Standard LaTeX Graphics (DPC,SPQR)
+
+(c:/usr/local/share/texmf/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(c:/usr/local/share/texmf/tex/latex/config/graphics.cfg)
+Package graphics Info: Driver file: dvipdfm.def on input line 80.
+
+(c:/usr/local/share/texmf/tex/latex/graphics/dvipdfm.def
+File: dvipdfm.def 1999/9/6 vx.x Driver-dependant file
+))
+\Gin@req@height=\dimen121
+\Gin@req@width=\dimen122
+)
+(c:/usr/local/share/texmf/tex/latex/graphics/color.sty
+Package: color 1999/02/16 v1.0i Standard LaTeX Color (DPC)
+
+(c:/usr/local/share/texmf/tex/latex/config/color.cfg)
+Package color Info: Driver file: dvipdfm.def on input line 125.
+
+(c:/usr/local/share/texmf/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+(c:/usr/local/share/texmf/ptex/platex/base/ascmac.sty
+(c:/usr/local/share/texmf/ptex/platex/base/tascmac.sty
+\@savetbaselineshift=\dimen123
+\@saveybaselineshift=\dimen124
+\scb@x=\box41
+\scscb@x=\box42
+\@bw=\dimen125
+\@nbox=\box43
+\@nbody=\box44
+\@scw=\dimen126
+\@itemh=\dimen127
+\@iboxpos=\toks16
+\@iboxstr=\box45
+\@bwsp=\box46
+\@@bwsp=\box47
+\@bcal=\count91
+\shaderule=\dimen128
+))
+(c:/usr/local/share/texmf/tex/latex/misc/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count92
+\float@exts=\toks17
+\float@box=\box48
+\@float@everytoks=\toks18
+\@floatcapt=\box49
+)
+(c:/usr/local/share/texmf/tex/latex/base/alltt.sty
+Package: alltt 1997/06/16 v2.0g defines alltt environment
+) (./bsd.sty
+\BOXNOTEWIDTH=\skip43
+)
+(c:/usr/local/share/texmf/tex/latex/misc/type1cm.sty
+Package: type1cm 1997/02/17 v0.03 BlueSky/Y&Y Type1 CM font definitions (DPC)
+) (./jtygm.sty
+Package: jtygm 1998/06/12 based on v1.3 KANJI font defines
+) (./ACM.aux)
+\openout1 = `ACM.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for JY1/mc/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+LaTeX Font Info:    Checking defaults for JT1/mc/m/n on input line 12.
+LaTeX Font Info:    ... okay on input line 12.
+[1
+
+]
+File: backdoor.eps Graphic file (type eps)
+ <backdoor.eps> [2] (./ACM.aux) ) 
+Here is how much of TeX's memory you used:
+ 1058 strings out of 30603
+ 13488 string characters out of 67010
+ 61901 words of memory out of 1200001
+ 4172 multiletter control sequences out of 10000+15000
+ 16981 words of font info for 68 fonts, out of 400000 for 1000
+ 14 hyphenation exceptions out of 1000
+ 25i,8n,21p,203b,324s stack positions out of 300i,100n,500p,50000b,40000s
+
+Output written on ACM.dvi (2 pages, 10580 bytes).

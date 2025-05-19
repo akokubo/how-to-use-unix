@@ -1,0 +1,425 @@
+¥chapter{UNIX コマンド入門}
+
+¥section*{UNIX のコマンドを使ってみよう}
+
+macOS や WSL 上の Ubuntu などの UNIX 系システムでは、キーボードからコマンドを打ち込んで、プログラムを実行することが多い。
+コマンドに慣れるために、この章では UNIX の簡単なコマンドをいくつか紹介しよう。
+
+コマンドは、英語を省略したものが多い。
+英語と言っても、日本語の会話にもよく出てくるような、簡単なものがほとんどである。
+UNIX 系システムでプログラミングをするくらいであれば、
+極端な話 10 個くらいのコマンドを知っていればなんとかなる。
+
+とは言え、コマンドは一度覚えてしまえば、macOS や Ubuntu など多くの UNIX 系システムで、
+ほとんど同じように使うことができる。
+また、たくさんのコマンドやテクニックを知っていると、簡単な
+手順で実にいろいろなことができるようになる。
+この本に出てくるコマンドは、全部おぼえてしまって損はないだろう。
+
+¥section{システム情報の表示: ¥texttt{uname} コマンド}
+
+¥subsection{¥texttt{uname} コマンドを使ってみよう}
+
+UNIX 系システムにログインすると、macOS では「¥texttt{username@MacBook-Air ¥~}」、
+Ubuntu では「¥texttt{username@hostname:¥~¥$}」のような文字が表示されている。
+これを「プロンプト -- prompt(入力促進記号)」と言う。
+プロンプトが表示されているのは、これに続けてコマンドが入力できるという
+お知らせである。
+
+なお、この本では、プロンプトはmacOSでは「¥texttt{¥%}」、Ubuntuでは「¥texttt{¥$}」と書いておくので注意して欲しい。
+プロンプトをどんなものにするかは、自分で自由に設定することができる。
+
+¥bigskip
+
+では、プロンプトに対して、
+次のように「¥texttt{uname -a}¥retrn」と打ち込んでみよう。
+UNIX 系システムでは、¥underline{大文字と小文字は区別}されるので、
+このコマンドは正確に入力すること。
+
+なお、この本では、ユーザが入力する文字は「¥textbf{太字}」で、
+そうでない文字は「普通の書体」で表現している。
+
+¥begin{progls}
+% ¥slbfl{uname -a}¥retrn
+¥end{progls}
+
+すると、次のように、システム情報が表示される。
+さっき、UNIX 系システムのコマンドは英語を省略したものが多いと言ったが、
+「¥texttt{uname}」は「¥slbfl{u}nix ¥slbfl{name} (UNIXの名前)」を省略したものだ。
+
+macOSの場合:
+¥begin{progls}
+% ¥slbfl{uname -a}¥retrn
+Darwin MacBook-Air.local 24.5.0 Darwin Kernel Version 24.5.0: Thu Apr 24 22:15:47 PDT 2025; root:xnu-10063.121.3~1/RELEASE_ARM64_T8112 arm64
+%
+¥end{progls}
+
+WSL上のUbuntuの場合:
+¥begin{progls}
+$ ¥slbfl{uname -a}¥retrn
+Linux DESKTOP-ABC123 5.15.133.1-microsoft-standard-WSL2 #1 SMP Thu Apr 18 19:04:30 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux
+$
+¥end{progls}
+
+¥subsection{コマンドを打ったけどうまくいかない??}
+
+コマンドを入力するときにありがちなトラブルとその解決方法を
+紹介しよう。
+
+¥begin{itemize}
+¥item ¥textbf{打ち間違えた文字を消すには?}
+
+文字を打ち間違えたときは、 ¥retrn を押す前であれば、
+ ¥KEYTOP{Delete} や ¥KEYTOP{Back Space} で消すことができる。
+
+¥item ¥textbf{「Command not found.」って言われたけど?}
+
+「¥texttt{cal}」を、「¥texttt{cak}」のように¥textbf{ミス・タイプ}したりすると、
+次のように「Command not found.」
+ (コマンドが見つからないよ。) というメッセージがでる。
+
+¥begin{progls}
+% ¥slbfl{cak}¥retrn
+cak: Command not found. ¥textnormal{(コマンドが見つからないよ。)}
+%
+¥end{progls}
+
+¥item ¥textbf{コマンドを打ったら暴走した?}
+
+何かのキーを間違って押したり、ミス・タイプすると、運が悪い場合、
+プログラムが暴走してプロンプトが出て来なくことがある。
+そんなときは、 ¥KEYTOP{Ctrl}+c (¥KEYTOP{Ctrl} を押しながら ¥KEYTOP{c})
+と打てば、多くの場合止めることができる。
+¥end{itemize}
+
+¥subsection{¥texttt{uname} コマンドの引き数}
+
+もう少し高度な ¥texttt{uname} コマンドの使い方を紹介しよう。
+
+¥texttt{uname} コマンドでは、様々なシステム情報を表示させることができる。
+「¥texttt{uname -s}¥retrn」というふうにオプションを指定して実行してみよう。
+
+¥begin{progls}
+% ¥slbfl{uname -s}¥retrn
+Darwin
+%
+¥end{progls}
+
+このように、macOSの場合はカーネル名「Darwin」が表示されます。Ubuntuの場合は「Linux」と表示されます。
+
+%¥newpage
+
+次は「-r」オプションを使って、「¥texttt{uname -r}¥retrn」と実行してみよう。
+
+¥begin{progls}
+% ¥slbfl{uname -r}¥retrn
+24.5.0
+%
+¥end{progls}
+
+これはカーネルのリリースバージョンを表示しています。実行環境によって表示される数値は異なります。
+
+¥texttt{uname} コマンドには他にも様々なオプションがあります：
+
+macOSの場合:
+¥begin{progls}
+% ¥slbfl{uname -m}¥retrn
+arm64
+%
+¥end{progls}
+
+WSL上のUbuntuの場合:
+¥begin{progls}
+$ ¥slbfl{uname -m}¥retrn
+x86_64
+$
+¥end{progls}
+
+これはマシンのハードウェアタイプを表示しています。
+
+¥bigskip
+
+ひとまず、ここまでのところをまとめよう。
+¥texttt{uname} コマンドは次のように使う。
+
+¥begin{coml}{5cm}
+¥texttt{uname} 「オプション」
+¥end{coml}
+
+主なオプションは以下の通り：
+\begin{itemize}
+\item -a: 全ての情報を表示
+\item -s: カーネル名を表示
+\item -n: ホスト名を表示
+\item -r: カーネルのリリースバージョンを表示
+\item -m: マシンのハードウェアタイプを表示
+\end{itemize}
+
+オプションを省略すると、カーネル名のみが表示される。
+
+¥bigskip
+
+このようなコマンドのオプション指定は、多くのUNIX系システムコマンドで共通して使われています。
+オプションは通常「-」（ハイフン）で始まり、その後に1文字や複数文字が続きます。
+これは、コマンドの基本的な動作を変更したり、追加情報を指定するために使われます。
+このような指定方法は、
+ ¥textbf{「¥ruby{引}{¥mc ひ}き¥ruby{数}{¥mc すう} -- argument」}または¥textbf{「オプション -- option」}と言います。
+これはプログラミングの本や、マニュアルなどでもよく使う用語なので、
+おぼえておこう。
+
+¥vspace*{6mm}
+
+¥begin{BOXNOTE}
+{¥large¥bf ☆練習☆}
+¥begin{enumerate}
+¥item ¥texttt{uname -a} コマンドを実行し、システムについて表示される全ての情報を確認してみよう。
+
+¥item macOSとUbuntu（またはその他のLinux）で ¥texttt{uname} コマンドの結果を比較して、どのような違いがあるか調べてみよう。
+¥end{enumerate}
+¥end{BOXNOTE}
+
+¥section{その他の簡単なコマンド}
+
+¥subsection{日時の表示: ¥texttt{date} コマンド}
+
+ ¥texttt{date} は、現在の時刻を表示するコマンドだ。
+「¥texttt{date}¥retrn」と打ってみよう。
+なお、今後は ¥retrn を一々書かないで省略する。
+
+¥begin{progls}
+% ¥slbfl{date}
+2025年 4月 25日 金曜日 14時30分15秒 JST
+% 
+¥end{progls}
+
+また、¥texttt{date} コマンドにはフォーマット指定オプションがあり、日付や時刻の表示形式をカスタマイズできます。
+例えば、「¥texttt{date "+%Y年%m月%d日 (%a) %H:%M:%S"}」と実行すると、以下のような形式で表示されます。
+
+¥begin{progls}
+% ¥slbfl{date "+%Y年%m月%d日 (%a) %H:%M:%S"}
+2025年04月25日 (金) 14:30:15
+% 
+¥end{progls}
+
+主なフォーマット指定子は以下の通りです：
+\begin{itemize}
+\item %Y: 西暦（4桁）
+\item %m: 月（01～12）
+\item %d: 日（01～31）
+\item %a: 曜日の略称
+\item %H: 時（00～23）
+\item %M: 分（00～59）
+\item %S: 秒（00～59）
+\end{itemize}
+
+
+¥subsection{login している人のリスト: ¥texttt{who} コマンド}
+
+ ¥texttt{who} は、現在、そのマシンにログインしている人のリストを表示する
+コマンドだ。
+ UNIX 系システムは、同時に何人もの人が使うことができるので、
+このようなコマンドがある。
+「¥texttt{who}」と打ってみよう。
+
+macOSの場合:
+¥begin{progls}
+% ¥slbfl{who}
+kokubo   console  Apr 25 09:15 
+kokubo   ttys000  Apr 25 10:06
+tomoda   ttys001  Apr 25 11:31   (192.168.1.5)
+% 
+¥end{progls}
+
+WSL上のUbuntuの場合:
+¥begin{progls}
+$ ¥slbfl{who}
+kokubo   pts/0        2025-04-25 09:15 (172.26.6.123)
+tomoda   pts/1        2025-04-25 11:31 (172.26.6.124)
+$ 
+¥end{progls}
+
+これが現在ログインしている人のリストである。
+
+¥bigskip
+
+それから、 ¥texttt{who} の仲間に、 ¥texttt{whoami} というコマンドがある。
+これは、次のように「¥texttt{whoami}」と打つと現在使用中のユーザの ID
+を表示する。
+
+¥begin{progls}
+% ¥slbfl{whoami}
+kokubo
+%
+¥end{progls}
+
+
+¥subsection{今日のニュースを取得: ¥texttt{curl} コマンド}
+
+¥texttt{curl}は、URLからデータを取得するコマンドです。今日のニュースやヘッドラインを取得するために利用できます。
+例えば、天気情報のAPIを利用して、東京の天気情報を取得してみましょう。
+
+macOSの場合:
+¥begin{progls}
+% ¥slbfl{curl -s "https://wttr.in/Tokyo?format=%l:+%c+%t"}
+Tokyo: 🌤 +23°C
+%
+¥end{progls}
+
+WSL上のUbuntuの場合:
+¥begin{progls}
+$ ¥slbfl{curl -s "https://wttr.in/Tokyo?format=%l:+%c+%t"}
+Tokyo: 🌤 +23°C
+$
+¥end{progls}
+
+このようにインターネット上のリソースから情報を取得することができます。
+「-s」オプションは、進捗情報など余分な出力を表示しないように指定するものです。
+
+¥subsection{ランダムな名言を表示: ¥texttt{shuf} コマンドと組み合わせ}
+
+現代のUNIX系システムでは、¥texttt{fortune}コマンドの代わりに、テキストファイルからランダムな行を選択する¥texttt{shuf}コマンドを使うことができます。あらかじめ名言を集めたファイルを作成しておけば、以下のようにして名言をランダムに表示することができます。
+
+¥begin{progls}
+% ¥slbfl{cat quotes.txt | shuf -n 1}
+知識を得ることと知恵を得ることには違いがある。知識は事実やデータを集めること。知恵はそれをどう活かすかである。
+%
+¥end{progls}
+
+あるいは、以下のようなシンプルな¥texttt{echo}コマンドを使って、ランダムな励ましメッセージを表示することもできます。
+
+¥begin{progls}
+% ¥slbfl{echo "今日も素晴らしい一日になりますように！"}
+今日も素晴らしい一日になりますように！
+%
+¥end{progls}
+
+これらのコマンドを組み合わせることで、古い¥texttt{fortune}コマンドと同様の機能を実現できます。
+
+¥newpage
+
+¥section{エラーからの回復方法}
+
+人間は誰でも失敗することがある。
+だから、コマンドを入力するときにも、いろいろ失敗するだろう。
+それらの対処方法を改めて詳しく紹介しておこう。
+
+¥begin{enumerate}
+¥item ¥textbf{打ち間違えた文字を消したい}
+
+打ち間違えた文字は、 ¥retrn を押す前なら、
+ ¥KEYTOP{Delete} や ¥KEYTOP{Back Space} で消すことができる。
+
+また、コマンドを途中まで打ったが、その行を全部キャンセルしたくなったら、
+ ¥KEYTOP{Ctrl}+c と入力すればよい。
+
+¥item ¥textbf{「Command not found.」(コマンドが見つからないよ。) と言われた}
+
+これは、コマンドをタイプミスしたときにでるメッセージである。
+よく見直してみよう。
+
+¥item ¥textbf{コマンドを打ったら暴走した}
+
+プログラムが暴走した場合には、 ¥KEYTOP{Ctrl}+c と打てば、たいてい止められる。
+
+¥item ¥textbf{コマンドを打っても効かない}
+
+たとえば X Window System でウィンドウを開くコマンドの後ろに「¥texttt{¥&}」を
+付けないで実行すると、コマンドを実行したウィンドウには文字が入力できなくなる。
+このときは、 ¥KEYTOP{Ctrl}+z と入力して、続けて「¥texttt{bg}」というコマンドを打てばよい。
+
+¥item ¥textbf{コマンドを実行したが止め方がわからない}
+
+ユーザの入力を対話的に処理するプログラムの多くは、
+ ¥KEYTOP{Ctrl}+d で、終了できる。
+また、ものによっては、「¥texttt{quit}」、「¥texttt{exit}」、「¥texttt{bye}」
+などと入力すると、終了できることがある。
+
+例を挙げよう。
+¥texttt{bc} という電卓のプログラムがあって、
+「¥texttt{bc}」と打つと起動できる。
+
+¥begin{progls}
+% ¥slbfl{bc}
+bc 1.03 (Nov 2, 1994)
+Copyright (C) 1991, 1992, 1993, 1994 Free Software Foundation, Inc.
+This is free software with ABSOLUTELY NO WARRANTY.
+For details type `warranty'. 
+¥blsq
+¥end{progls}
+%¥newpage
+
+後は、ここに数式を打つと、計算結果を表示してくれる。
+例えば、「$1+2+3$」なら、
+
+¥begin{progls}
+% ¥slbfl{bc}
+bc 1.03 (Nov 2, 1994)
+Copyright (C) 1991, 1992, 1993, 1994 Free Software Foundation, Inc.
+This is free software with ABSOLUTELY NO WARRANTY.
+For details type `warranty'. 
+¥slbfl{1+2+3}
+6
+¥blsq
+¥end{progls}
+
+このコマンドの実行を終了させるには、 ¥KEYTOP{Ctrl}+d、または「¥texttt{quit}」と入力する。
+
+¥item ¥textbf{文字化けが起こった}
+
+ターミナルアプリケーションを使っていると、
+文字化けが起こることがある。
+
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.6]{mojibake.eps}}
+¥end{figure}
+
+このときは、以下の方法でリセットできます：
+
+macOSのターミナルの場合：
+「シェル」メニューから「ウィンドウをリセット」を選択するか、
+ ¥KEYTOP{Command}+¥KEYTOP{K} キーでターミナルの内容をクリアします。
+
+¥begin{figure}[H]
+¥centering{¥includegraphics[scale=0.6]{terminal_reset_macos.eps}}
+¥end{figure}
+
+WSL上のUbuntuの場合：
+「reset」コマンドを実行するか、¥KEYTOP{Ctrl}+¥KEYTOP{L} キーで画面をクリアします。
+
+¥begin{progls}
+$ ¥slbfl{reset}
+$
+¥end{progls}
+
+また、SSHなどでリモート接続している場合には、
+一度接続を切断して再接続するという方法もあります。
+¥end{enumerate}
+
+¥section*{この章で紹介したコマンド}
+
+¥begin{center}
+¥begin{minipage}{13cm}
+¥begin{itembox}[l]{いろいろなコマンド}
+¥begin{description}
+¥item[¥texttt{uname} :] システム情報の表示
+
+使い方: ¥texttt{uname} 「オプション」
+¥item[¥texttt{date} :] 日時の表示
+
+使い方: ¥texttt{date} 「フォーマット」
+¥item[¥texttt{who} :] ユーザのリストの表示
+
+使い方: ¥texttt{who}、¥texttt{whoami}
+¥item[¥texttt{curl} :] ネットワークからデータを取得
+
+使い方: ¥texttt{curl} 「URL」
+¥item[¥texttt{shuf} :] ファイルからランダムな行を選択
+
+使い方: ¥texttt{shuf -n 1} 「ファイル名」
+¥end{description}
+¥end{itembox}
+¥end{minipage}
+¥end{center}
+%¥newpage
+%{~}
+

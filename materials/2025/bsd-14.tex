@@ -1,0 +1,362 @@
+\chapter{ネットワーク機能}
+
+\section*{UNIX システムのネットワーク機能}
+
+これまで、 WWW へのアクセス方法や電子メールなど、
+いくつかのネットワーク関係のアプリケーションを紹介してきた。
+今回は、UNIX システムのその他のネットワークに関係した機能を紹介しよう。
+
+\section{ユーザ情報の表示}
+
+ UNIX システムでは、一台のマシンに他のマシンから、同時に何人も login して
+使うことができる。
+そのことに関係したコマンドを紹介しよう。
+
+\subsection{誰が何をしているのか?: \texttt{w}}
+
+現在、誰が login しているのかを調べるコマンドはいくつかある。
+たとえば、以前紹介した \texttt{who} コマンドもその一つである。
+
+今回は \texttt{w} を使ってみよう。
+\texttt{w} には「\textbf{w}ho and \textbf{w}hat」という意味がこめられていて、
+誰が何をしているのかが表示される。
+では「\texttt{w}」と入力してみよう。
+
+\begin{progls}
+% \slbfl{w}
+11:51AM  up 3 mins, 3 users, load averages: 0.01, 0.01, 0.00
+USER             TTY      FROM              LOGIN@  IDLE WHAT
+ei00000          p0       :0.0             11:50AM     - tcsh
+ei00000          p1       :0.0             11:48AM     - w
+ei00000          p2       :0.0             11:50AM     - tcsh
+%
+\end{progls}
+
+この表示からわかることは、 \texttt{ei00000} さんが 3 つ端末を開いて
+login していること。
+その端末番号は「\texttt{p0}」～「\texttt{p2}」であること。
+また、いずれもマシンのコンソール(\texttt{:0.0})で端末をひらいていること。
+そして現在開いている端末を開いたのは \texttt{11:48AM} 以降であること。
+また現在 \texttt{w} コマンドを実行しているということなどである。
+なお、 \texttt{IDLE} というのは、最後にキーを叩いてから何秒たっているかを
+表す。
+
+\newpage
+
+\texttt{who} を実行して比較してみると、
+\texttt{w} の方がずっと詳しいことがわかるだろう。
+
+\begin{progls}
+% \slbfl{who}
+ei00000          ttyp0     9/23 11:50   (:0.0)
+ei00000          ttyp1     9/23 11:48   (:0.0)
+ei00000          ttyp2     9/23 11:50   (:0.0)
+%
+\end{progls}
+
+\subsection{より詳しいユーザ情報を調べる: \texttt{finger}}
+
+ここまでのところは、単に今 login している人の情報を表示するだけだったが、
+\texttt{finger} を使うと、
+それ以外のユーザの情報も表示することができる。
+まずは使って見よう。
+
+\begin{progls}
+% \slbfl{finger}
+Login            Name                 TTY  Idle  Login Time   Office  Phone
+ei00000                               p0         木     11:50
+ei00000                               p1         木     11:48
+ei00000                               p2         木     11:50
+%
+\end{progls}
+
+これでは、特に \texttt{w} とあまり変わらないような気がする。
+
+\bigskip
+
+しかし、 \texttt{finger} は、
+今 login していないユーザに関しても調べることができる。
+「\texttt{finger 「ユーザID」}」で現在そのマシンに login していない
+適当なユーザを指定してみよう。
+
+\begin{progls}
+% \slbfl{finger ei00000}
+Login: ei00000                          Name: 
+Directory: /home/ei00/ei00000           Shell: /bin/tcsh
+Last login Thu Nov 15 03:18 (JST) on ttyp2 from :0.0
+No Mail.
+No Plan.
+%
+\end{progls}
+
+と、このように、名前(登録されてい場合のみ)、ホーム・ディレクトリのパス、
+使っているシェル、最後に login した日時まで表示されてしまう。
+
+\bigskip
+
+ちなみに、現在ほどネットワーク犯罪が盛んでなかった頃は、
+他のマシンの情報も「\texttt{finger 「ユーザID」@「ホスト名」}」で調べる
+こともできた\footnote{更には
+「\texttt{finger @「ホスト名」}」で全ユーザの情報も調べられることもあった。
+あらかじめこのような方法でユーザ情報を集めてから、
+マシンにアタックをかけて侵入しようとする人が現われるようになり、
+これらのコマンドを実行することができなくなったのである}。
+
+\newpage
+
+\section{ホスト名と IP アドレス}
+
+ネットワークに接続されたマシンは、「ホスト名」と「IP アドレス」によって
+識別されている。
+これらを調べるコマンドを紹介しよう。
+
+\subsection{ホスト名: \texttt{hostname}}
+
+現在使っているマシンのホスト名は \texttt{hostname} コマンドで表示できる。
+
+\begin{progls}
+% \slbfl{hostname}
+pcux00.edu3.aomori-u.ac.jp
+%
+\end{progls}
+
+ B 演習室には、コンピュータにラベルが貼ってあるが、
+この番号を使って
+「\texttt{pcux「番号」.edu3.aom}
+\texttt{ori-u.ac.jp}」というのが、
+「ホスト名」になっている。
+また、「ホスト名」の後ろの方の「\texttt{edu3.aomori-u}
+\texttt{.ac.jp}」の部分を「ドメイン名」という。
+
+\subsection{IP アドレスとホスト名の対応: \texttt{nslookup}}
+
+マシンには、ホスト名だけでなく IP アドレスというものも割り振られている。
+ホスト名と IP アドレスの対応は \texttt{nslookup} コマンドで調べる
+ことができる。
+
+まず、ホスト名から IP アドレスを調べるには次のようにする。
+
+\begin{progls}
+% \slbfl{nslookup pcux01.edu3.aomori-u.ac.jp}
+Server:  msedu0.edu.aomori-u.ac.jp
+Address:  172.31.66.9
+
+Name:    pcux00.edu3.aomori-u.ac.jp
+Address:  172.31.67.65
+%
+\end{progls}
+
+この最後の「\texttt{172.31.67.65}」というのが、ホスト名「\texttt{pcux01.edu3.aomori-u.ac.jp}」の IP アドレスである。
+なお、学外のマシンの IP アドレスに関しても同様に調べることができる。
+
+\bigskip
+
+次は IP アドレスからホスト名を調べてみよう。
+これも全く同様で、ホスト名の代わりに IP アドレスを打てばいい。
+
+\begin{progls}
+% \slbfl{nslookup 172.31.67.65}
+Server:  msedu0.edu.aomori-u.ac.jp
+Address:  172.31.66.9
+
+Name:    pcux00.edu3.aomori-u.ac.jp
+Address:  172.31.67.65
+%
+\end{progls}
+
+\section{他のマシンに入る: \texttt{ssh}}
+
+SSH (Secure SHell)を用いると、
+通信データを暗号化した状態で
+他のマシンにネットワークごしにログインすることができる。
+SSH の認証方式には何通りかある
+\footnote{公開鍵認証、ホストベース認証、S/key 認証、パスワード認証、
+Kerberos 認証、Rhosts 認証など。
+一般的には公開鍵認証がいいと思われるが、 B 演習室のようにホームが NFS という
+しくみで共有されている場合は、必ずしもこの限りではなく、
+ケース・バイ・ケースである。}
+が、ここではパスワード認証の方式を紹介しよう。
+
+SSH で他のマシンに接続するには、次のようにする。
+
+\begin{coml}{8.5cm}
+\texttt{ssh 「ユーザID」@「ホスト名」}
+\end{coml}
+
+では、実際にやってみよう。
+たとえば \texttt{ei00000} さんが \texttt{pcux01.edu3.aomori-u.ac.jp} という
+ホストに接続しようとしたところが以下の図である。
+すると、初回にそのホストに接続するときだけ、
+『「RSA1 key fingerprint(RSA1 鍵の指紋)」が「\texttt{9d:c4:27:e3:1d:13:15:f9:10:3a:93:a5:07:c7:0b:7d}(これはホストによって異なる)」だが、
+これを受け入れてリストに追加してよいか?』と英語で聞かれるので、
+これに「\texttt{yes}」と答える。
+次にはパスワードを聞かれ、これを答えると login することができる。
+
+\begin{progls}
+% \slbfl{ssh ei000000@pcux01.edu3.aomori-u.ac.jp}
+The authenticity of host 'pcux01.edu3.aomori-u.ac.jp (172.31.67.65)' can't be e
+stablished.
+RSA1 key fingerprint is 9d:c4:27:e3:1d:13:15:f9:10:3a:93:a5:07:c7:0b:7d.
+Are you sure you want to continue connecting (yes/no)? \slbfl{yes}
+Warning: Permanently added 'pcux01.edu3.aomori-u.ac.jp' (RSA1) to the list of kn
+own hosts.
+ei00000@pcux01.edu3.aomori-u.ac.jp's password: \slbfl{パスワードを打つ(見えない)}
+Last login: Mon Sep 23 11:54:49 2002 from console
+Copyright (c) 1980, 1983, 1986, 1988, 1990, 1991, 1993, 1994
+        The Regents of the University of California.  All rights reserved.
+FreeBSD 4.5-RELEASE (TRI_UX) #0: Tue Apr 23 19:49:03 JST 2002
+
+\vdots
+[中略]
+\vdots
+
+ei00000@pcux61% 
+\end{progls}
+
+\newpage
+
+これで login することができた。
+次のようにウィンドウを開かないようなコマンドは普通に実行できる
+\footnote{「\texttt{ssh -X 「ユーザID」@「ホスト名」}」という具合に
+「\texttt{-X}」オプションをつけて SSH を起動すると、
+ウィンドウを開くような X Window System のアプリケーションも実行可能である。}。
+
+\begin{progls}
+
+% \slbfl{w}
+ 5:58PM  up 6 mins, 2 users, load averages: 0.16, 0.05, 0.01
+USER     TTY FROM              LOGIN@  IDLE WHAT
+ei00000  p0  pcux51            5:58PM     - w
+kokubo   p1  :0.0              5:53PM     4 -csh (tcsh)
+%
+\end{progls}
+\begin{progls}
+% \slbfl{finger}
+Login    Name                 TTY  Idle  Login Time   Office     Office Phone
+ei00000                      *p0         Wed    17:58
+kokubo   A.Kokubo             p1      4  Wed    17:53
+%
+\end{progls}
+
+このマシンから抜けるには「\texttt{exit}」コマンドを打てばよい。
+
+\begin{progls}
+% \slbfl{exit}
+logout
+Connection closed by foreign host.
+%
+\end{progls}
+
+なお、 SSH は Windows\footnote{Cygwin、TTSSH、PortForwarder
+などの対応したアプリケーションをインストールする必要がある。}
+や MacOS\footnote{MacOS X 以降では最初から付属している。
+それ以前の場合は MacSSH などが必要。}などでも使用することができ、
+これらのマシンからもネットワークを使って UNIX システムに
+ login することができる。
+
+\newpage
+
+\section{複数の人と会話: \texttt{phone}}
+
+\texttt{phone} というコマンドがあり、
+複数の人と会話することができる。
+\texttt{phone} の使い方は次の通りである。
+
+\begin{coml}{9cm}
+phone 「ユーザID」@「ホスト名」
+\end{coml}
+
+なお、自分のホーム・ディレクトリに \texttt{.phonerc} というファイルを用意して、
+次のように書いておくと打った文字を自動的にひらがなに変換してくれる。
+
+\begin{progls2}{.phonerc}
+set code euc
+\end{progls2}
+
+では、実際に使ってみよう。
+今回は初めてなので、あらかじめ 2 人で打ち合せて、片方から \texttt{phone} を
+かけてみよう。
+
+たとえば、次のような状況だとしよう。
+まず、電話をかける側が \texttt{ei00000} さんで
+「\texttt{pcux00.edu3.aomori-u.ac.jp}」を使っている。
+そして、電話を受ける側が \texttt{ei00001} さんで
+「\texttt{pcux01.edu3.aomori-u.ac.jp}」を使っている。
+
+この場合、まず \texttt{ei00000} さんが次のように入力する。
+
+\begin{progls}
+% \slbfl{phone ei00001@pcux01.edu3.aomori-u.ac.jp}
+\end{progls}
+
+すると、相手の画面に次のようなメッセージが現われる。
+\begin{progls}
+Message from the Telephone_Operator@pcux01.edu3.aomori-u.ac.jp at 11:13 ...
+phone: connection requested by ei00000@pcux00.edu3.aomori-u.ac.jp
+phone: respond with "phone ei00000@pcux00.edu3.aomori-u.ac.jp"
+\end{progls}
+
+この英語は要するに「返事をするなら、「\texttt{phone ei00000@pcux00.edu3.aomori-u.ac.jp}」と入力しなさい」という意味である。
+
+そこで今度は \texttt{ei00001} の方が次のように入力する。
+
+\begin{progls}
+% \slbfl{phone ei00000@pcux00.edu3.aomori-u.ac.jp}
+\end{progls}
+
+\newpage
+
+すると次のような画面になり、打った文字が双方の画面に表示される。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.75]{phone01.eps}}
+\end{figure}
+
+また 3 人目を呼ぶには、 \KEYTOP{Esc} を押して、コマンドモードにし、
+「\texttt{call 「ユーザID」@「ホスト名」}」とコマンドを打つ。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.75]{phone02.eps}}
+\end{figure}
+
+\newpage
+
+ 3 人目が同様に答えると、次のようになって、会話することができる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.75]{phone03.eps}}
+\end{figure}
+
+終了するには「\KEYTOP{Ctrl}\texttt{+c}」と入力する。
+すると、下のように本当に抜けるか? と英語で聞かれるので、
+「\texttt{y}」と入力して終了する。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.75]{phone04.eps}}
+\end{figure}
+
+\section*{この章で紹介したコマンド}
+
+\begin{center}
+\begin{minipage}{13cm}
+\begin{itembox}[l]{ネットワーク関連コマンド}
+\begin{description}
+\item[\texttt{w} :] login している人と、現在実行中のコマンドの一覧
+\item[\texttt{who} :] login している人の一覧
+\item[\texttt{finger} :] ユーザ情報の表示
+
+使い方: \texttt{finger} 「ユーザID」\\
+\hspace*{0cm}または、 \texttt{finger} 「ユーザID」@「ホスト名」
+\item[\texttt{hostname} :] ホスト名の表示
+\item[\texttt{nslookup} :] ホスト名と IP アドレスの対照
+使い方: \texttt{nslookup 「ホスト名」あるいは「IP アドレス」}
+\item[\texttt{ssh} :] 他のマシンへのログイン
+
+使い方: \texttt{ssh} 「ユーザID」@「ホスト名」
+\item[\texttt{phone} :] 他のユーザと会話
+
+使い方: \texttt{phone} 「ユーザID」@「ホスト名」
+\end{description}
+\end{itembox}
+\end{minipage}
+\end{center}

@@ -1,0 +1,142 @@
+\setlength{\topmargin}{-1cm}
+\setlength{\headheight}{1.5zw}
+\setlength{\headsep}{2zw}
+\setlength{\textheight}{67zw}
+\setlength{\textwidth}{45zw}
+\setlength{\oddsidemargin}{0mm}
+\setlength{\evensidemargin}{-11mm}
+\setlength{\skip\footins}{14pt}
+\setlength{\footnotesep}{14pt}
+
+\newcommand{\retrn}{\raisebox{-2pt}{%
+  \setlength{\unitlength}{1pt}%
+  \thinlines %
+  \ifx\@currsize\small %
+    \begin{picture}(13,8)
+      \put(10,3){\line(0,1){5}}
+      \put(10,3){\vector(-1,0){7}}
+      \put(1,2){\line(0,1){6}}
+      \put(12,2){\line(0,1){6}}
+      \put(6.5,8){\oval(11,4)[t]}
+      \put(6.5,2){\oval(11,4)[b]}
+    \end{picture}%
+  \else %
+    \begin{picture}(14,9)
+      \put(11,3){\line(0,1){6}}
+      \put(11,3){\vector(-1,0){8}}
+      \put(1,2){\line(0,1){7}}
+      \put(13,2){\line(0,1){7}}
+      \put(7,9){\oval(12,4)[t]}
+      \put(7,2){\oval(12,4)[b]}
+    \end{picture}%
+  \fi %
+}}
+
+
+\newfont{\proglsfont}{min10 scaled 1096}
+\newenvironment{progls}{%
+\smallskip
+\noindent
+\setlength{\baselineskip}{5mm}
+\begin{center}
+%\begin{minipage}{40.5zw}
+\begin{minipage}{42zw}
+\begin{screen}
+\begin{alltt}\bgroup\small\proglsfont}{%
+\egroup
+\end{alltt}
+\end{screen}
+\end{minipage}
+\end{center}
+\medskip
+\setlength{\baselineskip}{7mm}
+}
+
+\newenvironment{progls2}[1]{%
+\smallskip
+\noindent
+\setlength{\baselineskip}{5mm}
+\begin{center}
+%\begin{minipage}{40.5zw}
+\begin{minipage}{39zw}
+\begin{itembox}[l]{#1}
+\begin{alltt}\bgroup\small\proglsfont}{%
+\egroup
+\end{alltt}
+\end{itembox}
+\end{minipage}
+\end{center}
+\medskip
+\setlength{\baselineskip}{7mm}
+}
+
+\DeclareTextFontCommand{\slbfl}{\fontfamily{cmss}\fontseries{bx}\selectfont\large}
+
+\newcommand{\SLBFL}{\fontfamily{cmss}\fontseries{bx}\selectfont\large}
+
+
+\newenvironment{FRAME}{\begin{trivlist}\item[]
+ \hrule
+ \hbox to \linewidth\bgroup
+  \advance\linewidth by -30pt
+  \hsize=\linewidth
+  \vrule\hfill
+  \vbox\bgroup
+   \vskip15pt
+   \begin{minipage}{\linewidth}}{%
+   \end{minipage}\vskip 15pt
+  \egroup\hfill\vrule
+ \egroup\hrule
+\end{trivlist}}
+
+\newcommand{\HAT}{{\fontfamily{cmtt}\selectfont \symbol{"5E}}}
+\newcommand{\TILDE}{{\fontfamily{cmtt}\selectfont \symbol{"7E}}}
+%\newcommand{\TG}{{\fontfamily{cmtt}\fontseries{m}\selectfont\Large \symbol{"3E}}}
+%\newcommand{\TL}{{\fontfamily{cmtt}\fontseries{m}\selectfont\Large \symbol{"3C}}}
+%\newcommand{\NOSL}{{\fontfamily{cmtt}\fontseries{m}\selectfont\Large \symbol{"2F}}}
+%\newcommand{\BCSL}{{\fontfamily{cmtt}\fontseries{m}\selectfont\Large \symbol{"5C}}}
+%\newcommand{\PIPE}{{\fontfamily{cmtt}\fontseries{m}\selectfont\Large \symbol{"7C}}}
+\newcommand{\TG}{{\fontfamily{cmtt}\fontseries{bx}\selectfont\Large \symbol{"3E}}}
+\newcommand{\TL}{{\fontfamily{cmtt}\fontseries{bx}\selectfont\Large \symbol{"3C}}}
+\newcommand{\NOSL}{{\fontfamily{cmtt}\fontseries{bx}\selectfont\Large \symbol{"2F}}}
+\newcommand{\BCSL}{{\fontfamily{cmtt}\fontseries{bx}\selectfont\Large \symbol{"5C}}}
+\newcommand{\PIPE}{{\fontfamily{cmtt}\fontseries{bx}\selectfont\Large \symbol{"7C}}}
+\newcommand{\KEYTOP}[1]{\keytop{\vrule width 0pt height 3mm depth 0.7mm{#1}}}
+\newcommand{\bcsl}{\symbol{"5C}}
+\newcommand{\blsq}{\vrule width 0.5zw height 10pt}
+
+\newlength{\BOXNOTEWIDTH}
+\newenvironment{BOXNOTE}{%
+\setlength{\BOXNOTEWIDTH}{14.25cm}%
+%\begin{trivlist}\item[]
+\font\@ascgrp=ascgrp
+\noindent
+\hrule height 0pt width 22mm{\@ascgrp bbbabababababababababababababababbb \vspace*{-6.1mm}}
+
+% \hrule
+ \hspace*{0mm}%
+ \hbox to \BOXNOTEWIDTH\bgroup
+  \advance\BOXNOTEWIDTH by -30pt
+  \hsize=\BOXNOTEWIDTH
+  \vrule width 1.08pt\hfill
+  \vbox\bgroup
+   \vskip 25pt
+   \begin{minipage}[t]{\BOXNOTEWIDTH}}{%
+   \end{minipage}\vskip 15pt
+  \egroup\hfill\vrule width 1.08pt
+ \egroup
+\hrule height 0pt width 0cm%
+\vrule height 1.08pt width 14.25cm
+%\end{trivlist}%
+}
+
+\newenvironment{coml}[1]{%
+\begin{center}
+\begin{minipage}{#1}
+\begin{shadebox}
+\smallskip
+\Large\bf }{
+\smallskip
+\end{shadebox}
+\end{minipage}
+\end{center}}

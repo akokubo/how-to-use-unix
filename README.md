@@ -1,6 +1,6 @@
 # UNIXの使い方入門：ステップ・バイ・ステップガイド
 
-この文書では、WindowsでLinux環境を提供する**WSL**（Windows Subsystem for Linux）の上で動く**Ubuntu**（ウブントゥ）と、Appleの**macOS**（マックオーエス）を例に、UNIX系システムの基本的な使い方を学ぶ。
+この文書では、WindowsでLinux環境を提供する**WSL**（Windows Subsystem for Linux）の上で動く**Ubuntu**（ウブントゥ）と、Appleの**macOS**（マックオーエス）を例に、UNIX系のシステムの基本的な使い方を学ぶ。
 コマンドライン操作に慣れていない人でも、一つ一つのステップを追いながらUNIXの基礎を理解できるように構成されている。
 
 ## 目次

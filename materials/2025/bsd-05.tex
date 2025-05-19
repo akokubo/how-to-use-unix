@@ -1,0 +1,488 @@
+\chapter{ページャーとマニュアル}
+
+\section*{1 画面ずつ表示させるには}
+
+大きなファイルを \texttt{cat} コマンドなどで表示させようとすると、
+画面が流れてしまい、ファイルの先頭の方を見ることができない。
+ 1 ページ分ずつ画面に表示させるには、「Pager -- ページャー」と呼ばれる
+コマンドを使う。
+
+また、 UNIX システムには、オンライン・マニュアルが付いていて、
+コマンドや、 C 言語の関数などの詳しい使い方を調べることができる。
+このオンライン・マニュアルは、ページャーを使って表示される。
+
+この章では、ページャーの使い方と、マニュアルの読み方を紹介しよう。
+
+\section{1 画面ずつ表示する: ページャー \texttt{jless}}
+
+\subsection{ページャーとは}
+
+前の章で説明したように「\texttt{cal 2000 > 2000nen}」とすると、
+ 2000 年のカレンダーを「\texttt{2000nen}」というファイルに入れることができる。
+
+小さな画面で、 \texttt{cat} を使って、このファイルの中身を見ようとすると、
+最初の方が流れてしまって見えないことがある。
+こんな時は、ページャーを使うと、 1 画面分ずつ表示することができる。
+「ページャー -- pager」という名前は、長いファイルや実行結果を、
+ 1 ページずつ区切って表示するところからきている。
+
+主なページャーには、 \texttt{more} と \texttt{less} がある。
+ここでは、日本語化された \texttt{less} である、 \texttt{jless} を紹介する。
+
+\subsection{\texttt{jless} を使ってファイルを表示しよう}
+
+最初に大きなファイルを用意しよう。
+まず、次のようにして、 2000 年から 2002 年までの 3 年分のカレンダーを、
+「\texttt{2000nen}」～「\texttt{2002nen}」というファイルにそれぞれいれてみよう。
+
+\begin{progls}
+% \slbfl{cal 2000 \TG 2000nen}
+% \slbfl{cal 2001 \TG 2001nen}
+% \slbfl{cal 2002 \TG 2002nen}
+%
+\end{progls}
+
+それから、次のように \texttt{cat} の連結機能を使って、
+この 3 つのファイルを「\texttt{3years}」という一つのファイルに
+入れよう。
+
+\begin{progls}
+% \slbfl{cat 2000nen 2001nen 2002nen \TG 3years}
+%
+\end{progls}
+
+こうして作った「\texttt{3years}」は、
+ 102 行くらいある大きなファイルになっている。
+これを、 \texttt{jless} というページャーを使って表示してみよう。
+
+ファイルを表示するとき、 \texttt{jless} は次のように使う。
+\begin{coml}{6cm}
+\texttt{jless} 「ファイル名」
+\end{coml}
+
+「\texttt{jless 3years}」と入力してみよう。
+
+\begin{progls}
+% \slbfl{jless 3ears}
+\end{progls}
+
+すると、下のように「\texttt{3years}」の最初の 1 ページ分が表示される。
+
+次のページを見るには \KEYTOP{スペース} を押す。
+また、 \texttt{jless} を終了するには「\texttt{q}」である。
+
+\begin{progls}
+                             2000
+
+        1月                   2月                   3月
+日 月 火 水 木 金 土  日 月 火 水 木 金 土  日 月 火 水 木 金 土
+                   1         1  2  3  4  5            1  2  3  4
+ 2  3  4  5  6  7  8   6  7  8  9 10 11 12   5  6  7  8  9 10 11
+ 9 10 11 12 13 14 15  13 14 15 16 17 18 19  12 13 14 15 16 17 18
+16 17 18 19 20 21 22  20 21 22 23 24 25 26  19 20 21 22 23 24 25
+23 24 25 26 27 28 29  27 28 29              26 27 28 29 30 31
+30 31
+        4月                   5月                   6月
+日 月 火 水 木 金 土  日 月 火 水 木 金 土  日 月 火 水 木 金 土
+                   1      1  2  3  4  5  6               1  2  3
+ 2  3  4  5  6  7  8   7  8  9 10 11 12 13   4  5  6  7  8  9 10
+ 9 10 11 12 13 14 15  14 15 16 17 18 19 20  11 12 13 14 15 16 17
+16 17 18 19 20 21 22  21 22 23 24 25 26 27  18 19 20 21 22 23 24
+23 24 25 26 27 28 29  28 29 30 31           25 26 27 28 29 30
+30
+        7月                   8月                   9月
+日 月 火 水 木 金 土  日 月 火 水 木 金 土  日 月 火 水 木 金 土
+                   1         1  2  3  4  5                  1  2
+ 2  3  4  5  6  7  8   6  7  8  9 10 11 12   3  4  5  6  7  8  9
+ 9 10 11 12 13 14 15  13 14 15 16 17 18 19  10 11 12 13 14 15 16
+\colorbox{black}{\textcolor{white}{\texttt{3years}}}
+\end{progls}
+\newpage
+
+\subsubsection{\texttt{jless} の操作}
+
+ \texttt{jless} の基本操作は次のようになっている。
+
+\begin{table}[H]
+\caption{\texttt{jless} の基本操作}
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|l|ll|}
+\hline
+\multicolumn{1}{|c|}{\textbf{動作}} & \multicolumn{2}{c|}{\textbf{コマンド}}\\
+\hline
+一ページ進む & \KEYTOP{スペース} または「\texttt{f}」 & (フォーワード forward)\\
+一ページ戻る & 「\texttt{b}」 & (バック backward)\\
+\texttt{jless} を終了する & 「\texttt{q}」 & (クイット quit)\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=1.0]{jless.eps}}
+\end{figure}
+
+\newpage
+
+また、次の操作を知っていると便利である。
+
+\begin{table}[H]
+\caption{\texttt{jless} の応用操作}
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|l|l|}
+\hline
+\multicolumn{1}{|c}{\textbf{動作}} & \multicolumn{1}{|c|}{\textbf{コマンド}}\\
+\hline
+ファイルの最初に飛ぶ & \KEYTOP{Esc} を一瞬押して「\texttt{<}」\\
+ファイルの最後に飛ぶ & \KEYTOP{Esc} を一瞬押して「\texttt{>}」\\
+1 行進む & 「\texttt{j}」\\
+1 行戻る & 「\texttt{k}」\\
+前方の文字をサーチ & 「\texttt{/}」に続けてサーチしたい文字列を打って \retrn\\
+後方の文字をサーチ & 「\texttt{?}」に続けてサーチしたい文字列を打って \retrn\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\subsubsection{\texttt{jless} 使用中のステータス表示}
+
+\texttt{jless} を使っているのか、いないのかが、わからなくなることがある。
+そんなときは、画面の一番下を見よう。
+\texttt{jless} 使用中には、
+「\colorbox{black}{\textcolor{white}{\texttt{3years}}}」のようにファイル名や、
+「\texttt{:}\blsq」や、
+「\colorbox{black}{\textcolor{white}{\texttt{(END) }}}」などが画面の一番下に
+表示されている。
+このうちの「\colorbox{black}{\textcolor{white}{\texttt{(END) }}}」は、
+ファイルの最後にたどり着いたときに表示されるメッセージである。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=1.0]{jlessstat.eps}}
+\end{figure}
+
+\begin{BOXNOTE}
+\textbf{\large ☆練習☆}
+\begin{enumerate}
+\item \texttt{jless} の基本操作と応用操作を一通りためしてみよう。
+\end{enumerate}
+\end{BOXNOTE}
+
+\subsection{コマンドの実行結果も 1 ページずつ: \texttt{jless} とパイプ}
+
+ \texttt{jless} は、ファイルの中身だけでなく、次のようにすると、
+コマンドの実行結果も 1 画面ずつ区切って表示することができる。
+
+\begin{coml}{6cm}
+「コマンド」 \texttt{| jless}
+\end{coml}
+
+では、 \texttt{today} コマンドの実行結果を、
+ \texttt{jless} で 1 画面ずつ表示してみよう。
+
+\begin{progls}
+% \slbfl{today \PIPE jless}
+\end{progls}
+
+すると、次のようになり、 1 画面ずつ表示できる。
+\texttt{jless} の使い方は、ファイルの中を見るときと全く同じである。
+
+\begin{progls}
+こんにちは。
+きょうは、2000年10月 1日 (日曜日) です。
+旧暦では、2000年 9月 4日 (赤口) [中潮] です。
+干支では、庚辰 (かのえたつ) の年、壬辰 (みずのえたつ) の日です。
+九星は、二黒 です。
+十二直は、危 です。
+二十八宿は、虚 です。
+
+****** きょうは何の日かな? ******
+十方暮です。
+母倉日です。
+大明日です。
+凶会日です。
+コーヒーの日です。
+ネクタイの日です。
+衣替えです。
+印章の日です。
+音楽の日です。
+家具の日です。
+都民の日(東京都)です。
+日本酒の日です。
+法の日です。
+川崎市民の日(神奈川県川崎市)です。
+:\blsq
+\end{progls}
+
+ UNIX システムでは、「\texttt{|}」を使って、コマンドの実行結果を、
+別のコマンドの入力に渡すことができる。
+この方法を、\textbf{「パイプ -- pipe」}と言う。
+ここでは、 \texttt{today} の実行結果を、パイプを使って、
+ \texttt{jless} コマンドの入力に使ったというわけである。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=1.0]{jlesspipe.eps}}
+\end{figure}
+%\newpage
+
+\section{Kterm のスクロール}
+
+ページャーとは異なるが、
+ Kterm などでもより広い画面を表示したりすることができる。
+ Kterm のメニューなども含めて、簡単に紹介しておこう。
+
+\subsection{Kterm のメニュー}
+
+Kterm のウィンドウ内で、
+\KEYTOP{Ctrl} を押しながら \KEYTOP{ボタン 1} ～ \KEYTOP{ボタン 3}
+を押すことで、
+ 3 種類のメニューを出すことができる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.45]{ktermmenu.eps}}
+\caption{Kterm の画面内でメニューを出したところ}
+\end{figure}
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.5]{ktermmenud.eps}}
+\end{figure}
+
+これらの内、 \KEYTOP{Ctrl}+\KEYTOP{ボタン 3} では、
+フォントのサイズを変えることができる。
+もしも、文字が小さく感じられるようであれば、
+大きめに変更してみるといいだろう。
+デフォルトは Tiny サイズである。
+なお一部、日本語には対応していないサイズもある。
+
+\subsection{Kterm のスクロールバー}
+
+Kterm を使っているときに使用頻度の高いスクロールバー
+の使い方を紹介しよう。
+
+まず、 Kterm のウィンドウ内で \KEYTOP{Ctrl}+\KEYTOP{ボタン 2}
+で、メニューを出し、その一番上の
+「Enable Scrollbar」を選ぶ。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.5]{enablescrollbar.eps}}
+\end{figure}
+
+\newpage
+
+すると、ウィンドウの左側にスクロールバーが現われる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.5]{scrollbar.eps}}
+\end{figure}
+
+2000 年のカレンダーを画面に表示するコマンド「\texttt{cal 2000}」
+を打ってみる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.5]{cal2000.eps}}
+\end{figure}
+
+コマンドの出力結果が長すぎて、先頭の方が流れて読めなくなってしまう。
+このようなときには、紹介したようにページャーを使えばいいのだが、
+Kterm のスクロールバーを使うことでもある程度対応できる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.5]{fflow.eps}}
+\end{figure}
+
+\newpage
+
+マウス・カーソルをスクロールバーにのせると形が変わる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.5]{scrollbarm.eps}}
+\end{figure}
+
+この状態で \KEYTOP{ボタン 2} を押したままドラッグすると、
+画面が上下にスクロールして、前の部分も読むことができる。
+
+\begin{figure}[H]
+\centering{\includegraphics[scale=0.5]{scrolling.eps}}
+\end{figure}
+
+\newpage
+
+\section{マニュアルを読む: \texttt{man} と \texttt{jman}}
+
+ UNIX システムには、充実したオンライン・マニュアルが用意されている。
+マニュアルには、コマンドの使い方、設定ファイルの書き方、
+ C 言語などの関数の仕様を書いたものなどがある。
+
+ FreeBSD では、英語のマニュアルを表示する \texttt{man} コマンドと、
+日本語のマニュアルを表示する \texttt{jman} がある。
+ただし、すべてのコマンドについて日本語のマニュアルが付いているわけではなく、
+ \texttt{jman} を使っても英語のマニュアルが表示されることもある。
+
+\subsection{マニュアルを読んでみよう}
+
+ \texttt{jman} コマンドで、コマンドの使い方を調べるには、次のようにする。
+
+\begin{coml}{7.5cm}
+\texttt{jman} 「調べたいコマンド名」
+\end{coml}
+
+では、次のようにして、 \texttt{cal} コマンドのマニュアルを表示してみよう。
+
+\begin{progls}
+% \slbfl{jman cal}
+\end{progls}
+
+すると、次のように表示される。
+このマニュアルの表示には、 \texttt{jless} が使われていて、
+操作方法はファイルを表示しているときと全く同じである。
+
+\begin{progls}
+CAL(1)                  FreeBSD General Commands Manual                 CAL(1)
+
+名称
+     cal, ncal - カレンダおよびイースターの日付を表示する
+
+書式
+     cal [-jy] [[month] year]
+     ncal [-jJpwy] [-s country_code] [[month] year]
+     ncal [-Jeo] [year]
+
+解説
+     cal は簡単なカレンダを表示します。また ncal は別のフォーマット、追加のオ
+     プション、イースターの日付も提供します。新しいフォーマットは込み入ってい
+     ますが、 25x80 文字の端末で一年が表示できます。引数が指定されなかった場合
+     は今月のものを表示します。
+
+     オプションには以下のものがあります:
+
+     -J      ユリウス暦でカレンダーを表示します。 -e オプションと共に使用する
+             と、ユリウス暦でのイースターを表示します。
+
+     -e      イースターの日付を表示します (西方教会)。
+
+:\blsq
+\end{progls}
+
+\begin{BOXNOTE}
+\textbf{\large ☆練習☆}
+\begin{enumerate}
+\item \texttt{jman} で、 \texttt{who} のマニュアルを読んでみよう。
+\item \texttt{ls} のマニュアルを読んでみよう。
+\end{enumerate}
+\end{BOXNOTE}
+
+
+\subsection{オンライン・マニュアルはどんなときに読むか?}
+
+UNIX システムを使い始めたばかりのとき、
+オンライン・マニュアルを調べても、難しく感じることが多い。
+たとえば \texttt{ls} のように複雑なこともできる強力なコマンドの場合、
+非常に長くて初心者には難解なマニュアルが表示されたりして、
+特にそう感じることだろう。
+
+ここで、オンライン・マニュアルの活用の仕方を紹介しておこう。
+
+\bigskip
+
+オンライン・マニュアルは、 C 言語や UNIX システムの入門書の
+代わりにするのには、あまり向いていない。
+コマンドの使い方が、詳しく網羅して書いてあるからだ。
+
+では、どういうときに役に立つのかと言うと、主に次のような場合だ。
+
+\begin{enumerate}
+\item コマンドや関数のちょっとした使い方を知りたい。
+
+昔使ったことがあるコマンドの使い方をド忘れしたとき、
+普段使っているコマンドの特殊な使い方を知りたいときに便利である。
+また、初めて見るコマンドの使い方をためしに見てみようかというときにもいいだろう。
+
+また、 C でプログラムを書いていて、
+関数の使い方を忘れたときにも意外と便利である。
+\item キーワード検索したい。
+
+マニュアルは、画面で読むよりも紙に印刷されているものの方がずっと読みやすい。
+では、オンライン・マニュアルの利点と言うと、キーワード検索ができることだ。
+ちょっとしたことを調べたいときに、マニュアルを最初から読むのは大変なので、
+前の節で紹介した \texttt{jless} の検索機能を使って、キーワードをサーチして
+読むと便利である。
+\end{enumerate}
+
+なお、 \texttt{man} と \texttt{jman} 以外に、
+ \texttt{info} コマンドというのもある。
+ちなみに、こちらはほとんどのマニュアルが英語で書かれている。
+
+%\newpage
+
+\subsection{オンライン・マニュアルの構成}
+
+オンライン・マニュアルは、いくつかのセクションに別れている。
+そのセクションの構成を紹介しよう。
+なお、これは少し難しい話題なので、はじめて UNIX システムを学ぶときには、
+あまり役に立たないかもしれない。
+その場合には、読み飛ばしてもかまわない。
+
+\begin{table}[H]
+\caption{オンライン・マニュアルの構成}
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{|cl|l|}
+\hline
+\multicolumn{2}{|c|}{\textbf{セクション}} & \multicolumn{1}{c|}{\textbf{内容}}\\
+\hline
+1 & ユーザ・コマンド & ユーザが通常使うアプリケーションや、ユーティリティなど\\
+2 & システム・コール & UNIX システムをコントロールするのに使う関数など\\
+3 & ライブラリ & C の関数など\\
+4 & デバイス &  UNIX システムの周辺機器に関するプログラミング情報など\\
+5 & ファイル・フォーマット & ファイルのフォーマットについて\\
+6 & ゲーム & ゲームの使い方など\\
+7 & その他 & その他の情報\\
+8 & システム管理 & システム管理用のコマンド\\
+9 & カーネル & カーネルに関するマニュアル\\
+n & Tcl/Tk & Tcl/Tk の関数など\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+複数のセクションに同じ名前で存在している項目を調べる場合、
+マニュアルを表示するのにセクションを指定する必要がある。
+セクションを指定してマニュアルを表示するには、次のようにする。
+
+\begin{coml}{10.5cm}
+\texttt{jman} 「セクション番号」 「調べたい項目」
+\end{coml}
+
+例えば \texttt{printf} のように、ユーザ・コマンドと C 言語の関数の
+両方のセクションに同じ名前で存在している項目がある。
+このとき、ユーザ・コマンドの方の \texttt{printf} のマニュアルを表示したければ、
+「\texttt{jman 1 printf}」と入力する。
+また、 C 言語の関数の方の \texttt{printf} のマニュアルを表示するには、
+「\texttt{jman 3 printf}」と入力する。
+
+%\newpage
+
+\section*{この章で紹介したコマンド}
+
+\begin{center}
+\begin{minipage}{13cm}
+\begin{itembox}[l]{ページャーとマニュアル}
+\begin{description}
+\item[\texttt{jless} :] ファイルの中身やコマンドの出力を 1 画面ずつ表示
+
+使い方: \texttt{jless} 「ファイル名」~~~~~~ファイルを表示するとき
+
+\hspace*{1.25cm}「コマンド名」 \texttt{| jless}~~~~コマンドの出力を表示するとき
+
+\item[\texttt{jman} :] 日本語マニュアルの表示
+
+使い方: \texttt{jman} 「コマンド名」
+
+\hspace*{1.25cm} \texttt{jman} 「章」 「コマンド名」
+\end{description}
+\end{itembox}
+\end{minipage}
+\end{center}
+%\newpage
+%{~}

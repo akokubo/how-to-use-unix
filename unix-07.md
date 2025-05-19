@@ -46,24 +46,24 @@ $ ps
 
 特定のユーザー（この場合は自分自身）が実行している全てのプロセスを表示するには、`ps -u ユーザー名` と入力する。（ユーザー名は自分のログイン名に置き換えること。）
 
-macOSの場合（ユーザー名が `kokubo` の例）：
+macOSの場合（ユーザー名が `taro` の例）：
 ```bash
-% ps -u kokubo
+% ps -u taro
   PID TTY           TIME CMD
   456 ttys000    0:00.05 /bin/zsh -l                                    # ターミナルウィンドウ1のシェル
   789 ttys000    0:00.12 /Applications/Visual Studio Code.app/Contents/MacOS/Electron # VS Codeなどのアプリ
  1234 ttys001    0:00.15 -zsh                                         # ターミナルウィンドウ2のシェル
- 5678 ttys001    0:00.01 ps -u kokubo                                 # psコマンド自身
+ 5678 ttys001    0:00.01 ps -u taro                                 # psコマンド自身
 ```
 図7.3: `ps -u ユーザー名` の実行例 (macOS)
 
-WSL Ubuntuの場合（ユーザー名が `kokubo` の例）：
+WSL Ubuntuの場合（ユーザー名が `taro` の例）：
 ```bash
-$ ps -u kokubo
+$ ps -u taro
   PID TTY          TIME CMD
   123 pts/0    00:00:01 bash      # ターミナルウィンドウ1のシェル
   456 pts/1    00:00:03 vim       # vimエディタなどのアプリ
-  789 pts/0    00:00:00 ps -u kokubo # psコマンド自身
+  789 pts/0    00:00:00 ps -u taro # psコマンド自身
 ```
 図7.4: `ps -u ユーザー名` の実行例 (WSL Ubuntu)
 
@@ -120,7 +120,7 @@ WSL Ubuntu:
 USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
 root         1  0.0  0.1   8940  5132 ?        Ss   10:30   0:00 /init         # システム起動プロセス
 root         8  0.0  0.0      0     0 ?        S    10:30   0:00 [kworker/0:0-eve] # カーネルワーカープロセス
-kokubo      60  0.0  0.2  18688 10824 pts/0    Ss   10:31   0:00 -bash         # ユーザーのシェル
+taro      60  0.0  0.2  18688 10824 pts/0    Ss   10:31   0:00 -bash         # ユーザーのシェル
 ...
 ```
 図7.7: `ps -aux | less` の実行結果の一部 (WSL Ubuntu)
@@ -169,8 +169,8 @@ MiB Mem :   7950.8 total,   5621.3 free,   1041.4 used,   1288.1 buff/cache
 MiB Swap:   2048.0 total,   2048.0 free,      0.0 used.   6674.0 avail Mem 
 
   PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
- 1234 kokubo    20   0   12296   6904   6088 S   1.3   0.1   0:00.25 top
-  789 kokubo    20   0   18688  10824   9372 S   0.0   0.1   0:00.12 bash
+ 1234 taro    20   0   12296   6904   6088 S   1.3   0.1   0:00.25 top
+  789 taro    20   0   18688  10824   9372 S   0.0   0.1   0:00.12 bash
 ...
 ```
 図7.9: `top` コマンドの実行例 (WSL Ubuntu)
@@ -205,7 +205,7 @@ $ kill 12345
 もしPIDが分からなければ、`ps -u ユーザー名 | grep コマンド名の一部` のようにして調べることができる。
 例えば、`sleep` プロセスのPIDを調べるには：
 ```bash
-$ ps -u kokubo | grep sleep
+$ ps -u taro | grep sleep
 12345 pts/0    00:00:00 sleep 300
 ```
 

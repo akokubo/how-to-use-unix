@@ -18,7 +18,7 @@ unset LANG
 ## カレンダーの表示: cal
 
 ```sh
-$ cal
+cal
       May 2025
 Su Mo Tu We Th Fr Sa
              1  2  3
@@ -38,7 +38,7 @@ Su Mo Tu We Th Fr Sa
 `cal` コマンドの実行結果を `kongetsu` というファイルに保存してみよう。
 
 ```sh
-$ cal > kongetsu
+cal > kongetsu
 ```
 
 今度は、画面には何も表示されなかったはずである。これは、`date` コマンドの実行結果が、画面（標準出力）ではなく、 `ima.txt` というファイルに書き込まれたからである。
@@ -80,14 +80,14 @@ $ cal > kongetsu
 WSL上のUbuntu
 
 ```sh
-$ ls
+ls
 kongetsu  venv-llm
 ```
 
 macOS
 
 ```sh
-% ls
+ls
 Desktop		Downloads	Movies		Pictures	kongetsu
 Documents	Library		Music		Public
 ```
@@ -106,7 +106,7 @@ Documents	Library		Music		Public
 先ほど作成した `kongetsu` の中身を見てみよう。
 
 ```sh
-$ cat kongetsu 
+cat kongetsu 
       May 2025        
 Su Mo Tu We Th Fr Sa  
              1  2  3  
@@ -125,12 +125,12 @@ Su Mo Tu We Th Fr Sa
 例えば、先ほど作成した `kongetsu` に、さらに `cal` の結果を追記してみよう。
 
 ```sh
-$ cal >> kongetsu
+cal >> kongetsu
 ```
 
 中身を確認してみよう。
 ```sh
-$ cat kongetsu
+cat kongetsu
       May 2025        
 Su Mo Tu We Th Fr Sa  
              1  2  3  
@@ -160,7 +160,7 @@ cat 「ファイル名1」 「ファイル名2」 ...
 ![連結表示](images/concatenate.png)
 *図: `cat` コマンドで複数のファイルが連結されて表示されるイメージ*
 
-**注意**: `cat` コマンドで、非常に大きなファイルを表示しようとすると、ターミナルの画面が一瞬で大量のテキストで埋め尽くされてしまうことがある。大きなファイルの内容を確認したい場合は、後述する `less` コマンドなどを使う方が適切である。
+**注意**: `cat` コマンドで、非常に大きなファイルを表示しようとすると、ターミナルの画面が一瞬で大量のテキストで埋め尽くされてしまうことがある。大きなファイルの内容を確認したい場合は、後で紹介する `less` コマンドなどを使う方が適切である。
 
 ### ファイルをいくつか作ってみよう
 
@@ -169,23 +169,20 @@ cat 「ファイル名1」 「ファイル名2」 ...
 システムの詳しい情報を表示する `uname -a` コマンドの結果を `system_info.txt` にリダイレクト `>` する。
 
 ```zsh
-% uname -a > system_info.txt
-%
+uname -a > system_info.txt
 ```
 
 コンピュータの名前（ホスト名）を表示する `hostname` コマンドの結果を `hostname.txt` にリダイレクト `>` する。
 
 ```zsh
-% hostname > hostname.txt
-%
+hostname > hostname.txt
 ```
 
 `ls` コマンドでファイルが作成されたか確認しよう。
 
 ```zsh
-% ls
+ls
 hostname.txt system_info.txt ima.txt
-%
 ```
 
 > ### ☆練習1☆
@@ -207,14 +204,14 @@ cp 「コピー元のファイル名」 「コピー先のファイル名」
 例えば、`ima.txt` を `backup_ima.txt` という名前でコピーしてみよう。
 
 ```zsh
-% cp ima.txt backup_ima.txt
+cp ima.txt backup_ima.txt
 %
 ```
 
 `ls` コマンドで確認すると、新しいファイルができているはずである。
 
 ```zsh
-% ls
+ls
 backup_ima.txt hostname.txt     system_info.txt  ima.txt
 %
 ```
@@ -222,7 +219,7 @@ backup_ima.txt hostname.txt     system_info.txt  ima.txt
 `cat` コマンドで `backup_ima.txt` の中身を確認すると、`ima.txt` と同じ内容であることが分かる。
 
 ```zsh
-% cat backup_ima.txt
+cat backup_ima.txt
 2025-05-07 14:30:15
 Darwin
 %
@@ -244,14 +241,14 @@ rm 「削除したいファイル名」
 先ほどコピーして作成した `backup_ima.txt` を削除してみよう。
 
 ```zsh
-% rm backup_ima.txt
+rm backup_ima.txt
 %
 ```
 
 `ls` コマンドで確認すると、ファイルが消えていることが分かる。
 
 ```zsh
-% ls
+ls
 hostname.txt system_info.txt ima.txt
 %
 ```
@@ -278,16 +275,14 @@ mv 「現在のファイル名」 「新しいファイル名」
 例えば、`ima.txt` の名前を `current_date.txt` に変更してみよう。
 
 ```zsh
-% mv ima.txt current_date.txt
-%
+mv ima.txt current_date.txt
 ```
 
 `ls` コマンドで確認する。
 
 ```zsh
-% ls
+ls
 current_date.txt hostname.txt     system_info.txt
-%
 ```
 
 `ima.txt` がなくなり、代わりに `current_date.txt` ができていれば成功である。
@@ -338,7 +333,7 @@ overwrite file_B.txt? (y/n [n]) _
 同様に、`mv -i` や `rm -i` も使える。特に `rm -i` は、ファイルを削除する前に一つ一つ確認してくれるため、誤操作を防ぐのに非常に役立つ。
 
 ```zsh
-% rm -i old_file.txt
+rm -i old_file.txt
 remove old_file.txt? (y/n [n]) _
 ```
 

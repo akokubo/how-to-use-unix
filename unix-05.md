@@ -62,17 +62,15 @@ less 3years
 | 表示されている内容の中で文字列を逆方向に検索する | <kbd class="keyboard-key nowrap" lang="en" style="border: 1px solid #aaa; border-radius: 2px; box-shadow: 1px 2px 2px #ddd; background-color: #f9f9f9; background-image: linear-gradient(top, #eee, #f9f9f9, #eee); padding: 1px 3px; font-family: inherit; font-size: 0.85em;">?</kbd> の後に検索したい文字を入力して <kbd class="keyboard-key nowrap" lang="en" style="border: 1px solid #aaa; border-radius: 2px; box-shadow: 1px 2px 2px #ddd; background-color: #f9f9f9; background-image: linear-gradient(top, #eee, #f9f9f9, #eee); padding: 1px 3px; font-family: inherit; font-size: 0.85em;">Enter</kbd> | 上方向へ検索。操作は <kbd class="keyboard-key nowrap" lang="en" style="border: 1px solid #aaa; border-radius: 2px; box-shadow: 1px 2px 2px #ddd; background-color: #f9f9f9; background-image: linear-gradient(top, #eee, #f9f9f9, #eee); padding: 1px 3px; font-family: inherit; font-size: 0.85em;">/</kbd> と同様             |
 | `less` を終了する                     | <kbd class="keyboard-key nowrap" lang="en" style="border: 1px solid #aaa; border-radius: 2px; box-shadow: 1px 2px 2px #ddd; background-color: #f9f9f9; background-image: linear-gradient(top, #eee, #f9f9f9, #eee); padding: 1px 3px; font-family: inherit; font-size: 0.85em;">q</kbd>                 |                                        |
 
-![lessの基本操作](images/jless.png)
-図5.3: `less` の主なキー操作(jlessと書いてあるが、less)
+![lessの基本操作](images/less.jpg)
 
 例えば、<kbd class="keyboard-key nowrap" lang="en" style="border: 1px solid #aaa; border-radius: 2px; box-shadow: 1px 2px 2px #ddd; background-color: #f9f9f9; background-image: linear-gradient(top, #eee, #f9f9f9, #eee); padding: 1px 3px; font-family: inherit; font-size: 0.85em;">スペース</kbd>を押すと次のページが表示され、<kbd class="keyboard-key nowrap" lang="en" style="border: 1px solid #aaa; border-radius: 2px; box-shadow: 1px 2px 2px #ddd; background-color: #f9f9f9; background-image: linear-gradient(top, #eee, #f9f9f9, #eee); padding: 1px 3px; font-family: inherit; font-size: 0.85em;">b</kbd>で前のページに戻ることができる。読み終わったら <kbd class="keyboard-key nowrap" lang="en" style="border: 1px solid #aaa; border-radius: 2px; box-shadow: 1px 2px 2px #ddd; background-color: #f9f9f9; background-image: linear-gradient(top, #eee, #f9f9f9, #eee); padding: 1px 3px; font-family: inherit; font-size: 0.85em;">q</kbd>キーで `less` を終了し、元のプロンプト表示に戻る。
 
 画面の一番下にファイル名やコロン `:`、あるいはファイルの終端まで行くと `(END)` と表示されていれば、`less` が動作中である。 <kbd class="keyboard-key nowrap" lang="en" style="border: 1px solid #aaa; border-radius: 2px; box-shadow: 1px 2px 2px #ddd; background-color: #f9f9f9; background-image: linear-gradient(top, #eee, #f9f9f9, #eee); padding: 1px 3px; font-family: inherit; font-size: 0.85em;">q</kbd> を押すまで他のコマンドは入力できない。
 
-![lessのステータス表示](images/jlessstat.png)
-図5.4: `less` 実行中のステータス表示例 (`3years` の末尾まで表示した場合)
+![lessのステータス表示](images/lessstat.jpg)
 
-> ### ☆練習1: `less` の操作に慣れよう☆
+> ### ☆練習: `less` の操作に慣れよう☆
 >
 > 1.  `3years` を `less` で開いてみよう
 > 2.  `スペース` キーで数ページ進んでみよう。
@@ -100,8 +98,7 @@ UNIX系システムでは、「`|`」(パイプラインと呼ぶこともある
 
 パイプは非常に強力な機能で、複数のコマンドを連携させて複雑な処理を行う際によく使われる。
 
-![lessとパイプ](images/jlesspipe.png)
-図5.5: パイプ (`|`) を使って `cat` の出力を `less` に渡すイメージ
+![lessとパイプ](images/lesspipe.jpg)
 
 > ### ☆練習2: パイプと `less` を使ってみよう☆
 >

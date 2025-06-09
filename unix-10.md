@@ -1,21 +1,30 @@
-# ネットワーク越しのUNIX：他のコンピュータとの接続と通信
+# ネットワーク機能
 
-UNIX系システム（macOSやWSL上のUbuntuなど）は、ネットワークを通じて他のコンピュータと連携するための強力な機能を備えている。この章では、ユーザー情報の確認、他のコンピュータへの接続、ネットワーク診断といった基本的なネットワーク関連のコマンドや概念について学ぶ。ネットワーク機能を活用することで、遠隔地からのコンピュータ操作や、複数のコンピュータ間でのデータ共有が可能になる。
+UNIX系システム（macOSやWSL上のUbuntuなど）は、ネットワークを通じて他のコンピュータと連携するための機能を備えている。この章では、ユーザー情報の確認、他のコンピュータへの接続、ネットワーク診断といった基本的なネットワーク関連のコマンドや概念について学ぶ。ネットワーク機能を活用することで、離れたところからのコンピュータ操作や、複数のコンピュータ間でのデータ共有が可能になる。
 
 ## ユーザー情報を調べる
 
-UNIX系システムは、複数のユーザーが同時に一台のコンピュータを利用することを前提に設計されている（マルチユーザーシステム）。ネットワーク経由での利用も一般的である。システムにログインしているユーザーを調べることで、同じコンピュータを利用している他のユーザーの状況を確認できる。
+UNIX系システムは、複数のユーザーが同時に一台のコンピュータを利用できるようになっている（マルチユーザーシステム）。ネットワーク経由での利用も一般的である。システムにログインしているユーザーを調べることで、同じコンピュータを利用している他のユーザーの状況を確認できる。
 
 ### 誰が何をしているか: `w` コマンド
 
 現在システムにログインしているユーザーと、そのユーザーが実行しているプロセス（処理）の概要を表示するには `w` (ダブリュー) コマンドを使用する。「who and what（誰が何をしているか）」の略であると言われている。システム管理者は、このコマンドを使って現在の利用状況を確認することができる。
 
+WSL上のUbuntu
+```sh
+w
+ 11:50:04 up 0 min,  1 user,  load average: 0.08, 0.02, 0.01
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU  WHAT
+kokubo   pts/1    -                11:50    4.00s  0.02s  0.02s -bash
 ```
-$ w
- 10:05:30 up 2 days, 15:30,  2 users,  load average: 0.08, 0.03, 0.00
-USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
-user1    pts/0    192.168.0.10     09:30    5:00m  0.20s  0.05s -bash
-user2    pts/1    somehost.example.com 10:00    0.00s  0.10s  0.01s w
+
+macOS
+```sh
+w
+13:43  up  2:14, 2 users, load averages: 1.32 1.49 1.88
+USER       TTY      FROM    LOGIN@  IDLE WHAT
+kokubo     console  -      11:29    2:13 -
+kokubo     s001     -      11:32       - w
 ```
 
 この出力から、以下の情報が読み取れる。
@@ -26,16 +35,21 @@ user2    pts/1    somehost.example.com 10:00    0.00s  0.10s  0.01s w
 *   **FROM**: ユーザーがどこから接続しているか (IPアドレスやホスト名) を示す。ローカルログインの場合は空白になる。
 *   **LOGIN@**: ログインした時刻である。user1は09:30に、user2は10:00にログインしている。
 *   **IDLE**: アイドル時間 (最後にキー入力など操作をしてからの経過時間) である。user1は5時間何も操作していない。
-*   **JCPU**: その端末に関連する全プロセスのCPU使用時間である。
-*   **PCPU**: 現在実行中のプロセスのCPU使用時間 (WHAT欄のプロセス) である。
 *   **WHAT**: 現在実行中のコマンドである。user1は「-bash」（bashシェルを起動したまま）、user2は「w」コマンドを実行中である。
 
 以前紹介した `who` (フー) コマンドよりも詳細な情報が得られる。
 
+WSL上のUbuntu
+```sh
+who
+kokubo   pts/1        2025-06-09 11:50
 ```
-$ who
-user1    pts/0        2025-05-07 09:30 (192.168.0.10)
-user2    pts/1        2025-05-07 10:00 (somehost.example.com)
+
+masOS
+```sh
+who
+kokubo           console      May 21 11:29 
+kokubo           ttys001      May 21 11:32
 ```
 
 ## ホスト名とIPアドレス
@@ -51,25 +65,40 @@ user2    pts/1        2025-05-07 10:00 (somehost.example.com)
 
 現在使用しているコンピュータのホスト名を表示するには `hostname` (ホストネーム) コマンドを使用する。ネットワーク設定の確認や、複数のコンピュータを操作しているときに現在どのコンピュータを使用しているか確認するのに役立つ。
 
+WSL上のUbuntu
+```sh
+hostname
+daivng5520m1
 ```
-$ hostname
-mycomputer.local
+
+macOS
+```sh
+hostname
+AtsushinoMacBook-Air.local
 ```
 
 ### ホスト名とIPアドレスの対応を調べる: `host` コマンド
 
 ホスト名からIPアドレスを調べたり、逆にIPアドレスからホスト名を調べたりするには `host` (ホスト) コマンドを使用する。この処理を「名前解決 (name resolution)」と呼ぶ。これは、インターネット上の住所録のようなものであるDNS (Domain Name System) サーバーに問い合わせて行われる。ウェブサイトを閲覧するときも、背後では同様の処理が行われている。
 
+WSL上のUbuntuの場合は以下の事前準備が一回だけ必要である。
+```sh
+sudo apt install bind9-host
 ```
-$ host example.com
-example.com has address 93.184.216.34
-example.com has IPv6 address 2606:2800:220:1:248:1893:25c8:1946
-example.com mail is handled by 0 . 
 
-$ host 93.184.216.34
-34.216.184.93.in-addr.arpa domain name pointer example.com.
+WSL上のUbuntu、macOS共通の操作
+```sh
+host www.hi-tech.ac.jp
+www.hi-tech.ac.jp has address 133.98.3.18                                                                                  
+www.hi-tech.ac.jp has IPv6 address 2001:2f8:d3:1010::80
 ```
-最初の例では `example.com` というホスト名に対応するIPアドレス (IPv4とIPv6の両方) と、メールサーバーの情報が表示されている。次の例では、IPアドレス `93.184.216.34` に対応するホスト名（example.com）が表示されている。
+
+```sh
+host 133.98.3.18
+18.3.98.133.in-addr.arpa domain name pointer www.hi-tech.ac.jp.
+```
+
+最初の例では `www.hi-tech.ac.jp` というホスト名に対応するIPアドレス (IPv4とIPv6の両方) の情報が表示されている。次の例では、IPアドレス `133.98.3.18` に対応するホスト名（`www.hi-tech.ac.jp`）が表示されている。
 
 より詳細な名前解決情報が必要な場合は `dig` (ディグ) (Domain Information Groper) コマンドが使われる。古いシステムでは `nslookup` (エヌエスルックアップ) コマンドも使われたが、現在は `host` (ホスト) や `dig` (ディグ) の使用が推奨される。
 
@@ -93,16 +122,18 @@ $ host 93.184.216.34
 
 `ping` (ピング) コマンドは、指定したホストに対してICMP (Internet Control Message Protocol) のエコー要求パケットと呼ばれる小さなデータパケットを送信し、相手ホストからエコー応答パケットが返ってくるかを確認することで、ネットワーク的な到達可能性を調べるために使われる。インターネット接続の確認や、ネットワーク障害の切り分けに便利なツールである。
 
-```
-$ ping example.com
-PING example.com (93.184.216.34) 56(84) bytes of data.
-64 bytes from 93.184.216.34 (93.184.216.34): icmp_seq=1 ttl=50 time=15.5 ms
-64 bytes from 93.184.216.34 (93.184.216.34): icmp_seq=2 ttl=50 time=16.2 ms
-64 bytes from 93.184.216.34 (93.184.216.34): icmp_seq=3 ttl=50 time=15.8 ms
-
+```sh
+ping example.com
+PING example.com (23.215.0.138): 56 data bytes
+64 bytes from 23.215.0.138: icmp_seq=0 ttl=47 time=205.120 ms
+64 bytes from 23.215.0.138: icmp_seq=1 ttl=47 time=204.879 ms
+64 bytes from 23.215.0.138: icmp_seq=2 ttl=47 time=204.961 ms
+64 bytes from 23.215.0.138: icmp_seq=3 ttl=47 time=204.969 ms
+64 bytes from 23.215.0.138: icmp_seq=4 ttl=47 time=204.921 ms
+Ctrl + c
 --- example.com ping statistics ---
-3 packets transmitted, 3 received, 0% packet loss, time 2003ms
-rtt min/avg/max/mdev = 15.528/15.845/16.201/0.280 ms
+5 packets transmitted, 5 packets received, 0.0% packet loss
+round-trip min/avg/max/stddev = 204.879/204.970/205.120/0.082 ms
 ```
 `Ctrl+C` を押すと終了する。各行は、相手ホストからの応答を示しており、`time=` の部分が応答時間 (ミリ秒) である。最後の統計情報で、送信したパケット数 (transmitted)、受信したパケット数 (received)、失われたパケットの割合 (packet loss)、往復時間 (rtt) の最小/平均/最大/標準偏差などが表示される。応答時間 (time) が非常に大きい場合や、パケットロスが発生している場合は、ネットワーク経路に問題がある可能性が考えられる。
 
@@ -112,31 +143,52 @@ rtt min/avg/max/mdev = 15.528/15.845/16.201/0.280 ms
 
 コンピュータが持つネットワークアダプタ（ネットワークインターフェース）の設定情報（IPアドレス、MACアドレスなど）を表示するコマンドは、OSによって異なる。
 
-*   **macOS の場合**: `ifconfig` (イフコンフィグ) コマンドが伝統的に使われる。
-    ```
-    $ ifconfig en0
-    en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
-        options=400<CHANNEL_IO>
-        ether 00:11:22:33:44:55 
-        inet6 fe80::123:4567:89ab:cdef%en0 prefixlen 64 secured scopeid 0x5
-        inet 192.168.1.102 netmask 0xffffff00 broadcast 192.168.1.255
-        nd6 options=201<PERFORMNUD,DAD>
-        media: autoselect
-        status: active
-    ```
-    `en0` は有線LAN、`en1` は無線LANなど、インターフェース名は環境によって異なる。`inet` の行にIPv4アドレス、`inet6` の行にIPv6アドレス、`ether` の行にMACアドレス（コンピュータのネットワークインターフェースに固有の物理アドレス）が表示される。
+WSL上のUbuntu: `ip addr show` コマンド (または短縮形の `ip a` (アイピー エー)) が推奨される。
+```sh
+ip addr show
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet 10.255.255.254/32 brd 10.255.255.254 scope global lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether 00:15:5d:f8:dd:ae brd ff:ff:ff:ff:ff:ff
+    inet 172.22.84.204/20 brd 172.22.95.255 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::215:5dff:fef8:ddae/64 scope link
+       valid_lft forever preferred_lft forever
+```
 
-*   **Linux (WSL Ubuntuなど) の場合**: `ip addr show` (アイピー エーディーディーアール ショウ) コマンド (または短縮形の `ip a` (アイピー エー)) が推奨される。
-    ```
-    $ ip addr show eth0
-    2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
-        link/ether 00:15:5d:01:02:03 brd ff:ff:ff:ff:ff:ff
-        inet 172.20.130.5/20 brd 172.20.143.255 scope global eth0
-           valid_lft forever preferred_lft forever
-        inet6 fe80::215:5dff:fe01:203/64 scope link 
-           valid_lft forever preferred_lft forever
-    ```
-    `eth0` は最初のイーサネットインターフェースを指すことが多い。`inet` の行にIPv4アドレス (CIDR形式)、`inet6` の行にIPv6アドレス、`link/ether` の行にMACアドレスが表示される。`ifconfig` (イフコンフィグ) コマンドも `net-tools` パッケージをインストールすれば利用できる場合がある。
+`eth0` は最初のイーサネットインターフェースを指すことが多い。`inet` の行にIPv4アドレス (CIDR形式)、`inet6` の行にIPv6アドレス、`link/ether` の行にMACアドレスが表示される。
+
+macOS: `ifconfig` (イフコンフィグ) コマンドが伝統的に使われる。
+```sh
+ifconfig -a
+lo0: flags=8049<UP,LOOPBACK,RUNNING,MULTICAST> mtu 16384
+	options=1203<RXCSUM,TXCSUM,TXSTATUS,SW_TIMESTAMP>
+	inet 127.0.0.1 netmask 0xff000000
+	inet6 ::1 prefixlen 128 
+	inet6 fe80::1%lo0 prefixlen 64 scopeid 0x1 
+	nd6 options=201<PERFORMNUD,DAD>
+gif0: flags=8010<POINTOPOINT,MULTICAST> mtu 1280
+stf0: flags=0<> mtu 1280
+...
+en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=6460<TSO4,TSO6,CHANNEL_IO,PARTIAL_CSUM,ZEROINVERT_CSUM>
+	ether 26:21:39:d6:8a:f6
+	inet6 fe80::cc:6cc9:faab:cebc%en0 prefixlen 64 secured scopeid 0xb 
+	inet 192.168.11.14 netmask 0xffffff00 broadcast 192.168.11.255
+	nd6 options=201<PERFORMNUD,DAD>
+	media: autoselect
+	status: active
+...
+```
+
+`en1` など、インターフェース名は環境によって異なる。`inet` の行にIPv4アドレス、`inet6` の行にIPv6アドレス、`ether` の行にMACアドレス（コンピュータのネットワークインターフェースに固有の物理アドレス）が表示される。
+
 
 ### ☆練習3: ネットワーク状態を確認してみよう☆
 
@@ -148,23 +200,21 @@ rtt min/avg/max/mdev = 15.528/15.845/16.201/0.280 ms
 
 2. 自分のコンピュータのネットワークインターフェース情報を確認しよう。
    
+   WSL Ubuntuの場合：
+   ```
+   $ ip addr show
+   ```
+
    macOSの場合：
    ```
    $ ifconfig
-   ```
-   
-   WSL Ubuntuの場合：
-   ```
-   $ ip a
    ```
    
    表示された自分のIPアドレス（IPv4）を確認しよう。
 
 ## この章で学んだこと
 
-この章では、ネットワークに関連するUNIXコマンドの基礎を学んだ。まずシステムにログインしているユーザーを確認する `w` や `who` コマンド、次にホスト名とIPアドレスに関する `hostname` と `host` コマンド、他のコンピュータに安全に接続するための `ssh` コマンド、ネットワーク到達性を確認する `ping` コマンド、そして自分のコンピュータのネットワーク設定を表示する `ifconfig` や `ip addr show` コマンドを学習した。
-
-これらのコマンドは、ネットワーク環境での作業を効率的に行うための基本ツールである。特に、`ssh` コマンドは、リモートサーバーの管理において非常に強力なツールであり、インターネット上の様々なサービスやクラウド環境での操作の基盤となっている。
+この章では、ネットワークに関連するUNIXコマンドの基礎を学んだ。まずシステムにログインしているユーザーを確認する `w` や `who` コマンド、次にホスト名とIPアドレスに関する `hostname` と `host` コマンド、ネットワーク到達性を確認する `ping` コマンド、そして自分のコンピュータのネットワーク設定を表示する `ifconfig` や `ip addr show` コマンドを学んだ。
 
 ## この章で紹介したコマンド
 
@@ -174,10 +224,7 @@ rtt min/avg/max/mdev = 15.528/15.845/16.201/0.280 ms
 | `who`         | フー            | ログインユーザーの一覧を表示               | `who`                                     |
 | `hostname`    | ホストネーム    | 自ホスト名を表示                           | `hostname`                                |
 | `host`        | ホスト          | ホスト名とIPアドレスの対応を調べる         | `host example.com`, `host 93.184.216.34`  |
-| `dig`         | ディグ          | DNS情報を詳細に調べる                      | `dig example.com`                         |
 | `ping`        | ピング          | ホストへの到達可能性と応答時間を確認       | `ping example.com`, `ping -c 4 example.com` |
 | `ifconfig`    | イフコンフィグ  | (主にmacOS) ネットワークインターフェース設定表示 | `ifconfig en0`, `ifconfig`                |
 | `ip addr show`| アイピー エーディーディーアール ショウ | (主にLinux) ネットワークインターフェース設定表示 | `ip addr show eth0`, `ip a`               |
-| `nslookup`    | エヌエスルックアップ | (旧) ホスト名とIPアドレスの対応を調べる    | `nslookup example.com`                    |
 
-これらのコマンドは、ネットワークを利用した作業や、ネットワークの問題解決の第一歩として役立つだろう。
